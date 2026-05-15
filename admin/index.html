@@ -13,7 +13,7 @@
   --c-bg:#F5F3EE;--c-white:#fff;--c-ink:#0C0C0C;--c-muted:#7A7670;
   --c-border:#E2DFD8;--c-gold:#B8975A;--c-green:#1B7A52;--c-green-l:#E6F4ED;
   --c-amber:#B87333;--c-amber-l:#F7EDE0;--c-blue:#2651C4;--c-blue-l:#EBF0FC;
-  --c-red:#C0392B;--c-red-l:#FDECEA;
+  --c-red:#C0392B;--c-red-l:#FDECEA;--c-purple:#7C3AED;--c-purple-l:#F3F0FF;
   --r-sm:6px;--r-md:12px;--r-lg:18px;--r-xl:28px;
   --sh-sm:0 1px 4px rgba(0,0,0,.06);--sh-md:0 4px 20px rgba(0,0,0,.08);--sh-lg:0 16px 48px rgba(0,0,0,.12);
   --font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'DM Sans',sans-serif;
@@ -22,7 +22,7 @@
 html{height:100%}
 body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;height:100%}
 
-/* ── LOGIN ── */
+/* ════ LOGIN ════ */
 #login-screen{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--c-ink)}
 .login-box{background:#fff;border-radius:var(--r-xl);padding:48px 40px;width:100%;max-width:380px;text-align:center}
 .login-logo{font-family:var(--font-serif);font-size:36px;font-weight:300;margin-bottom:4px}
@@ -38,11 +38,11 @@ body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font
 .login-hint{font-size:12px;color:var(--c-muted);margin-top:16px;line-height:1.6}
 .login-hint code{background:var(--c-bg);padding:2px 6px;border-radius:3px;font-size:11px}
 
-/* ── APP SHELL ── */
+/* ════ APP SHELL ════ */
 #app{display:none;height:100vh;overflow:hidden}
 .app-layout{display:flex;height:100%}
 
-/* ── SIDEBAR ── */
+/* ════ SIDEBAR ════ */
 .sidebar{width:var(--sidebar);background:#fff;border-right:1px solid var(--c-border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .sidebar-logo{padding:24px 20px 16px;font-family:var(--font-serif);font-size:26px;font-weight:300;border-bottom:1px solid var(--c-border);margin-bottom:8px}
 .sidebar-logo span{display:block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);font-family:var(--font-sans);margin-top:2px}
@@ -53,6 +53,7 @@ body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font
 .nav-item.active{background:var(--c-ink);color:#fff}
 .nav-item svg{width:15px;height:15px;flex-shrink:0;opacity:.7}
 .nav-item.active svg{opacity:1}
+.nav-badge{margin-left:auto;background:var(--c-red);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px}
 .sidebar-bottom{margin-top:auto;padding:16px 12px;border-top:1px solid var(--c-border)}
 .user-row{display:flex;align-items:center;gap:10px;padding:8px}
 .user-avatar{width:32px;height:32px;border-radius:50%;background:var(--c-ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;font-family:var(--font-serif)}
@@ -61,22 +62,20 @@ body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font
 .logout-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r-sm);font-size:12px;color:var(--c-muted);cursor:pointer;border:none;background:none;width:100%;font-family:var(--font-sans);transition:all .15s;margin-top:4px}
 .logout-btn:hover{color:var(--c-red);background:var(--c-red-l)}
 
-/* ── MAIN CONTENT ── */
+/* ════ MAIN ════ */
 .main-content{flex:1;overflow-y:auto;display:flex;flex-direction:column}
 .topbar{background:#fff;border-bottom:1px solid var(--c-border);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:50}
 .topbar-title{font-family:var(--font-serif);font-size:22px;font-weight:400}
-.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-right{display:flex;align-items:center;gap:10px}
 .topbar-btn{padding:8px 16px;border-radius:var(--r-sm);font-family:var(--font-sans);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:1px solid var(--c-border);background:#fff;color:var(--c-ink)}
 .topbar-btn:hover{background:var(--c-bg)}
 .topbar-btn.primary{background:var(--c-ink);color:#fff;border-color:var(--c-ink)}
 .topbar-btn.primary:hover{background:#222}
 .page-body{padding:28px 32px;flex:1}
-
-/* ── TABS ── */
 .page{display:none}
 .page.active{display:block}
 
-/* ── STAT CARDS ── */
+/* ════ STAT CARDS ════ */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
 .stat-card{background:#fff;border:1px solid var(--c-border);border-radius:var(--r-lg);padding:22px}
 .stat-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
@@ -84,10 +83,11 @@ body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font
 .stat-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px}
 .stat-badge.up{background:var(--c-green-l);color:var(--c-green)}
 .stat-badge.down{background:var(--c-red-l);color:var(--c-red)}
+.stat-badge.amber{background:var(--c-amber-l);color:var(--c-amber)}
 .stat-value{font-family:var(--font-serif);font-size:36px;font-weight:300;line-height:1;color:var(--c-ink)}
 .stat-sub{font-size:12px;color:var(--c-muted);margin-top:4px}
 
-/* ── CHARTS ROW ── */
+/* ════ CARDS ════ */
 .charts-row{display:grid;grid-template-columns:1fr 340px;gap:16px;margin-bottom:28px}
 .card{background:#fff;border:1px solid var(--c-border);border-radius:var(--r-lg);padding:22px}
 .card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
@@ -95,66 +95,125 @@ body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font
 .card-header p{font-size:12px;color:var(--c-muted);margin-top:2px}
 .card-select{border:1px solid var(--c-border);border-radius:var(--r-sm);padding:5px 10px;font-family:var(--font-sans);font-size:12px;background:#fff;outline:none;color:var(--c-ink)}
 
-/* ── AD LIST IN DASHBOARD ── */
+/* ════ AD LIST ════ */
 .ad-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--c-border)}
 .ad-item:last-child{border-bottom:none}
 .ad-thumb{width:60px;height:44px;border-radius:var(--r-sm);object-fit:cover;background:var(--c-border);flex-shrink:0}
 .ad-info{flex:1;min-width:0}
 .ad-price{font-size:14px;font-weight:700;color:var(--c-ink)}
 .ad-meta{font-size:11px;color:var(--c-muted);margin-top:1px}
-.ad-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
-.ad-status.active{background:var(--c-green-l);color:var(--c-green)}
-.ad-status.pending{background:var(--c-amber-l);color:var(--c-amber)}
-.ad-edit-btn{padding:5px 12px;border:1px solid var(--c-border);border-radius:var(--r-sm);font-size:12px;font-weight:500;cursor:pointer;background:#fff;color:var(--c-muted);font-family:var(--font-sans);transition:all .15s;flex-shrink:0}
-.ad-edit-btn:hover{border-color:var(--c-ink);color:var(--c-ink)}
 
-/* ── TABLES ── */
+/* ════ TABLE ════ */
 .table-wrap{background:#fff;border:1px solid var(--c-border);border-radius:var(--r-lg);overflow:hidden}
-.table-header{padding:16px 20px;border-bottom:1px solid var(--c-border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.table-header{padding:16px 20px;border-bottom:1px solid var(--c-border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .table-header h3{font-size:15px;font-weight:600}
 .table-search{display:flex;align-items:center;gap:8px;flex:1;max-width:260px;border:1px solid var(--c-border);border-radius:var(--r-sm);padding:7px 12px;background:#fff}
 .table-search input{border:none;outline:none;font-family:var(--font-sans);font-size:13px;flex:1;background:transparent;color:var(--c-ink)}
-.table-search svg{color:var(--c-muted);flex-shrink:0}
 table{width:100%;border-collapse:collapse}
 thead th{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c-muted);padding:11px 20px;text-align:left;background:#fafaf9;border-bottom:1px solid var(--c-border)}
-tbody tr{border-bottom:1px solid var(--c-border);transition:background .12s;cursor:pointer}
+tbody tr{border-bottom:1px solid var(--c-border);transition:background .12s}
 tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:#fafaf9}
 tbody td{padding:13px 20px;font-size:13px;color:var(--c-ink)}
-.td-muted{color:var(--c-muted) !important}
+.td-muted{color:var(--c-muted)!important}
 .td-price{font-family:var(--font-serif);font-size:17px;font-weight:400}
 .prop-img-cell{display:flex;align-items:center;gap:12px}
 .prop-img-sm{width:48px;height:36px;border-radius:var(--r-sm);object-fit:cover;background:var(--c-border);flex-shrink:0}
 
-/* ── BADGES ── */
+/* ════ BADGES ════ */
 .badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
-.badge-green{background:var(--c-green-l);color:var(--c-green)}
-.badge-amber{background:var(--c-amber-l);color:var(--c-amber)}
-.badge-blue{background:var(--c-blue-l);color:var(--c-blue)}
-.badge-red{background:var(--c-red-l);color:var(--c-red)}
-.badge-ink{background:rgba(0,0,0,.08);color:var(--c-ink)}
+.badge-green {background:var(--c-green-l);color:var(--c-green)}
+.badge-amber {background:var(--c-amber-l);color:var(--c-amber)}
+.badge-blue  {background:var(--c-blue-l);color:var(--c-blue)}
+.badge-red   {background:var(--c-red-l);color:var(--c-red)}
+.badge-purple{background:var(--c-purple-l);color:var(--c-purple)}
+.badge-ink   {background:rgba(0,0,0,.08);color:var(--c-ink)}
 
-/* ── INQUIRY DETAIL PANEL ── */
-.inquiry-row{display:grid;grid-template-columns:1fr 360px;gap:16px}
-.inquiry-list{display:flex;flex-direction:column;gap:0}
+/* ════ INQUIRIES ════ */
+.inquiry-layout{display:grid;grid-template-columns:1fr 380px;gap:16px;min-height:0}
+.inquiry-list-wrap{overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--c-border);background:#fff}
 .inq-item{padding:14px 16px;border-bottom:1px solid var(--c-border);cursor:pointer;transition:background .12s;display:flex;gap:12px;align-items:flex-start}
 .inq-item:hover{background:#fafaf9}
-.inq-item.selected{background:var(--c-blue-l)}
-.inq-avatar{width:34px;height:34px;border-radius:50%;background:var(--c-ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;font-family:var(--font-serif)}
+.inq-item.selected{background:var(--c-blue-l);border-left:3px solid var(--c-blue)}
+.inq-avatar{width:36px;height:36px;border-radius:50%;background:var(--c-ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;font-family:var(--font-serif)}
 .inq-info .name{font-size:13px;font-weight:600;color:var(--c-ink)}
-.inq-info .preview{font-size:12px;color:var(--c-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px}
+.inq-info .preview{font-size:12px;color:var(--c-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
 .inq-meta{margin-left:auto;text-align:right;flex-shrink:0}
 .inq-meta .time{font-size:11px;color:var(--c-muted)}
-.inq-detail-card{background:#fff;border:1px solid var(--c-border);border-radius:var(--r-lg);padding:22px;position:sticky;top:16px}
-.inq-detail-empty{display:flex;align-items:center;justify-content:center;height:200px;color:var(--c-muted);font-size:13px}
-.detail-name{font-family:var(--font-serif);font-size:22px;font-weight:400;margin-bottom:4px}
-.detail-email{font-size:13px;color:var(--c-muted);margin-bottom:16px}
-.detail-row{display:flex;gap:8px;margin-bottom:8px;font-size:13px}
-.detail-row .lbl{color:var(--c-muted);width:80px;flex-shrink:0}
-.detail-msg{background:var(--c-bg);border-radius:var(--r-md);padding:14px;font-size:13px;color:var(--c-muted);line-height:1.7;margin:16px 0}
-.detail-actions{display:flex;gap:8px}
 
-/* ── PROPERTY FORM ── */
+/* ════ INQUIRY DETAIL ════ */
+.inq-detail-panel{border:1px solid var(--c-border);border-radius:var(--r-lg);background:#fff;display:flex;flex-direction:column;overflow:hidden;max-height:calc(100vh - 200px)}
+.inq-detail-header{padding:20px;border-bottom:1px solid var(--c-border);flex-shrink:0}
+.inq-detail-tabs{display:flex;border-bottom:1px solid var(--c-border);flex-shrink:0}
+.inq-detail-tabs button{flex:1;padding:10px;border:none;background:none;font-family:var(--font-sans);font-size:12px;font-weight:600;color:var(--c-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
+.inq-detail-tabs button.active{color:var(--c-ink);border-bottom-color:var(--c-ink)}
+.inq-detail-body{flex:1;overflow-y:auto;padding:20px}
+.detail-name{font-family:var(--font-serif);font-size:22px;font-weight:400;margin-bottom:2px}
+.detail-email{font-size:13px;color:var(--c-muted);margin-bottom:12px}
+.detail-row{display:flex;gap:8px;margin-bottom:6px;font-size:13px}
+.detail-row .lbl{color:var(--c-muted);min-width:80px;flex-shrink:0}
+.detail-msg{background:var(--c-bg);border-radius:var(--r-md);padding:12px;font-size:13px;color:var(--c-muted);line-height:1.7;margin:12px 0}
+.detail-actions{display:flex;gap:8px;flex-wrap:wrap}
+.detail-status-select{border:1px solid var(--c-border);border-radius:var(--r-sm);padding:6px 10px;font-family:var(--font-sans);font-size:12px;background:#fff;outline:none;color:var(--c-ink)}
+
+/* ════ TIMELINE ════ */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:12px;padding:10px 0;position:relative}
+.tl-item::before{content:'';position:absolute;left:15px;top:32px;bottom:-10px;width:1px;background:var(--c-border)}
+.tl-item:last-child::before{display:none}
+.tl-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--c-bg);border:1px solid var(--c-border);z-index:1}
+.tl-content{flex:1;min-width:0}
+.tl-type{font-size:12px;font-weight:600;color:var(--c-ink);text-transform:capitalize}
+.tl-note{font-size:12px;color:var(--c-muted);margin-top:2px;line-height:1.5}
+.tl-time{font-size:11px;color:var(--c-muted);margin-top:2px}
+.add-note-row{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--c-border)}
+.add-note-row input{flex:1;border:1px solid var(--c-border);border-radius:var(--r-sm);padding:8px 10px;font-family:var(--font-sans);font-size:13px;outline:none}
+.add-note-row input:focus{border-color:var(--c-ink)}
+.add-note-row select{border:1px solid var(--c-border);border-radius:var(--r-sm);padding:8px 10px;font-family:var(--font-sans);font-size:12px;background:#fff;outline:none}
+.tl-empty{text-align:center;padding:32px 16px;color:var(--c-muted);font-size:13px}
+
+/* ════ CALENDAR ════ */
+.calendar-layout{display:grid;grid-template-columns:1fr 340px;gap:20px}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cal-title{font-family:var(--font-serif);font-size:22px;font-weight:400}
+.cal-nav{display:flex;gap:4px}
+.cal-nav button{width:32px;height:32px;border:1px solid var(--c-border);border-radius:var(--r-sm);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--c-muted);transition:all .15s}
+.cal-nav button:hover{color:var(--c-ink);border-color:var(--c-ink)}
+.cal-grid-header{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;margin-bottom:4px}
+.cal-grid-header span{font-size:11px;font-weight:700;color:var(--c-muted);text-align:center;padding:4px;text-transform:uppercase;letter-spacing:.05em}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--c-border);border:1px solid var(--c-border);border-radius:var(--r-md);overflow:hidden}
+.cal-day{background:#fff;min-height:90px;padding:6px;cursor:pointer;transition:background .12s;position:relative}
+.cal-day:hover{background:#fafaf9}
+.cal-day.other-month{background:#fafaf9}
+.cal-day.other-month .cal-day-num{color:var(--c-border)}
+.cal-day.today{background:var(--c-blue-l)}
+.cal-day.today .cal-day-num{color:var(--c-blue);font-weight:700}
+.cal-day.selected{background:var(--c-ink)!important}
+.cal-day.selected .cal-day-num{color:#fff}
+.cal-day-num{font-size:13px;font-weight:500;color:var(--c-muted);margin-bottom:4px}
+.cal-event{font-size:10px;padding:2px 5px;border-radius:3px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;cursor:pointer}
+.cal-event.status-pending  {background:var(--c-amber-l);color:var(--c-amber)}
+.cal-event.status-confirmed{background:var(--c-green-l);color:var(--c-green)}
+.cal-event.status-completed{background:rgba(0,0,0,.06);color:var(--c-muted)}
+.cal-event.status-cancelled{background:var(--c-red-l);color:var(--c-red);text-decoration:line-through}
+.cal-more{font-size:10px;color:var(--c-blue);font-weight:600;cursor:pointer}
+
+/* ════ UPCOMING APPOINTMENTS ════ */
+.appt-list{display:flex;flex-direction:column;gap:10px}
+.appt-card{background:#fff;border:1px solid var(--c-border);border-radius:var(--r-md);padding:14px;cursor:pointer;transition:all .15s}
+.appt-card:hover{border-color:var(--c-ink);box-shadow:var(--sh-sm)}
+.appt-card.status-confirmed{border-left:3px solid var(--c-green)}
+.appt-card.status-pending  {border-left:3px solid var(--c-amber)}
+.appt-card.status-cancelled{border-left:3px solid var(--c-red);opacity:.6}
+.appt-time{font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.appt-client{font-size:14px;font-weight:600;color:var(--c-ink)}
+.appt-prop{font-size:12px;color:var(--c-muted);margin-top:2px}
+.appt-actions{display:flex;gap:6px;margin-top:10px}
+
+/* ════ ANALYTICS ════ */
+.analytics-charts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* ════ FORM ════ */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-group{display:flex;flex-direction:column;gap:5px}
 .form-group.full{grid-column:1/-1}
@@ -163,53 +222,56 @@ tbody td{padding:13px 20px;font-size:13px;color:var(--c-ink)}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--c-ink)}
 .form-group textarea{resize:vertical;min-height:80px}
 
-/* ── MODAL OVERLAY ── */
+/* ════ MODAL ════ */
 .overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(5,5,5,.6);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px}
 .overlay.open{display:flex}
 .modal{background:#fff;border-radius:var(--r-xl);padding:32px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;position:relative;animation:scaleIn .2s ease both}
+.modal.modal-sm{max-width:440px}
 @keyframes scaleIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 .modal-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border:none;background:var(--c-bg);border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--c-muted)}
 .modal h3{font-family:var(--font-serif);font-size:26px;font-weight:400;margin-bottom:20px}
 
-/* ── TOAST ── */
+/* ════ TOAST ════ */
 .toast{position:fixed;bottom:28px;right:28px;background:var(--c-ink);color:#fff;padding:11px 18px;border-radius:var(--r-md);font-size:13px;font-weight:500;z-index:9999;display:flex;align-items:center;gap:8px;box-shadow:var(--sh-lg);transform:translateY(14px);opacity:0;transition:all .22s;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.error{background:var(--c-red)}
+.toast.success{background:var(--c-green)}
 
-/* ── EMPTY STATE ── */
+/* ════ EMPTY / LOADING ════ */
 .empty{text-align:center;padding:60px 40px;color:var(--c-muted)}
-.empty svg{width:40px;height:40px;margin-bottom:12px;opacity:.3}
-.empty p{font-size:14px}
-
-/* ── API ERROR BANNER ── */
-.api-banner{background:var(--c-amber-l);border:1px solid #e0c08a;border-radius:var(--r-md);padding:12px 16px;font-size:13px;color:var(--c-amber);margin-bottom:20px;display:none;align-items:center;gap:8px}
-.api-banner.show{display:flex}
-
-/* ── LOADING ── */
 .loading{display:flex;align-items:center;justify-content:center;padding:60px;color:var(--c-muted)}
 .spinner{width:20px;height:20px;border:2px solid var(--c-border);border-top-color:var(--c-ink);border-radius:50%;animation:spin .7s linear infinite;margin-right:10px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── CONFIRM ── */
-.confirm-box{background:#fff;border-radius:var(--r-xl);padding:32px;max-width:360px;width:100%;text-align:center}
-.confirm-box h3{font-family:var(--font-serif);font-size:24px;font-weight:400;margin-bottom:8px}
-.confirm-box p{font-size:13px;color:var(--c-muted);margin-bottom:24px}
-.confirm-btns{display:flex;gap:10px;justify-content:center}
-.btn{padding:9px 20px;border-radius:var(--r-sm);font-family:var(--font-sans);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .15s}
+/* ════ DEMO BANNER ════ */
+.demo-banner{background:var(--c-blue-l);border:1px solid rgba(38,81,196,.2);border-radius:var(--r-md);padding:12px 16px;font-size:13px;color:var(--c-blue);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.api-banner{background:var(--c-amber-l);border:1px solid #e0c08a;border-radius:var(--r-md);padding:12px 16px;font-size:13px;color:var(--c-amber);margin-bottom:20px;display:none;align-items:center;gap:8px}
+.api-banner.show{display:flex}
+
+/* ════ BTNS ════ */
+.btn{padding:8px 16px;border-radius:var(--r-sm);font-family:var(--font-sans);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
 .btn-ink{background:var(--c-ink);color:#fff}
 .btn-ink:hover{background:#222}
 .btn-ghost{background:transparent;border:1px solid var(--c-border);color:var(--c-muted)}
 .btn-ghost:hover{color:var(--c-ink);border-color:var(--c-ink)}
 .btn-red{background:var(--c-red);color:#fff}
 .btn-red:hover{opacity:.9}
+.btn-gold{background:var(--c-gold);color:#fff}
+.btn-gold:hover{opacity:.9}
+.btn-green{background:var(--c-green);color:#fff}
+.btn-green:hover{opacity:.9}
+.btn-sm{padding:5px 12px;font-size:12px}
 
-/* ── DEMO MODE BANNER ── */
-.demo-banner{background:var(--c-blue-l);border:1px solid rgba(38,81,196,.2);border-radius:var(--r-md);padding:12px 16px;font-size:13px;color:var(--c-blue);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+/* ════ CONFIRM ════ */
+.confirm-box{background:#fff;border-radius:var(--r-xl);padding:32px;max-width:360px;width:100%;text-align:center}
+.confirm-box h3{font-family:var(--font-serif);font-size:24px;font-weight:400;margin-bottom:8px}
+.confirm-box p{font-size:13px;color:var(--c-muted);margin-bottom:24px}
+.confirm-btns{display:flex;gap:10px;justify-content:center}
 </style>
 </head>
 <body>
 
-<!-- ══ LOGIN SCREEN ══ -->
+<!-- ════ LOGIN ════ -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Lucent</div>
@@ -219,15 +281,15 @@ tbody td{padding:13px 20px;font-size:13px;color:var(--c-ink)}
       <input type="password" id="pw-input" placeholder="Enter your admin password" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <button class="login-btn" id="login-btn" onclick="doLogin()">Sign In</button>
-    <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+    <div class="login-error" id="login-error"></div>
     <p class="login-hint">
-      First time? Set <code>ADMIN_SECRET</code> in your Vercel environment variables,<br>then enter that value here.
-      <br><br><strong>No backend yet?</strong> Use password <code>demo</code> to preview with sample data.
+      Set <code>ADMIN_SECRET</code> in Vercel environment variables, then enter it here.<br><br>
+      No backend yet? Use password <code>demo</code> to preview with sample data.
     </p>
   </div>
 </div>
 
-<!-- ══ APP ══ -->
+<!-- ════ APP ════ -->
 <div id="app">
   <div class="app-layout">
 
@@ -244,9 +306,14 @@ tbody td{padding:13px 20px;font-size:13px;color:var(--c-ink)}
           <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
           Properties
         </button>
-        <button class="nav-item" onclick="navigate('inquiries',this)">
+        <button class="nav-item" id="nav-inquiries" onclick="navigate('inquiries',this)">
           <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/></svg>
-          Inquiries <span id="inq-badge" style="margin-left:auto;background:var(--c-ink);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px;display:none"></span>
+          Inquiries &amp; CRM
+          <span class="nav-badge" id="inq-badge" style="display:none">0</span>
+        </button>
+        <button class="nav-item" onclick="navigate('calendar',this)">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+          Calendar
         </button>
         <button class="nav-item" onclick="navigate('analytics',this)">
           <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
@@ -255,7 +322,7 @@ tbody td{padding:13px 20px;font-size:13px;color:var(--c-ink)}
       </div>
       <div class="sidebar-bottom">
         <div class="user-row">
-          <div class="user-avatar" id="user-avatar">A</div>
+          <div class="user-avatar">A</div>
           <div class="user-info">
             <div class="name">Admin</div>
             <div class="role" id="demo-role">Live Mode</div>
@@ -268,26 +335,21 @@ tbody td{padding:13px 20px;font-size:13px;color:var(--c-ink)}
       </div>
     </aside>
 
-    <!-- Main -->
+    <!-- Main content -->
     <div class="main-content">
       <div class="topbar">
         <div class="topbar-title" id="page-title">Dashboard</div>
         <div class="topbar-right">
           <a href="/" target="_blank" class="topbar-btn">← View Site</a>
-          <button class="topbar-btn primary" id="topbar-action-btn" onclick="openAddProperty()" style="display:none">+ Add Property</button>
+          <button class="topbar-btn primary" id="topbar-action-btn" style="display:none" onclick="topbarAction()"></button>
         </div>
       </div>
-
       <div class="page-body">
 
-        <!-- ── DASHBOARD ── -->
+        <!-- ════ DASHBOARD ════ -->
         <div id="page-dashboard" class="page active">
-          <div id="demo-banner-dash" class="demo-banner" style="display:none">
-            🔵 Demo mode — showing sample data. Connect Supabase to use real data.
-          </div>
-          <div id="api-banner-dash" class="api-banner">
-            ⚠ Could not reach the API. Check that your Vercel serverless function is deployed and <code>SUPABASE_URL</code> / <code>SUPABASE_SERVICE_KEY</code> are set.
-          </div>
+          <div id="demo-banner-dash" class="demo-banner" style="display:none">🔵 Demo mode — showing sample data. Connect Supabase to use real data.</div>
+          <div id="api-banner-dash" class="api-banner">⚠ Could not reach the API. Check Vercel env vars: <code>SUPABASE_URL</code>, <code>SUPABASE_SERVICE_KEY</code>, <code>ADMIN_SECRET</code>.</div>
           <div class="stats-grid" id="stats-grid">
             <div class="stat-card"><div class="stat-label">Loading…</div><div class="stat-value">—</div></div>
             <div class="stat-card"><div class="stat-label">Loading…</div><div class="stat-value">—</div></div>
@@ -306,102 +368,156 @@ tbody td{padding:13px 20px;font-size:13px;color:var(--c-ink)}
               <canvas id="sales-chart" height="120"></canvas>
             </div>
             <div class="card">
-              <div class="card-header"><h3>Active Listings</h3><button class="topbar-btn" onclick="navigate('properties',document.querySelector('.nav-item:nth-child(2)'))">View all</button></div>
+              <div class="card-header"><h3>Active Listings</h3><button class="topbar-btn" style="font-size:12px" onclick="navigate('properties',document.querySelector('.nav-item:nth-child(2)'))">View all</button></div>
               <div id="active-ads-list"><div class="loading"><div class="spinner"></div> Loading…</div></div>
             </div>
           </div>
+          <!-- Today's appointments on dashboard -->
+          <div class="card">
+            <div class="card-header">
+              <div><h3>Today's Viewings</h3><p id="today-appt-label">—</p></div>
+              <button class="topbar-btn" style="font-size:12px" onclick="navigate('calendar',document.querySelector('.nav-item:nth-child(4)'))">Open Calendar</button>
+            </div>
+            <div id="today-appts"><div class="loading"><div class="spinner"></div></div></div>
+          </div>
         </div>
 
-        <!-- ── PROPERTIES ── -->
+        <!-- ════ PROPERTIES ════ -->
         <div id="page-properties" class="page">
           <div class="demo-banner" id="demo-banner-props" style="display:none">🔵 Demo mode — changes won't persist without a backend.</div>
           <div class="table-wrap">
             <div class="table-header">
               <h3>All Properties</h3>
               <div class="table-search">
-                <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+                <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/></svg>
                 <input type="text" id="prop-search" placeholder="Search address, city…" oninput="filterProps()">
               </div>
               <button class="topbar-btn primary" onclick="openAddProperty()">+ Add Property</button>
             </div>
-            <div id="prop-table-body">
-              <div class="loading"><div class="spinner"></div> Loading properties…</div>
-            </div>
+            <div id="prop-table-body"><div class="loading"><div class="spinner"></div> Loading…</div></div>
           </div>
         </div>
 
-        <!-- ── INQUIRIES ── -->
+        <!-- ════ INQUIRIES / CRM ════ -->
         <div id="page-inquiries" class="page">
-          <div class="inquiry-row">
-            <div class="table-wrap">
-              <div class="table-header">
-                <h3>Inquiries</h3>
+          <div class="inquiry-layout">
+            <div class="inquiry-list-wrap">
+              <div class="table-header" style="padding:12px 16px">
+                <h3>Leads</h3>
                 <select class="card-select" id="inq-filter" onchange="loadInquiries()">
                   <option value="all">All</option>
                   <option value="new">New</option>
                   <option value="contacted">Contacted</option>
+                  <option value="tour_scheduled">Tour Scheduled</option>
+                  <option value="offer_made">Offer Made</option>
                   <option value="closed">Closed</option>
+                  <option value="lost">Lost</option>
                 </select>
               </div>
-              <div id="inq-list-body"><div class="loading"><div class="spinner"></div> Loading…</div></div>
+              <div id="inq-list-body"><div class="loading"><div class="spinner"></div></div></div>
             </div>
-            <div class="inq-detail-card">
-              <div id="inq-detail"><div class="inq-detail-empty">Select an inquiry to view details</div></div>
+            <div class="inq-detail-panel" id="inq-detail-panel">
+              <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--c-muted);font-size:13px;padding:32px;text-align:center">
+                Select a lead to view details, timeline, and schedule viewings
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- ── ANALYTICS ── -->
+        <!-- ════ CALENDAR ════ -->
+        <div id="page-calendar" class="page">
+          <div class="calendar-layout">
+            <div>
+              <div class="cal-header">
+                <div class="cal-title" id="cal-month-label">—</div>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <div class="cal-nav">
+                    <button onclick="calNav(-1)">‹</button>
+                    <button onclick="calNav(0)">Today</button>
+                    <button onclick="calNav(1)">›</button>
+                  </div>
+                  <button class="topbar-btn primary" onclick="openApptModal()">+ Schedule Viewing</button>
+                </div>
+              </div>
+              <div class="cal-grid-header">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div class="cal-grid" id="cal-grid"></div>
+            </div>
+            <div>
+              <div class="card" style="margin-bottom:16px">
+                <div class="card-header" style="margin-bottom:12px">
+                  <h3 style="font-size:15px">Upcoming Viewings</h3>
+                </div>
+                <div id="upcoming-appts" class="appt-list"><div class="loading"><div class="spinner"></div></div></div>
+              </div>
+              <!-- Status legend -->
+              <div class="card">
+                <div style="font-size:11px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Legend</div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span class="cal-event status-pending" style="width:12px;height:12px;border-radius:2px;display:inline-block"></span> Pending</div>
+                  <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span class="cal-event status-confirmed" style="width:12px;height:12px;border-radius:2px;display:inline-block"></span> Confirmed</div>
+                  <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span class="cal-event status-completed" style="width:12px;height:12px;border-radius:2px;display:inline-block"></span> Completed</div>
+                  <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span class="cal-event status-cancelled" style="width:12px;height:12px;border-radius:2px;display:inline-block"></span> Cancelled</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════ ANALYTICS ════ -->
         <div id="page-analytics" class="page">
-          <div class="stats-grid" id="analytics-stats">
+          <div class="stats-grid">
             <div class="stat-card"><div class="stat-label">Total Views</div><div class="stat-value" id="an-views">—</div></div>
-            <div class="stat-card"><div class="stat-label">Conversion Rate</div><div class="stat-value" id="an-conv">—</div></div>
+            <div class="stat-card"><div class="stat-label">Conversion Rate</div><div class="stat-value" id="an-conv">—</div><div class="stat-sub">Inquiries per view</div></div>
             <div class="stat-card"><div class="stat-label">Avg. Price</div><div class="stat-value" id="an-avg">—</div></div>
             <div class="stat-card"><div class="stat-label">Total Listings</div><div class="stat-value" id="an-total">—</div></div>
           </div>
-          <div class="charts-row" style="grid-template-columns:1fr 1fr">
-            <div class="card">
-              <div class="card-header"><h3>Property Types</h3></div>
-              <canvas id="type-chart" height="160"></canvas>
-            </div>
-            <div class="card">
-              <div class="card-header"><h3>Intent Split</h3></div>
-              <canvas id="intent-chart" height="160"></canvas>
-            </div>
+          <div class="analytics-charts" style="gap:16px;margin-bottom:16px">
+            <div class="card"><div class="card-header"><h3>Property Types</h3></div><canvas id="type-chart" height="180"></canvas></div>
+            <div class="card"><div class="card-header"><h3>Intent Split (Buy vs Rent)</h3></div><canvas id="intent-chart" height="180"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Lead Status Breakdown</h3></div>
+            <canvas id="lead-chart" height="80"></canvas>
           </div>
         </div>
 
-      </div>
-    </div>
+      </div><!-- /page-body -->
+    </div><!-- /main-content -->
   </div>
 </div>
 
-<!-- ── PROPERTY MODAL ── -->
+<!-- ════ PROPERTY MODAL ════ -->
 <div class="overlay" id="prop-modal" onclick="if(event.target===this)closePropModal()">
   <div class="modal">
     <button class="modal-close" onclick="closePropModal()">✕</button>
     <h3 id="prop-modal-title">Add Property</h3>
-    <div class="form-grid" id="prop-form-grid">
-      <div class="form-group"><label>Address *</label><input id="f-address" placeholder="Via Roma 1, Milano"></div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Address *</label><input id="f-address" placeholder="Via Roma 1, Milano"></div>
       <div class="form-group"><label>City</label><input id="f-city" placeholder="Milano"></div>
       <div class="form-group"><label>Country</label><input id="f-country" placeholder="Italy" value="Italy"></div>
       <div class="form-group"><label>Price *</label><input id="f-price" type="number" placeholder="500000"></div>
+      <div class="form-group"><label>Title</label><input id="f-title" placeholder="Luxury Villa…"></div>
       <div class="form-group"><label>Type</label>
-        <select id="f-type"><option>Houses</option><option>Apartments</option><option>Townhomes</option><option>Land</option><option>Commercial</option><option>Multi-family</option></select>
+        <select id="f-type"><option>Houses</option><option>Apartments</option><option>Townhomes</option><option>Land</option><option>Commercial</option><option>Multi-family</option><option>Condos</option></select>
       </div>
       <div class="form-group"><label>Intent</label>
         <select id="f-intent"><option value="Buy">Buy</option><option value="Rent">Rent</option></select>
       </div>
       <div class="form-group"><label>Status</label>
-        <select id="f-status"><option value="active">Active</option><option value="pending">Pending</option><option value="sold">Sold</option></select>
+        <select id="f-status"><option value="active">Active</option><option value="pending">Pending</option><option value="sold">Sold</option><option value="archived">Archived</option></select>
       </div>
-      <div class="form-group"><label>Beds</label><input id="f-beds" type="number" placeholder="3"></div>
-      <div class="form-group"><label>Baths</label><input id="f-baths" type="number" placeholder="2"></div>
-      <div class="form-group"><label>Area (m²)</label><input id="f-area" type="number" placeholder="150"></div>
-      <div class="form-group"><label>Year Built</label><input id="f-year" type="number" placeholder="2005"></div>
+      <div class="form-group"><label>Beds</label><input id="f-beds" type="number" placeholder="3" min="0"></div>
+      <div class="form-group"><label>Baths</label><input id="f-baths" type="number" placeholder="2" min="0"></div>
+      <div class="form-group"><label>Area (m²)</label><input id="f-area" type="number" placeholder="150" min="0"></div>
+      <div class="form-group"><label>Year Built</label><input id="f-year" type="number" placeholder="2005" min="1800"></div>
+      <div class="form-group"><label>Floors</label><input id="f-floors" type="number" placeholder="2" min="1"></div>
       <div class="form-group"><label>Agency</label><input id="f-agency" placeholder="Lucent Estate"></div>
+      <div class="form-group"><label>Agent Email</label><input id="f-agent-email" type="email" placeholder="agent@agency.com"></div>
       <div class="form-group full"><label>Description</label><textarea id="f-desc" rows="3" placeholder="Property description…"></textarea></div>
       <div class="form-group full"><label>Image URLs (comma-separated)</label><input id="f-images" placeholder="https://…, https://…"></div>
+      <div class="form-group full"><label>Features (comma-separated)</label><input id="f-features" placeholder="Pool, Mountain view, Parking…"></div>
     </div>
     <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end">
       <button class="btn btn-ghost" onclick="closePropModal()">Cancel</button>
@@ -410,96 +526,127 @@ tbody td{padding:13px 20px;font-size:13px;color:var(--c-ink)}
   </div>
 </div>
 
-<!-- ── CONFIRM OVERLAY ── -->
-<div class="overlay" id="confirm-overlay">
+<!-- ════ APPOINTMENT MODAL ════ -->
+<div class="overlay" id="appt-modal" onclick="if(event.target===this)closeApptModal()">
+  <div class="modal modal-sm">
+    <button class="modal-close" onclick="closeApptModal()">✕</button>
+    <h3 id="appt-modal-title">Schedule Viewing</h3>
+    <div class="form-grid">
+      <div class="form-group"><label>Client Name</label><input id="a-client-name" placeholder="Jane Doe"></div>
+      <div class="form-group"><label>Client Email</label><input id="a-client-email" type="email" placeholder="jane@email.com"></div>
+      <div class="form-group"><label>Client Phone</label><input id="a-client-phone" placeholder="+1 555 000 0000"></div>
+      <div class="form-group"><label>Property Address</label><input id="a-location" placeholder="Via Roma 1, Milan"></div>
+      <div class="form-group"><label>Date &amp; Time *</label><input id="a-datetime" type="datetime-local"></div>
+      <div class="form-group"><label>Duration (min)</label><input id="a-duration" type="number" value="60" min="15" step="15"></div>
+      <div class="form-group"><label>Status</label>
+        <select id="a-status"><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select>
+      </div>
+      <div class="form-group"><label>Lead (optional)</label>
+        <select id="a-inquiry"><option value="">— None —</option></select>
+      </div>
+      <div class="form-group full"><label>Notes</label><textarea id="a-notes" rows="2" placeholder="Anything the agent should know…"></textarea></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="closeApptModal()">Cancel</button>
+      <button class="btn btn-ink" id="save-appt-btn" onclick="saveAppt()">Save Viewing</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ CONFIRM ════ -->
+<div class="overlay" id="confirm-overlay" onclick="if(event.target===this)document.getElementById('confirm-overlay').classList.remove('open')">
   <div class="confirm-box">
-    <h3>Delete Property?</h3>
-    <p>This action cannot be undone. The listing will be permanently removed.</p>
+    <h3 id="confirm-title">Are you sure?</h3>
+    <p id="confirm-msg">This action cannot be undone.</p>
     <div class="confirm-btns">
       <button class="btn btn-ghost" onclick="document.getElementById('confirm-overlay').classList.remove('open')">Cancel</button>
-      <button class="btn btn-red" id="confirm-del-btn">Delete</button>
+      <button class="btn btn-red" id="confirm-ok-btn">Delete</button>
     </div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 //  STATE
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 let demoMode = false;
 let adminToken = '';
 let allProps = [];
 let allInquiries = [];
+let allAppts = [];
 let editingPropId = null;
-let salesChartInst = null;
-let typeChartInst = null;
-let intentChartInst = null;
+let editingApptId = null;
+let selectedInquiryId = null;
+let salesChartInst = null, typeChartInst = null, intentChartInst = null, leadChartInst = null;
+let calYear, calMonth; // calendar state
+{ const n = new Date(); calYear = n.getFullYear(); calMonth = n.getMonth(); }
 
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 //  DEMO DATA
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 const DEMO_PROPS = [
-  { id:'1', slug:'villa-moderna-milano', title:'Villa Moderna', address:'Via Brera 14', city:'Milano', country:'Italy', price:1528000, type:'Houses', intent:'Buy', status:'active', beds:4, baths:5, area:233, year_built:2018, agency:'Lucent Estate', views:420, images:['https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=800'], created_at:'2025-07-08T10:00:00Z' },
-  { id:'2', slug:'appartamento-navigli', title:'Appartamento Navigli', address:'Via Naviglio Grande 30', city:'Milano', country:'Italy', price:962000, type:'Apartments', intent:'Buy', status:'active', beds:3, baths:2, area:150, year_built:2010, agency:'Casa Bella', views:211, images:['https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800'], created_at:'2026-05-02T09:00:00Z' },
-  { id:'3', slug:'townhouse-trastevere', title:'Townhouse Trastevere', address:'Via della Scala 5', city:'Roma', country:'Italy', price:396500, type:'Townhomes', intent:'Rent', status:'pending', beds:2, baths:2, area:125, year_built:1995, agency:'Roma Luxury', views:88, images:['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800'], created_at:'2026-04-15T08:00:00Z' },
-  { id:'4', slug:'villa-costiera-amalfi', title:'Villa Costiera', address:'Via Pastena 8', city:'Amalfi', country:'Italy', price:2200000, type:'Houses', intent:'Buy', status:'active', beds:5, baths:6, area:380, year_built:2022, agency:'Amalfi Properties', views:612, images:['https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800'], created_at:'2026-03-10T11:00:00Z' },
-  { id:'5', slug:'loft-firenze', title:'Loft Storico', address:'Via dei Servi 22', city:'Firenze', country:'Italy', price:540000, type:'Apartments', intent:'Buy', status:'sold', beds:1, baths:1, area:90, year_built:1880, agency:'Toscana Realty', views:355, images:['https://images.unsplash.com/photo-1505873242700-f289a29e1724?auto=format&fit=crop&q=80&w=800'], created_at:'2026-01-20T14:00:00Z' },
+  { id:'p1', slug:'villa-moderna-milano', title:'Villa Moderna', address:'Via Brera 14', city:'Milano', country:'Italy', price:1528000, type:'Houses', intent:'Buy', status:'active', beds:4, baths:5, area:233, year_built:2018, floors:2, agency:'Lucent Estate', views:420, images:['https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=800'], created_at:'2025-07-08T10:00:00Z' },
+  { id:'p2', slug:'appartamento-navigli', title:'Appartamento Navigli', address:'Via Naviglio Grande 30', city:'Milano', country:'Italy', price:962000, type:'Apartments', intent:'Buy', status:'active', beds:3, baths:2, area:150, year_built:2010, floors:1, agency:'Casa Bella', views:211, images:['https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800'], created_at:'2026-05-02T09:00:00Z' },
+  { id:'p3', slug:'townhouse-trastevere', title:'Townhouse Trastevere', address:'Via della Scala 5', city:'Roma', country:'Italy', price:396500, type:'Townhomes', intent:'Rent', status:'pending', beds:2, baths:2, area:125, year_built:1995, floors:3, agency:'Roma Luxury', views:88, images:['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800'], created_at:'2026-04-15T08:00:00Z' },
+  { id:'p4', slug:'villa-costiera-amalfi', title:'Villa Costiera', address:'Via Pastena 8', city:'Amalfi', country:'Italy', price:2200000, type:'Houses', intent:'Buy', status:'active', beds:5, baths:6, area:380, year_built:2022, floors:2, agency:'Amalfi Properties', views:612, images:['https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800'], created_at:'2026-03-10T11:00:00Z' },
+  { id:'p5', slug:'loft-firenze', title:'Loft Storico', address:'Via dei Servi 22', city:'Firenze', country:'Italy', price:540000, type:'Apartments', intent:'Buy', status:'sold', beds:1, baths:1, area:90, year_built:1880, floors:4, agency:'Toscana Realty', views:355, images:['https://images.unsplash.com/photo-1505873242700-f289a29e1724?auto=format&fit=crop&q=80&w=800'], created_at:'2026-01-20T14:00:00Z' },
 ];
 const DEMO_INQUIRIES = [
-  { id:'i1', first_name:'Sarah', last_name:'Mitchell', email:'sarah.m@email.com', phone:'+1 310 555 0192', interest:'Buying', property_slug:'villa-moderna-milano', message:"I'm very interested in this property. Can we schedule a viewing this weekend?", status:'new', created_at:'2026-05-14T17:30:00Z' },
-  { id:'i2', first_name:'Marco', last_name:'Bianchi', email:'marco.b@gmail.com', phone:'+39 02 555 1234', interest:'Schedule a tour', property_slug:'appartamento-navigli', message:'Would love to see the apartment in person. Available weekday mornings.', status:'contacted', created_at:'2026-05-12T11:00:00Z' },
-  { id:'i3', first_name:'Emily', last_name:'Chen', email:'emily.chen@corp.com', phone:'+44 7700 900123', interest:'Mortgage inquiry', property_slug:'villa-costiera-amalfi', message:'Could you send more details on financing options for foreign buyers?', status:'new', created_at:'2026-05-10T09:45:00Z' },
-  { id:'i4', first_name:'Luca', last_name:'Ferrari', email:'l.ferrari@tiscali.it', phone:'+39 06 555 9876', interest:'Renting', property_slug:'townhouse-trastevere', message:'Is the property still available for rent from July onwards?', status:'closed', created_at:'2026-04-28T15:20:00Z' },
+  { id:'i1', first_name:'Sarah', last_name:'Mitchell', email:'sarah.m@email.com', phone:'+1 310 555 0192', interest:'Buying', property_slug:'villa-moderna-milano', message:"I'm very interested in this property. Can we schedule a viewing this weekend?", status:'new', score:85, created_at:'2026-05-14T17:30:00Z' },
+  { id:'i2', first_name:'Marco', last_name:'Bianchi', email:'marco.b@gmail.com', phone:'+39 02 555 1234', interest:'Schedule a tour', property_slug:'appartamento-navigli', message:'Would love to see the apartment in person. Available weekday mornings.', status:'contacted', score:70, created_at:'2026-05-12T11:00:00Z' },
+  { id:'i3', first_name:'Emily', last_name:'Chen', email:'emily.chen@corp.com', phone:'+44 7700 900123', interest:'Mortgage inquiry', property_slug:'villa-costiera-amalfi', message:'Could you send more details on financing options for foreign buyers?', status:'tour_scheduled', score:90, created_at:'2026-05-10T09:45:00Z' },
+  { id:'i4', first_name:'Luca', last_name:'Ferrari', email:'l.ferrari@tiscali.it', phone:'+39 06 555 9876', interest:'Renting', property_slug:'townhouse-trastevere', message:'Is the property still available for rent from July onwards?', status:'closed', score:40, created_at:'2026-04-28T15:20:00Z' },
 ];
+const now = new Date();
+const DEMO_APPTS = [
+  { id:'a1', client_name:'Sarah Mitchell', client_email:'sarah.m@email.com', client_phone:'+1 310 555 0192', location:'Via Brera 14, Milano', scheduled_at: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0).toISOString(), duration_min:60, status:'confirmed', notes:'Client prefers a morning tour. Bring floor plans.', inquiry_id:'i1' },
+  { id:'a2', client_name:'Marco Bianchi', client_email:'marco.b@gmail.com', location:'Via Naviglio Grande 30, Milano', scheduled_at: new Date(now.getFullYear(), now.getMonth(), now.getDate()+2, 14, 30).toISOString(), duration_min:45, status:'pending', notes:'', inquiry_id:'i2' },
+  { id:'a3', client_name:'Emily Chen', client_email:'emily.chen@corp.com', location:'Via Pastena 8, Amalfi', scheduled_at: new Date(now.getFullYear(), now.getMonth(), now.getDate()+5, 11, 0).toISOString(), duration_min:90, status:'confirmed', notes:'Remote buyer — needs video walkthrough if possible.', inquiry_id:'i3' },
+];
+const DEMO_TIMELINE = {
+  i1: [
+    { id:'t1', inquiry_id:'i1', event_type:'note', note:'Initial inquiry received via website.', created_at:'2026-05-14T17:30:00Z' },
+    { id:'t2', inquiry_id:'i1', event_type:'call', note:'Called client, very interested. Willing to offer asking price.', created_at:'2026-05-15T09:00:00Z' },
+    { id:'t3', inquiry_id:'i1', event_type:'viewing_scheduled', note:'Viewing scheduled for May 17 at 10:00 AM.', created_at:'2026-05-15T09:30:00Z' },
+  ],
+  i2: [
+    { id:'t4', inquiry_id:'i2', event_type:'email', note:'Sent property brochure and floor plans via email.', created_at:'2026-05-12T14:00:00Z' },
+  ],
+  i3: [
+    { id:'t5', inquiry_id:'i3', event_type:'financing_requested', note:'Client asked for mortgage calculator details and bank contacts.', created_at:'2026-05-10T10:00:00Z' },
+    { id:'t6', inquiry_id:'i3', event_type:'call', note:'Spoke with Emily. She is relocating from London. Very serious buyer.', created_at:'2026-05-11T15:00:00Z' },
+    { id:'t7', inquiry_id:'i3', event_type:'viewing_scheduled', note:'Viewing booked for May 20 in Amalfi.', created_at:'2026-05-12T10:00:00Z' },
+  ],
+  i4: [],
+};
 
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 //  AUTH
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 function doLogin() {
   const pw = document.getElementById('pw-input').value.trim();
-  if (!pw) return;
+  if (!pw) { showLoginError('Please enter a password.'); return; }
   const btn = document.getElementById('login-btn');
-  btn.disabled = true;
-  btn.textContent = 'Signing in…';
+  btn.disabled = true; btn.textContent = 'Signing in…';
 
   if (pw === 'demo') {
-    demoMode = true;
-    adminToken = 'demo';
-    enterApp();
-    return;
+    demoMode = true; adminToken = 'demo';
+    enterApp(); return;
   }
 
-  // Try a real API call to validate the token
   adminToken = pw;
-  fetch('/api/supabase?action=get-stats', {
-    headers: { 'Authorization': `Bearer ${pw}`, 'Content-Type': 'application/json' }
-  })
-  .then(r => {
-    if (r.ok) {
-      sessionStorage.setItem('lucent_admin_token', pw);
-      enterApp();
-    } else if (r.status === 401 || r.status === 403) {
-      showLoginError('Incorrect password.');
-      btn.disabled = false;
-      btn.textContent = 'Sign In';
-    } else {
-      // API is unreachable / not deployed — ask if they want demo
-      showLoginError('API unreachable. Use password "demo" to preview with sample data.');
-      btn.disabled = false;
-      btn.textContent = 'Sign In';
-    }
-  })
-  .catch(() => {
-    showLoginError('Could not connect to API. Use "demo" to preview with sample data.');
-    btn.disabled = false;
-    btn.textContent = 'Sign In';
-  });
+  fetch('/api/supabase?action=get-stats', { headers: { Authorization: `Bearer ${pw}` } })
+    .then(r => {
+      if (r.ok) { sessionStorage.setItem('lucent_admin_token', pw); enterApp(); }
+      else if (r.status === 401 || r.status === 403) { showLoginError('Incorrect password. Please try again.'); btn.disabled=false; btn.textContent='Sign In'; }
+      else { showLoginError('API error. Check your Vercel deployment, or use "demo" to preview.'); btn.disabled=false; btn.textContent='Sign In'; }
+    })
+    .catch(() => { showLoginError('Cannot connect to API. Use "demo" to preview with sample data.'); btn.disabled=false; btn.textContent='Sign In'; });
 }
 
 function showLoginError(msg) {
   const el = document.getElementById('login-error');
-  el.textContent = msg;
-  el.style.display = 'block';
+  el.textContent = msg; el.style.display='block';
 }
 
 function enterApp() {
@@ -515,8 +662,7 @@ function enterApp() {
 
 function doLogout() {
   sessionStorage.removeItem('lucent_admin_token');
-  adminToken = '';
-  demoMode = false;
+  adminToken = ''; demoMode = false;
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('pw-input').value = '';
@@ -525,10 +671,14 @@ function doLogout() {
   document.getElementById('login-btn').textContent = 'Sign In';
 }
 
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 //  NAVIGATION
-// ══════════════════════════════════════════
-const PAGE_TITLES = { dashboard: 'Dashboard', properties: 'Properties', inquiries: 'Inquiries', analytics: 'Analytics' };
+// ════════════════════════════════════════
+const PAGE_TITLES = { dashboard:'Dashboard', properties:'Properties', inquiries:'Inquiries & CRM', calendar:'Calendar', analytics:'Analytics' };
+const PAGE_ACTIONS = {
+  properties: { label:'+ Add Property', fn:'openAddProperty' },
+  calendar:   { label:'+ Schedule Viewing', fn:'openApptModal' },
+};
 
 function navigate(page, btn) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -536,15 +686,20 @@ function navigate(page, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
   document.getElementById('page-title').textContent = PAGE_TITLES[page] || page;
-  document.getElementById('topbar-action-btn').style.display = page === 'properties' ? 'inline-flex' : 'none';
+  const act = PAGE_ACTIONS[page];
+  const btn2 = document.getElementById('topbar-action-btn');
+  if (act) { btn2.textContent = act.label; btn2.style.display='inline-flex'; window._topbarFn = act.fn; }
+  else btn2.style.display='none';
   if (page === 'properties') loadProperties();
-  if (page === 'inquiries') loadInquiries();
-  if (page === 'analytics') loadAnalytics();
+  if (page === 'inquiries')  loadInquiries();
+  if (page === 'calendar')   { loadAppointments(); renderCalendar(); }
+  if (page === 'analytics')  loadAnalytics();
 }
+function topbarAction() { if(window._topbarFn && window[window._topbarFn]) window[window._topbarFn](); }
 
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 //  API HELPERS
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 async function apiFetch(action, params = {}, opts = {}) {
   if (demoMode) throw new Error('demo');
   const qs = new URLSearchParams({ action, ...params }).toString();
@@ -553,184 +708,133 @@ async function apiFetch(action, params = {}, opts = {}) {
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
     body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
-  if (!res.ok) {
-    const e = await res.json().catch(() => ({ error: res.statusText }));
-    throw new Error(e.error || 'API error');
-  }
+  if (!res.ok) throw new Error((await res.json().catch(()=>({error:res.statusText}))).error || 'API error');
   return res.json();
 }
 
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 //  DASHBOARD
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 async function loadDashboard() {
   try {
-    let stats, props;
+    let stats, props, appts;
     if (demoMode) {
-      stats = { active_listings: 3, sold_count: 1, total_inquiries: 4, new_inquiries: 2, total_revenue: 2930000 };
-      props = DEMO_PROPS;
+      stats = { active_listings:3, sold_count:1, total_inquiries:4, new_inquiries:2, total_revenue:2930000, total_views:1686, total_properties:5 };
+      props = DEMO_PROPS; appts = DEMO_APPTS;
     } else {
-      [stats, props] = await Promise.all([
+      [stats, props, appts] = await Promise.all([
         apiFetch('get-stats'),
-        apiFetch('get-properties', { limit: 5, sort: 'newest' }),
+        apiFetch('get-properties', { limit:5, sort:'newest', admin:1 }),
+        apiFetch('get-appointments', { from: todayISO(), to: todayISO()+'T23:59:59' }),
       ]);
     }
-    allProps = props;
+    allProps = props; allAppts = appts;
     renderStatsCards(stats);
-    renderActiveAds(props.filter(p => p.status === 'active').slice(0, 4));
+    renderActiveAds(props.filter(p => p.status==='active').slice(0,4));
     renderSalesChart();
-    // Badge
+    renderTodayAppts(appts);
     if (stats.new_inquiries > 0) {
       const b = document.getElementById('inq-badge');
-      b.textContent = stats.new_inquiries;
-      b.style.display = 'inline';
+      b.textContent = stats.new_inquiries; b.style.display = 'inline';
     }
-  } catch (e) {
-    if (e.message !== 'demo') {
-      document.getElementById('api-banner-dash').classList.add('show');
-    }
-    if (demoMode) { /* handled above */ }
+  } catch(e) {
+    if (e.message !== 'demo') document.getElementById('api-banner-dash').classList.add('show');
   }
+}
+
+function todayISO() {
+  const d = new Date(); d.setHours(0,0,0,0); return d.toISOString().split('T')[0];
 }
 
 function renderStatsCards(s) {
   document.getElementById('stats-grid').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-label">Active Listings</div><span class="stat-badge up">Live</span></div>
-      <div class="stat-value">${s.active_listings ?? '—'}</div>
-      <div class="stat-sub">Properties on market</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-label">Total Sales</div><span class="stat-badge up">↗ Good</span></div>
-      <div class="stat-value">${s.sold_count ?? '—'}</div>
-      <div class="stat-sub">${s.total_revenue ? '$' + Number(s.total_revenue).toLocaleString() + ' revenue' : 'Closed deals'}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-label">Inquiries</div>${s.new_inquiries > 0 ? `<span class="stat-badge up">${s.new_inquiries} new</span>` : ''}</div>
-      <div class="stat-value">${s.total_inquiries ?? '—'}</div>
-      <div class="stat-sub">Total received</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-top"><div class="stat-label">Total Properties</div></div>
-      <div class="stat-value">${s.total_properties ?? (s.active_listings + s.sold_count) ?? '—'}</div>
-      <div class="stat-sub">In database</div>
-    </div>
+    <div class="stat-card"><div class="stat-card-top"><div class="stat-label">Active Listings</div><span class="stat-badge up">Live</span></div><div class="stat-value">${s.active_listings??'—'}</div><div class="stat-sub">Properties on market</div></div>
+    <div class="stat-card"><div class="stat-card-top"><div class="stat-label">Sales Revenue</div><span class="stat-badge up">↗</span></div><div class="stat-value">${s.total_revenue?'$'+fmtK(s.total_revenue):'—'}</div><div class="stat-sub">${s.sold_count??0} closed deals</div></div>
+    <div class="stat-card"><div class="stat-card-top"><div class="stat-label">Inquiries</div>${s.new_inquiries>0?`<span class="stat-badge amber">${s.new_inquiries} new</span>`:''}</div><div class="stat-value">${s.total_inquiries??'—'}</div><div class="stat-sub">Total received</div></div>
+    <div class="stat-card"><div class="stat-card-top"><div class="stat-label">Total Views</div></div><div class="stat-value">${s.total_views!=null?Number(s.total_views).toLocaleString():'—'}</div><div class="stat-sub">Across all listings</div></div>
   `;
   document.getElementById('total-sales-label').textContent = s.total_revenue ? '$' + Number(s.total_revenue).toLocaleString() + ' total' : 'Based on current data';
+}
+
+function fmtK(n) {
+  return n >= 1000000 ? (n/1000000).toFixed(1)+'M' : n >= 1000 ? (n/1000).toFixed(0)+'k' : n;
 }
 
 function renderActiveAds(props) {
   if (!props.length) { document.getElementById('active-ads-list').innerHTML = '<div class="empty"><p>No active listings</p></div>'; return; }
   document.getElementById('active-ads-list').innerHTML = props.map(p => `
     <div class="ad-item">
-      <img class="ad-thumb" src="${p.images?.[0] || 'https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=100'}" alt="">
+      <img class="ad-thumb" src="${p.images?.[0]||'https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=100'}" alt="">
       <div class="ad-info">
         <div class="ad-price">$${Number(p.price).toLocaleString()}</div>
-        <div class="ad-meta">${p.city || p.address} · ${p.views || 0} views</div>
+        <div class="ad-meta">${p.city||p.address} · ${p.views||0} views</div>
       </div>
-      <span class="ad-status ${p.status}">${p.status}</span>
-      <button class="ad-edit-btn" onclick="editProp('${p.id}')">Edit</button>
+      <span class="badge badge-${p.status==='active'?'green':p.status==='pending'?'amber':'blue'}">${p.status}</span>
+      <button class="btn btn-ghost btn-sm" onclick="editProp('${p.id}');navigate('properties',document.querySelectorAll('.nav-item')[1])">Edit</button>
     </div>
   `).join('');
 }
 
-function renderSalesChart() {
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const now = new Date();
-  const n = parseInt(document.getElementById('chart-period')?.value || '12');
-  const labels = [];
-  const data = [];
-  for (let i = n - 1; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    labels.push(months[d.getMonth()]);
-    // Simulate realistic data based on actual props if available
-    const base = allProps.length > 0 ? allProps.reduce((s,p)=>s+p.price,0)/allProps.length/1000 : 800;
-    data.push(Math.round(base * (0.5 + Math.random() * 0.8)));
-  }
-  const ctx = document.getElementById('sales-chart')?.getContext('2d');
-  if (!ctx) return;
-  if (salesChartInst) salesChartInst.destroy();
-  salesChartInst = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        data, label: 'Avg value ($k)', borderColor: '#0C0C0C', borderWidth: 2,
-        tension: .4, pointRadius: 0, fill: { target: 'origin', above: 'rgba(12,12,12,.05)' }
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '$' + ctx.parsed.y + 'k' } } },
-      scales: {
-        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
-        y: { grid: { color: '#f0ede8' }, ticks: { font: { size: 11 }, callback: v => '$' + v + 'k' }, border: { display: false } }
-      }
-    }
+function renderTodayAppts(appts) {
+  const today = appts.filter(a => {
+    const d = new Date(a.scheduled_at); const n = new Date();
+    return d.toDateString() === n.toDateString();
   });
+  document.getElementById('today-appt-label').textContent = today.length ? `${today.length} viewing${today.length>1?'s':''} today` : 'No viewings scheduled today';
+  if (!today.length) { document.getElementById('today-appts').innerHTML = '<div style="text-align:center;padding:20px;color:var(--c-muted);font-size:13px">Clear schedule — enjoy your day!</div>'; return; }
+  document.getElementById('today-appts').innerHTML = `<div class="appt-list">${today.map(a => renderApptCard(a)).join('')}</div>`;
 }
 
-// ══════════════════════════════════════════
+function renderSalesChart() {
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const now = new Date(); const n = parseInt(document.getElementById('chart-period')?.value||'12');
+  const labels=[],data=[];
+  for(let i=n-1;i>=0;i--){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    labels.push(months[d.getMonth()]);
+    const base=allProps.length?allProps.reduce((s,p)=>s+p.price,0)/allProps.length/1000:800;
+    data.push(Math.round(base*(0.5+Math.random()*0.8)));
+  }
+  const ctx=document.getElementById('sales-chart')?.getContext('2d');
+  if(!ctx)return;
+  if(salesChartInst)salesChartInst.destroy();
+  salesChartInst=new Chart(ctx,{type:'line',data:{labels,datasets:[{data,label:'Avg value ($k)',borderColor:'#0C0C0C',borderWidth:2,tension:.4,pointRadius:0,fill:{target:'origin',above:'rgba(12,12,12,.05)'}}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.y+'k'}}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:'#f0ede8'},ticks:{font:{size:11},callback:v=>'$'+v+'k'},border:{display:false}}}}});
+}
+
+// ════════════════════════════════════════
 //  PROPERTIES
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 async function loadProperties() {
   document.getElementById('prop-table-body').innerHTML = '<div class="loading"><div class="spinner"></div> Loading…</div>';
   try {
-    allProps = demoMode ? DEMO_PROPS : await apiFetch('get-properties', { limit: 100, sort: 'newest' });
+    allProps = demoMode ? DEMO_PROPS : await apiFetch('get-properties', { limit:200, sort:'newest', admin:1 });
     renderPropTable(allProps);
-  } catch (e) {
-    document.getElementById('prop-table-body').innerHTML = '<div class="empty"><p>Failed to load. Check API connection.</p></div>';
-  }
+  } catch { document.getElementById('prop-table-body').innerHTML = '<div class="empty"><p>Failed to load. Check API connection.</p></div>'; }
 }
 
 function filterProps() {
   const q = document.getElementById('prop-search').value.toLowerCase();
-  const filtered = allProps.filter(p =>
-    (p.address || '').toLowerCase().includes(q) ||
-    (p.city || '').toLowerCase().includes(q) ||
-    (p.type || '').toLowerCase().includes(q)
-  );
-  renderPropTable(filtered);
+  renderPropTable(allProps.filter(p => (p.address||'').toLowerCase().includes(q)||(p.city||'').toLowerCase().includes(q)||(p.type||'').toLowerCase().includes(q)||(p.title||'').toLowerCase().includes(q)));
 }
 
 function renderPropTable(props) {
-  if (!props.length) {
-    document.getElementById('prop-table-body').innerHTML = '<div class="empty"><p>No properties found.</p></div>';
-    return;
-  }
-  const statusColor = { active: 'green', pending: 'amber', sold: 'blue' };
-  document.getElementById('prop-table-body').innerHTML = `
-    <table>
-      <thead><tr>
-        <th>Property</th><th>Price</th><th>Type</th><th>Intent</th><th>Status</th><th>Views</th><th>Actions</th>
-      </tr></thead>
-      <tbody>
-        ${props.map(p => `
-          <tr>
-            <td><div class="prop-img-cell">
-              <img class="prop-img-sm" src="${p.images?.[0] || 'https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=100'}" alt="">
-              <div>
-                <div style="font-weight:600">${p.address}</div>
-                <div style="font-size:11px;color:var(--c-muted)">${p.city || ''}${p.country ? ', '+p.country : ''}</div>
-              </div>
-            </div></td>
-            <td class="td-price">$${Number(p.price).toLocaleString()}</td>
-            <td>${p.type}</td>
-            <td>${p.intent}</td>
-            <td><span class="badge badge-${statusColor[p.status] || 'ink'}">${p.status}</span></td>
-            <td class="td-muted">${p.views || 0}</td>
-            <td><div style="display:flex;gap:6px">
-              <button class="ad-edit-btn" onclick="editProp('${p.id}')">Edit</button>
-              <button class="ad-edit-btn" style="color:var(--c-red);border-color:var(--c-red)" onclick="confirmDelete('${p.id}')">Del</button>
-            </div></td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
+  if (!props.length) { document.getElementById('prop-table-body').innerHTML = '<div class="empty"><p>No properties found.</p></div>'; return; }
+  const sc = { active:'green', pending:'amber', sold:'blue', archived:'ink' };
+  document.getElementById('prop-table-body').innerHTML = `<table><thead><tr><th>Property</th><th>Price</th><th>Type</th><th>Intent</th><th>Status</th><th>Views</th><th>Actions</th></tr></thead><tbody>
+    ${props.map(p=>`<tr>
+      <td><div class="prop-img-cell"><img class="prop-img-sm" src="${p.images?.[0]||'https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=100'}" alt=""><div><div style="font-weight:600">${esc(p.title||p.address)}</div><div style="font-size:11px;color:var(--c-muted)">${esc(p.city||'')}${p.country?', '+esc(p.country):''}</div></div></div></td>
+      <td class="td-price">$${Number(p.price).toLocaleString()}</td>
+      <td>${p.type}</td><td>${p.intent}</td>
+      <td><span class="badge badge-${sc[p.status]||'ink'}">${p.status}</span></td>
+      <td class="td-muted">${p.views||0}</td>
+      <td><div style="display:flex;gap:6px">
+        <button class="btn btn-ghost btn-sm" onclick="editProp('${p.id}')">Edit</button>
+        <button class="btn btn-sm" style="background:var(--c-red-l);color:var(--c-red);border:1px solid transparent" onclick="confirmDel('${p.id}','property')">Del</button>
+      </div></td>
+    </tr>`).join('')}
+  </tbody></table>`;
 }
 
-// ── Property CRUD ──
 function openAddProperty() {
   editingPropId = null;
   document.getElementById('prop-modal-title').textContent = 'Add Property';
@@ -739,271 +843,516 @@ function openAddProperty() {
 }
 
 function editProp(id) {
-  const p = allProps.find(x => x.id === id);
-  if (!p) return;
+  const p = allProps.find(x=>x.id===id); if(!p)return;
   editingPropId = id;
   document.getElementById('prop-modal-title').textContent = 'Edit Property';
-  document.getElementById('f-address').value = p.address || '';
-  document.getElementById('f-city').value = p.city || '';
-  document.getElementById('f-country').value = p.country || 'Italy';
-  document.getElementById('f-price').value = p.price || '';
-  document.getElementById('f-type').value = p.type || 'Houses';
-  document.getElementById('f-intent').value = p.intent || 'Buy';
-  document.getElementById('f-status').value = p.status || 'active';
-  document.getElementById('f-beds').value = p.beds || '';
-  document.getElementById('f-baths').value = p.baths || '';
-  document.getElementById('f-area').value = p.area || '';
-  document.getElementById('f-year').value = p.year_built || '';
-  document.getElementById('f-agency').value = p.agency || '';
-  document.getElementById('f-desc').value = p.description || '';
-  document.getElementById('f-images').value = (p.images || []).join(', ');
+  document.getElementById('f-address').value = p.address||'';
+  document.getElementById('f-city').value = p.city||'';
+  document.getElementById('f-country').value = p.country||'Italy';
+  document.getElementById('f-price').value = p.price||'';
+  document.getElementById('f-title').value = p.title||'';
+  document.getElementById('f-type').value = p.type||'Houses';
+  document.getElementById('f-intent').value = p.intent||'Buy';
+  document.getElementById('f-status').value = p.status||'active';
+  document.getElementById('f-beds').value = p.beds||'';
+  document.getElementById('f-baths').value = p.baths||'';
+  document.getElementById('f-area').value = p.area||'';
+  document.getElementById('f-year').value = p.year_built||'';
+  document.getElementById('f-floors').value = p.floors||'';
+  document.getElementById('f-agency').value = p.agency||'';
+  document.getElementById('f-agent-email').value = p.agent_email||'';
+  document.getElementById('f-desc').value = p.description||'';
+  document.getElementById('f-images').value = (p.images||[]).join(', ');
+  document.getElementById('f-features').value = (p.features||[]).join(', ');
   document.getElementById('prop-modal').classList.add('open');
 }
 
 function clearPropForm() {
-  ['f-address','f-city','f-price','f-beds','f-baths','f-area','f-year','f-agency','f-desc','f-images'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('f-country').value = 'Italy';
-  document.getElementById('f-type').value = 'Houses';
-  document.getElementById('f-intent').value = 'Buy';
-  document.getElementById('f-status').value = 'active';
+  ['f-address','f-city','f-price','f-title','f-beds','f-baths','f-area','f-year','f-floors','f-agency','f-agent-email','f-desc','f-images','f-features'].forEach(id=>{ const el=document.getElementById(id); if(el)el.value=''; });
+  document.getElementById('f-country').value='Italy';
+  document.getElementById('f-type').value='Houses';
+  document.getElementById('f-intent').value='Buy';
+  document.getElementById('f-status').value='active';
 }
-
-function closePropModal() {
-  document.getElementById('prop-modal').classList.remove('open');
-}
+function closePropModal() { document.getElementById('prop-modal').classList.remove('open'); }
 
 async function saveProp() {
   const addr = document.getElementById('f-address').value.trim();
   const price = document.getElementById('f-price').value;
-  if (!addr || !price) { toast('Address and price are required.', 'error'); return; }
-
+  if (!addr||!price) { toast('Address and price are required.','error'); return; }
   const body = {
-    address: addr,
-    city: document.getElementById('f-city').value.trim(),
-    country: document.getElementById('f-country').value.trim() || 'Italy',
-    price: parseFloat(price),
-    type: document.getElementById('f-type').value,
-    intent: document.getElementById('f-intent').value,
-    status: document.getElementById('f-status').value,
-    beds: parseInt(document.getElementById('f-beds').value) || null,
-    baths: parseInt(document.getElementById('f-baths').value) || null,
-    area: parseFloat(document.getElementById('f-area').value) || null,
-    year_built: parseInt(document.getElementById('f-year').value) || null,
-    agency: document.getElementById('f-agency').value.trim() || 'Lucent Estate',
-    description: document.getElementById('f-desc').value.trim(),
-    images: document.getElementById('f-images').value.split(',').map(s => s.trim()).filter(Boolean),
+    address:addr, city:document.getElementById('f-city').value.trim(),
+    country:document.getElementById('f-country').value.trim()||'Italy',
+    price:parseFloat(price), title:document.getElementById('f-title').value.trim(),
+    type:document.getElementById('f-type').value, intent:document.getElementById('f-intent').value,
+    status:document.getElementById('f-status').value,
+    beds:parseInt(document.getElementById('f-beds').value)||null,
+    baths:parseInt(document.getElementById('f-baths').value)||null,
+    area:parseFloat(document.getElementById('f-area').value)||null,
+    year_built:parseInt(document.getElementById('f-year').value)||null,
+    floors:parseInt(document.getElementById('f-floors').value)||null,
+    agency:document.getElementById('f-agency').value.trim()||'Lucent Estate',
+    agent_email:document.getElementById('f-agent-email').value.trim()||null,
+    description:document.getElementById('f-desc').value.trim(),
+    images:document.getElementById('f-images').value.split(',').map(s=>s.trim()).filter(Boolean),
+    features:document.getElementById('f-features').value.split(',').map(s=>s.trim()).filter(Boolean),
   };
-
   const btn = document.getElementById('save-prop-btn');
-  btn.textContent = 'Saving…';
-  btn.disabled = true;
-
+  btn.textContent='Saving…'; btn.disabled=true;
   try {
     if (demoMode) {
-      // Simulate locally
-      if (editingPropId) {
-        const idx = allProps.findIndex(p => p.id === editingPropId);
-        if (idx > -1) allProps[idx] = { ...allProps[idx], ...body };
-        toast('Property updated (demo)');
-      } else {
-        const newP = { ...body, id: 'new_' + Date.now(), slug: slugify(addr), views: 0, created_at: new Date().toISOString() };
-        allProps.unshift(newP);
-        toast('Property added (demo)');
-      }
+      if (editingPropId) { const i=allProps.findIndex(p=>p.id===editingPropId); if(i>-1)allProps[i]={...allProps[i],...body}; toast('Property updated (demo)'); }
+      else { allProps.unshift({...body,id:'new_'+Date.now(),slug:slugify(addr+'-'+(body.type||'')),views:0,created_at:new Date().toISOString()}); toast('Property added (demo)'); }
     } else {
-      if (editingPropId) {
-        await apiFetch('update-property', { id: editingPropId }, { method: 'PATCH', body });
-        toast('Property updated');
-      } else {
-        body.slug = slugify(addr + '-' + body.type);
-        await apiFetch('create-property', {}, { method: 'POST', body });
-        toast('Property created');
-      }
+      if (editingPropId) { await apiFetch('update-property',{id:editingPropId},{method:'PATCH',body}); toast('Property updated'); }
+      else { body.slug=slugify(addr+'-'+(body.type||'')); await apiFetch('create-property',{},{method:'POST',body}); toast('Property created'); }
+      await loadProperties();
     }
-    closePropModal();
-    renderPropTable(allProps);
-  } catch (e) {
-    toast('Save failed: ' + e.message, 'error');
-  } finally {
-    btn.textContent = 'Save Property';
-    btn.disabled = false;
-  }
+    closePropModal(); renderPropTable(allProps);
+  } catch(e) { toast('Save failed: '+e.message,'error'); }
+  finally { btn.textContent='Save Property'; btn.disabled=false; }
 }
 
-function confirmDelete(id) {
-  const overlay = document.getElementById('confirm-overlay');
-  overlay.classList.add('open');
-  document.getElementById('confirm-del-btn').onclick = async () => {
-    overlay.classList.remove('open');
-    try {
-      if (demoMode) {
-        allProps = allProps.filter(p => p.id !== id);
-        toast('Deleted (demo)');
-      } else {
-        await apiFetch('delete-property', { id }, { method: 'DELETE' });
-        toast('Property deleted');
-      }
-      renderPropTable(allProps);
-    } catch (e) {
-      toast('Delete failed: ' + e.message, 'error');
-    }
-  };
-}
-
-// ══════════════════════════════════════════
-//  INQUIRIES
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
+//  INQUIRIES / CRM
+// ════════════════════════════════════════
 async function loadInquiries() {
-  document.getElementById('inq-list-body').innerHTML = '<div class="loading"><div class="spinner"></div> Loading…</div>';
+  document.getElementById('inq-list-body').innerHTML = '<div class="loading"><div class="spinner"></div></div>';
   const filter = document.getElementById('inq-filter').value;
   try {
-    if (demoMode) {
-      allInquiries = filter === 'all' ? DEMO_INQUIRIES : DEMO_INQUIRIES.filter(i => i.status === filter);
-    } else {
-      allInquiries = await apiFetch('get-inquiries', { status: filter, limit: 100 });
-    }
+    if (demoMode) { allInquiries = filter==='all' ? DEMO_INQUIRIES : DEMO_INQUIRIES.filter(i=>i.status===filter); }
+    else { allInquiries = await apiFetch('get-inquiries',{status:filter,limit:200}); }
     renderInquiryList(allInquiries);
-  } catch (e) {
-    document.getElementById('inq-list-body').innerHTML = '<div class="empty"><p>Failed to load inquiries.</p></div>';
-  }
+  } catch { document.getElementById('inq-list-body').innerHTML = '<div class="empty"><p>Failed to load.</p></div>'; }
 }
 
 function renderInquiryList(inqs) {
-  if (!inqs.length) {
-    document.getElementById('inq-list-body').innerHTML = '<div class="empty"><p>No inquiries found.</p></div>';
-    return;
-  }
-  const statusColor = { new: 'badge-blue', contacted: 'badge-amber', closed: 'badge-green' };
-  document.getElementById('inq-list-body').innerHTML = `<div class="inquiry-list">` + inqs.map(i => `
-    <div class="inq-item" onclick="selectInquiry('${i.id}')" data-inq-id="${i.id}">
-      <div class="inq-avatar">${(i.first_name || 'A')[0].toUpperCase()}</div>
+  if (!inqs.length) { document.getElementById('inq-list-body').innerHTML = '<div class="empty"><p>No leads found.</p></div>'; return; }
+  const sc = { new:'badge-blue', contacted:'badge-amber', tour_scheduled:'badge-purple', offer_made:'badge-gold', closed:'badge-green', lost:'badge-red' };
+  document.getElementById('inq-list-body').innerHTML = inqs.map(i=>`
+    <div class="inq-item ${selectedInquiryId===i.id?'selected':''}" onclick="selectInquiry('${i.id}')" data-inq-id="${i.id}">
+      <div class="inq-avatar">${(i.first_name||'A')[0].toUpperCase()}</div>
       <div class="inq-info">
-        <div class="name">${i.first_name} ${i.last_name || ''}</div>
-        <div class="preview">${i.message || i.interest}</div>
+        <div class="name">${esc(i.first_name)} ${esc(i.last_name||'')}</div>
+        <div class="preview">${esc(i.message||i.interest||'')}</div>
       </div>
       <div class="inq-meta">
         <div class="time">${timeAgo(i.created_at)}</div>
-        <span class="badge ${statusColor[i.status] || 'badge-ink'}" style="margin-top:4px">${i.status}</span>
+        <span class="badge ${sc[i.status]||'badge-ink'}" style="margin-top:4px">${i.status.replace(/_/g,' ')}</span>
       </div>
     </div>
-  `).join('') + `</div>`;
+  `).join('');
 }
 
 function selectInquiry(id) {
-  document.querySelectorAll('.inq-item').forEach(el => el.classList.toggle('selected', el.dataset.inqId === id));
-  const i = allInquiries.find(x => x.id === id);
-  if (!i) return;
-  const statusColor = { new: 'badge-blue', contacted: 'badge-amber', closed: 'badge-green' };
-  document.getElementById('inq-detail').innerHTML = `
-    <div class="detail-name">${i.first_name} ${i.last_name || ''}</div>
-    <div class="detail-email">${i.email}</div>
-    <div class="detail-row"><span class="lbl">Phone</span><span>${i.phone || '—'}</span></div>
-    <div class="detail-row"><span class="lbl">Interest</span><span>${i.interest || '—'}</span></div>
-    <div class="detail-row"><span class="lbl">Property</span><span>${i.property_slug || '—'}</span></div>
-    <div class="detail-row"><span class="lbl">Date</span><span>${new Date(i.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span></div>
-    <div class="detail-row"><span class="lbl">Status</span><span class="badge ${statusColor[i.status] || 'badge-ink'}">${i.status}</span></div>
-    <div class="detail-msg">${i.message || 'No message provided.'}</div>
-    <div class="detail-actions">
-      ${i.status !== 'contacted' ? `<button class="btn btn-ink" style="font-size:12px" onclick="updateInqStatus('${i.id}','contacted')">Mark Contacted</button>` : ''}
-      ${i.status !== 'closed' ? `<button class="btn btn-ghost" style="font-size:12px" onclick="updateInqStatus('${i.id}','closed')">Close</button>` : ''}
-      <a href="mailto:${i.email}" class="btn btn-ghost" style="font-size:12px">Email</a>
+  selectedInquiryId = id;
+  document.querySelectorAll('.inq-item').forEach(el => el.classList.toggle('selected', el.dataset.inqId===id));
+  const i = allInquiries.find(x=>x.id===id); if(!i)return;
+  renderInquiryDetail(i);
+  loadTimeline(id);
+}
+
+function renderInquiryDetail(i) {
+  const sc = { new:'badge-blue', contacted:'badge-amber', tour_scheduled:'badge-purple', offer_made:'badge-gold', closed:'badge-green', lost:'badge-red' };
+  document.getElementById('inq-detail-panel').innerHTML = `
+    <div class="inq-detail-header">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+        <div>
+          <div class="detail-name">${esc(i.first_name)} ${esc(i.last_name||'')}</div>
+          <div class="detail-email">${esc(i.email)}</div>
+        </div>
+        <select class="detail-status-select" onchange="updateInqStatus('${i.id}',this.value)">
+          ${['new','contacted','tour_scheduled','offer_made','closed','lost'].map(s=>`<option value="${s}" ${i.status===s?'selected':''}>${s.replace(/_/g,' ')}</option>`).join('')}
+        </select>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
+        ${i.phone?`<a href="tel:${i.phone}" class="btn btn-ghost btn-sm">📞 ${esc(i.phone)}</a>`:''}
+        <a href="mailto:${i.email}" class="btn btn-ghost btn-sm">✉ Email</a>
+        <button class="btn btn-gold btn-sm" onclick="scheduleFromLead('${i.id}','${esc(i.first_name+' '+(i.last_name||''))}','${esc(i.email)}','${esc(i.phone||'')}','${esc(i.property_slug||'')}')">📅 Schedule Viewing</button>
+      </div>
+    </div>
+    <div class="inq-detail-tabs">
+      <button class="active" onclick="switchDetailTab(this,'tab-info')">Info</button>
+      <button onclick="switchDetailTab(this,'tab-timeline')">Timeline</button>
+    </div>
+    <div class="inq-detail-body">
+      <div id="tab-info">
+        <div class="detail-row"><span class="lbl">Interest</span><span>${esc(i.interest||'—')}</span></div>
+        <div class="detail-row"><span class="lbl">Property</span><span>${i.property_slug?`<a href="/properties/${i.property_slug}" target="_blank" style="color:var(--c-blue)">${esc(i.property_slug)}</a>`:'—'}</span></div>
+        <div class="detail-row"><span class="lbl">Score</span><span>${i.score||'—'}/100</span></div>
+        <div class="detail-row"><span class="lbl">Received</span><span>${fmtDate(i.created_at)}</span></div>
+        ${i.message?`<div class="detail-msg">${esc(i.message)}</div>`:''}
+      </div>
+      <div id="tab-timeline" style="display:none">
+        <div id="timeline-container"><div class="loading"><div class="spinner"></div></div></div>
+        <div class="add-note-row">
+          <select id="note-type-sel">
+            <option value="note">📝 Note</option>
+            <option value="call">📞 Call</option>
+            <option value="email">✉ Email</option>
+            <option value="financing_requested">🏦 Financing</option>
+            <option value="other">Other</option>
+          </select>
+          <input id="note-text-inp" placeholder="Add note…" onkeydown="if(event.key==='Enter')addTimelineNote('${i.id}')">
+          <button class="btn btn-ink btn-sm" onclick="addTimelineNote('${i.id}')">Add</button>
+        </div>
+      </div>
     </div>
   `;
 }
 
-async function updateInqStatus(id, status) {
+function switchDetailTab(btn, tabId) {
+  btn.closest('.inq-detail-tabs').querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const body = btn.closest('.inq-detail-panel').querySelector('.inq-detail-body');
+  body.querySelectorAll('[id^="tab-"]').forEach(t=>t.style.display='none');
+  const tab = document.getElementById(tabId);
+  if (tab) tab.style.display='block';
+  if (tabId==='tab-timeline' && selectedInquiryId) loadTimeline(selectedInquiryId);
+}
+
+async function loadTimeline(inquiryId) {
+  const container = document.getElementById('timeline-container');
+  if (!container) return;
+  container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    let events;
+    if (demoMode) { events = DEMO_TIMELINE[inquiryId] || []; }
+    else { events = await apiFetch('get-timeline',{inquiry_id:inquiryId}); }
+    renderTimeline(events);
+  } catch { container.innerHTML = '<div class="tl-empty">Failed to load timeline.</div>'; }
+}
+
+function renderTimeline(events) {
+  const container = document.getElementById('timeline-container');
+  if (!container) return;
+  const icons = { note:'📝', call:'📞', email:'✉', viewing_scheduled:'📅', viewing_completed:'✅', offer_made:'🤝', status_changed:'🔄', financing_requested:'🏦', other:'•' };
+  if (!events.length) { container.innerHTML = '<div class="tl-empty">No activity yet. Add the first note!</div>'; return; }
+  container.innerHTML = `<div class="timeline">${events.map(e=>`
+    <div class="tl-item">
+      <div class="tl-icon">${icons[e.event_type]||'•'}</div>
+      <div class="tl-content">
+        <div class="tl-type">${e.event_type.replace(/_/g,' ')}</div>
+        ${e.note?`<div class="tl-note">${esc(e.note)}</div>`:''}
+        <div class="tl-time">${fmtDate(e.created_at)}</div>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+
+async function addTimelineNote(inquiryId) {
+  const note = document.getElementById('note-text-inp')?.value.trim();
+  const type = document.getElementById('note-type-sel')?.value || 'note';
+  if (!note) return;
   try {
     if (demoMode) {
-      const inq = allInquiries.find(i => i.id === id);
-      if (inq) inq.status = status;
-      toast('Status updated (demo)');
+      const ev = { id:'t'+Date.now(), inquiry_id:inquiryId, event_type:type, note, created_at:new Date().toISOString() };
+      if (!DEMO_TIMELINE[inquiryId]) DEMO_TIMELINE[inquiryId]=[];
+      DEMO_TIMELINE[inquiryId].unshift(ev);
+      toast('Note added (demo)');
     } else {
-      await apiFetch('update-inquiry', { id }, { method: 'PATCH', body: { status } });
-      toast('Status updated');
+      await apiFetch('add-timeline-event',{},{method:'POST',body:{inquiry_id:inquiryId,event_type:type,note}});
+      toast('Note added');
+    }
+    const inp = document.getElementById('note-text-inp');
+    if (inp) inp.value='';
+    loadTimeline(inquiryId);
+  } catch(e) { toast('Failed: '+e.message,'error'); }
+}
+
+async function updateInqStatus(id, status) {
+  try {
+    if (demoMode) { const inq=allInquiries.find(i=>i.id===id); if(inq){inq.status=status;} toast('Status updated (demo)'); }
+    else { await apiFetch('update-inquiry',{id},{method:'PATCH',body:{status}}); toast('Status updated'); }
+    // Add timeline event
+    if (demoMode && DEMO_TIMELINE[id]) {
+      DEMO_TIMELINE[id].unshift({id:'t'+Date.now(),inquiry_id:id,event_type:'status_changed',note:`Status changed to ${status.replace(/_/g,' ')}`,created_at:new Date().toISOString()});
     }
     renderInquiryList(allInquiries);
-    selectInquiry(id);
-  } catch (e) {
-    toast('Failed: ' + e.message, 'error');
-  }
+    if (selectedInquiryId===id) loadTimeline(id);
+  } catch(e) { toast('Failed: '+e.message,'error'); }
 }
 
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
+//  CALENDAR & APPOINTMENTS
+// ════════════════════════════════════════
+async function loadAppointments() {
+  try {
+    if (demoMode) { allAppts = DEMO_APPTS; }
+    else { allAppts = await apiFetch('get-appointments',{}); }
+    renderCalendar();
+    renderUpcoming();
+  } catch {}
+}
+
+function calNav(dir) {
+  if (dir === 0) { const n=new Date(); calYear=n.getFullYear(); calMonth=n.getMonth(); }
+  else {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth=0; calYear++; }
+    if (calMonth < 0)  { calMonth=11; calYear--; }
+  }
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-label').textContent = `${months[calMonth]} ${calYear}`;
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const daysInPrev = new Date(calYear, calMonth, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  let cells = '';
+  // Prev month padding
+  for (let i=firstDay-1; i>=0; i--) {
+    cells += `<div class="cal-day other-month"><div class="cal-day-num">${daysInPrev-i}</div></div>`;
+  }
+  // Current month
+  for (let d=1; d<=daysInMonth; d++) {
+    const date = new Date(calYear, calMonth, d);
+    const isToday = date.toDateString()===today.toDateString();
+    const dayAppts = allAppts.filter(a => {
+      const ad = new Date(a.scheduled_at); ad.setHours(0,0,0,0);
+      return ad.toDateString()===date.toDateString();
+    });
+    const maxShow = 3;
+    const more = dayAppts.length > maxShow ? dayAppts.length - maxShow : 0;
+    cells += `<div class="cal-day ${isToday?'today':''}" onclick="calDayClick(${calYear},${calMonth},${d})">
+      <div class="cal-day-num">${d}</div>
+      ${dayAppts.slice(0,maxShow).map(a=>`<div class="cal-event status-${a.status}" onclick="event.stopPropagation();viewAppt('${a.id}')" title="${esc(a.client_name||'')} — ${esc(a.location||'')}">
+        ${fmtTime(a.scheduled_at)} ${esc((a.client_name||'').split(' ')[0])}
+      </div>`).join('')}
+      ${more?`<div class="cal-more">+${more} more</div>`:''}
+    </div>`;
+  }
+  // Next month padding
+  const total = firstDay + daysInMonth;
+  const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+  for (let i=1; i<=remaining; i++) {
+    cells += `<div class="cal-day other-month"><div class="cal-day-num">${i}</div></div>`;
+  }
+  document.getElementById('cal-grid').innerHTML = cells;
+  renderUpcoming();
+}
+
+function fmtTime(iso) {
+  return new Date(iso).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+}
+
+function calDayClick(y, m, d) {
+  const dt = new Date(y, m, d, 10, 0);
+  openApptModal(null, dt);
+}
+
+function renderUpcoming() {
+  const now = new Date();
+  const upcoming = allAppts
+    .filter(a => new Date(a.scheduled_at) >= now && a.status !== 'cancelled')
+    .sort((a,b)=>new Date(a.scheduled_at)-new Date(b.scheduled_at))
+    .slice(0,8);
+  const el = document.getElementById('upcoming-appts');
+  if (!el) return;
+  if (!upcoming.length) { el.innerHTML='<div style="text-align:center;padding:20px;color:var(--c-muted);font-size:13px">No upcoming viewings</div>'; return; }
+  el.innerHTML = upcoming.map(a=>renderApptCard(a)).join('');
+}
+
+function renderApptCard(a) {
+  return `<div class="appt-card status-${a.status}" onclick="viewAppt('${a.id}')">
+    <div class="appt-time">${fmtDate(a.scheduled_at)} · ${fmtTime(a.scheduled_at)} (${a.duration_min||60}min)</div>
+    <div class="appt-client">${esc(a.client_name||'—')}</div>
+    <div class="appt-prop">${esc(a.location||a.property_slug||'—')}</div>
+    <div class="appt-actions" onclick="event.stopPropagation()">
+      ${a.status==='pending'?`<button class="btn btn-green btn-sm" onclick="updateApptStatus('${a.id}','confirmed')">Confirm</button>`:''}
+      ${a.status==='confirmed'?`<button class="btn btn-ghost btn-sm" onclick="updateApptStatus('${a.id}','completed')">Complete</button>`:''}
+      <button class="btn btn-ghost btn-sm" onclick="editAppt('${a.id}')">Edit</button>
+      ${a.status!=='cancelled'?`<button class="btn btn-sm" style="background:var(--c-red-l);color:var(--c-red);border:1px solid transparent" onclick="updateApptStatus('${a.id}','cancelled')">Cancel</button>`:''}
+    </div>
+  </div>`;
+}
+
+function viewAppt(id) {
+  const a = allAppts.find(x=>x.id===id); if(!a)return;
+  editAppt(id);
+}
+
+async function updateApptStatus(id, status) {
+  try {
+    if (demoMode) { const a=allAppts.find(x=>x.id===id); if(a)a.status=status; toast('Updated (demo)'); }
+    else { await apiFetch('update-appointment',{id},{method:'PATCH',body:{status}}); toast('Appointment updated'); }
+    renderCalendar(); renderUpcoming();
+    if (document.getElementById('page-dashboard').classList.contains('active')) renderTodayAppts(allAppts);
+  } catch(e) { toast('Failed: '+e.message,'error'); }
+}
+
+function openApptModal(appt=null, prefillDate=null) {
+  editingApptId = appt?.id || null;
+  document.getElementById('appt-modal-title').textContent = appt ? 'Edit Viewing' : 'Schedule Viewing';
+  clearApptForm();
+  if (appt) {
+    document.getElementById('a-client-name').value = appt.client_name||'';
+    document.getElementById('a-client-email').value = appt.client_email||'';
+    document.getElementById('a-client-phone').value = appt.client_phone||'';
+    document.getElementById('a-location').value = appt.location||'';
+    document.getElementById('a-datetime').value = appt.scheduled_at ? toLocalDatetimeInput(appt.scheduled_at) : '';
+    document.getElementById('a-duration').value = appt.duration_min||60;
+    document.getElementById('a-status').value = appt.status||'pending';
+    document.getElementById('a-notes').value = appt.notes||'';
+    if (appt.inquiry_id) document.getElementById('a-inquiry').value = appt.inquiry_id;
+  } else if (prefillDate) {
+    document.getElementById('a-datetime').value = toLocalDatetimeInput(prefillDate.toISOString());
+  }
+  // Populate inquiry dropdown
+  const sel = document.getElementById('a-inquiry');
+  const current = sel.value;
+  sel.innerHTML = '<option value="">— None —</option>' + allInquiries.map(i=>`<option value="${i.id}" ${current===i.id?'selected':''}>${esc(i.first_name+' '+(i.last_name||''))} — ${esc(i.property_slug||'')}</option>`).join('');
+  if (appt?.inquiry_id) sel.value = appt.inquiry_id;
+  document.getElementById('appt-modal').classList.add('open');
+}
+
+function scheduleFromLead(inqId, name, email, phone, propSlug) {
+  openApptModal(null, null);
+  document.getElementById('a-client-name').value = name;
+  document.getElementById('a-client-email').value = email;
+  document.getElementById('a-client-phone').value = phone;
+  document.getElementById('a-location').value = propSlug;
+  document.getElementById('a-inquiry').value = inqId;
+  navigate('calendar', document.querySelectorAll('.nav-item')[3]);
+}
+
+function editAppt(id) {
+  const a = allAppts.find(x=>x.id===id); if(!a)return;
+  openApptModal(a);
+}
+
+function clearApptForm() {
+  ['a-client-name','a-client-email','a-client-phone','a-location','a-datetime','a-notes'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('a-duration').value='60';
+  document.getElementById('a-status').value='pending';
+}
+function closeApptModal() { document.getElementById('appt-modal').classList.remove('open'); }
+
+async function saveAppt() {
+  const dt = document.getElementById('a-datetime').value;
+  if (!dt) { toast('Date & time required.','error'); return; }
+  const body = {
+    client_name:document.getElementById('a-client-name').value.trim(),
+    client_email:document.getElementById('a-client-email').value.trim(),
+    client_phone:document.getElementById('a-client-phone').value.trim(),
+    location:document.getElementById('a-location').value.trim(),
+    scheduled_at:new Date(dt).toISOString(),
+    duration_min:parseInt(document.getElementById('a-duration').value)||60,
+    status:document.getElementById('a-status').value,
+    notes:document.getElementById('a-notes').value.trim(),
+    inquiry_id:document.getElementById('a-inquiry').value||null,
+  };
+  const btn = document.getElementById('save-appt-btn');
+  btn.textContent='Saving…'; btn.disabled=true;
+  try {
+    if (demoMode) {
+      if (editingApptId) { const i=allAppts.findIndex(a=>a.id===editingApptId); if(i>-1)allAppts[i]={...allAppts[i],...body}; toast('Viewing updated (demo)'); }
+      else { allAppts.push({...body,id:'a'+Date.now(),created_at:new Date().toISOString()}); toast('Viewing scheduled (demo)'); }
+    } else {
+      if (editingApptId) { await apiFetch('update-appointment',{id:editingApptId},{method:'PATCH',body}); toast('Viewing updated'); }
+      else { await apiFetch('create-appointment',{},{method:'POST',body}); toast('Viewing scheduled'); }
+      allAppts = await apiFetch('get-appointments',{});
+    }
+    closeApptModal();
+    renderCalendar();
+    if (document.getElementById('page-dashboard').classList.contains('active')) renderTodayAppts(allAppts);
+  } catch(e) { toast('Save failed: '+e.message,'error'); }
+  finally { btn.textContent='Save Viewing'; btn.disabled=false; }
+}
+
+function toLocalDatetimeInput(iso) {
+  const d = new Date(iso);
+  const pad = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+// ════════════════════════════════════════
 //  ANALYTICS
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
 async function loadAnalytics() {
   try {
-    const props = demoMode ? DEMO_PROPS : await apiFetch('get-properties', { limit: 200 });
-    const inqs = demoMode ? DEMO_INQUIRIES : await apiFetch('get-inquiries', { limit: 200 });
-    const totalViews = props.reduce((s, p) => s + (p.views || 0), 0);
-    const avgPrice = props.length ? Math.round(props.reduce((s, p) => s + p.price, 0) / props.length) : 0;
+    const props = demoMode ? DEMO_PROPS : await apiFetch('get-properties',{limit:500,admin:1});
+    const inqs  = demoMode ? DEMO_INQUIRIES : await apiFetch('get-inquiries',{limit:500});
+    const totalViews = props.reduce((s,p)=>s+(p.views||0),0);
+    const avgPrice = props.length ? Math.round(props.reduce((s,p)=>s+p.price,0)/props.length) : 0;
     document.getElementById('an-views').textContent = totalViews.toLocaleString();
-    document.getElementById('an-conv').textContent = props.length ? ((inqs.length / totalViews) * 100).toFixed(1) + '%' : '—';
-    document.getElementById('an-avg').textContent = avgPrice ? '$' + Math.round(avgPrice/1000) + 'k' : '—';
+    document.getElementById('an-conv').textContent  = totalViews ? ((inqs.length/totalViews)*100).toFixed(2)+'%' : '—';
+    document.getElementById('an-avg').textContent   = avgPrice ? '$'+fmtK(avgPrice) : '—';
     document.getElementById('an-total').textContent = props.length;
 
-    // Type chart
-    const typeCounts = {};
-    props.forEach(p => { typeCounts[p.type] = (typeCounts[p.type] || 0) + 1; });
-    renderDonut('type-chart', typeChartInst, Object.keys(typeCounts), Object.values(typeCounts));
+    const typeCounts={};
+    props.forEach(p=>{ typeCounts[p.type]=(typeCounts[p.type]||0)+1; });
+    renderDonut('type-chart',typeChartInst,Object.keys(typeCounts),Object.values(typeCounts));
 
-    // Intent chart
-    const buy = props.filter(p => p.intent === 'Buy').length;
-    const rent = props.filter(p => p.intent === 'Rent').length;
-    renderDonut('intent-chart', intentChartInst, ['Buy', 'Rent'], [buy, rent], ['#0C0C0C','#B8975A']);
-  } catch (e) { /* silent */ }
+    const buy=props.filter(p=>p.intent==='Buy').length, rent=props.filter(p=>p.intent==='Rent').length;
+    renderDonut('intent-chart',intentChartInst,['Buy','Rent'],[buy,rent],['#0C0C0C','#B8975A']);
+
+    const statuses=['new','contacted','tour_scheduled','offer_made','closed','lost'];
+    const statusCounts=statuses.map(s=>inqs.filter(i=>i.status===s).length);
+    renderBar('lead-chart',leadChartInst,statuses.map(s=>s.replace(/_/g,' ')),statusCounts);
+  } catch {}
 }
 
-function renderDonut(canvasId, existing, labels, data, colors) {
-  const ctx = document.getElementById(canvasId)?.getContext('2d');
-  if (!ctx) return;
-  if (existing) existing.destroy();
-  const palette = colors || ['#0C0C0C','#B8975A','#2651C4','#1B7A52','#B87333','#7A7670'];
-  const inst = new Chart(ctx, {
-    type: 'doughnut',
-    data: { labels, datasets: [{ data, backgroundColor: palette.slice(0, data.length), borderWidth: 2, borderColor: '#fff' }] },
-    options: {
-      responsive: true,
-      plugins: { legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 16 } } },
-      cutout: '62%',
-    }
-  });
-  if (canvasId === 'type-chart') typeChartInst = inst;
-  else intentChartInst = inst;
+function renderDonut(id, existing, labels, data, colors) {
+  const ctx=document.getElementById(id)?.getContext('2d'); if(!ctx)return;
+  if(existing)existing.destroy();
+  const pal=colors||['#0C0C0C','#B8975A','#2651C4','#1B7A52','#B87333','#7A7670'];
+  const inst=new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:pal.slice(0,data.length),borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:12},padding:14}}},cutout:'60%'}});
+  if(id==='type-chart')typeChartInst=inst; else intentChartInst=inst;
 }
 
-// ══════════════════════════════════════════
+function renderBar(id, existing, labels, data) {
+  const ctx=document.getElementById(id)?.getContext('2d'); if(!ctx)return;
+  if(existing)existing.destroy();
+  leadChartInst=new Chart(ctx,{type:'bar',data:{labels,datasets:[{data,backgroundColor:'#0C0C0C',borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#f0ede8'},border:{display:false},ticks:{precision:0}}}}});
+}
+
+// ════════════════════════════════════════
+//  CONFIRM DELETE
+// ════════════════════════════════════════
+function confirmDel(id, type) {
+  document.getElementById('confirm-title').textContent = type==='property' ? 'Delete Property?' : 'Delete?';
+  document.getElementById('confirm-msg').textContent = 'This action cannot be undone.';
+  document.getElementById('confirm-overlay').classList.add('open');
+  document.getElementById('confirm-ok-btn').onclick = async () => {
+    document.getElementById('confirm-overlay').classList.remove('open');
+    try {
+      if (demoMode) { allProps=allProps.filter(p=>p.id!==id); toast('Deleted (demo)'); }
+      else { await apiFetch('delete-property',{id},{method:'DELETE'}); toast('Deleted'); await loadProperties(); }
+      renderPropTable(allProps);
+    } catch(e) { toast('Failed: '+e.message,'error'); }
+  };
+}
+
+// ════════════════════════════════════════
 //  UTILS
-// ══════════════════════════════════════════
-function toast(msg, type = 'success') {
-  const el = document.createElement('div');
-  el.className = `toast${type === 'error' ? ' error' : ''}`;
-  el.innerHTML = `<span>${type === 'success' ? '✓' : '⚠'}</span> ${msg}`;
+// ════════════════════════════════════════
+function toast(msg, type='success') {
+  const el=document.createElement('div');
+  el.className=`toast${type==='error'?' error':type==='success'?' success':''}`;
+  el.innerHTML=`<span>${type==='error'?'⚠':'✓'}</span> ${msg}`;
   document.body.appendChild(el);
-  requestAnimationFrame(() => el.classList.add('show'));
-  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 3500);
+  requestAnimationFrame(()=>el.classList.add('show'));
+  setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),300);},3500);
 }
-
 function timeAgo(s) {
-  const d = Math.floor((Date.now() - new Date(s)) / 86400000);
-  return d === 0 ? 'Today' : d === 1 ? 'Yesterday' : `${d}d ago`;
+  const d=Math.floor((Date.now()-new Date(s))/86400000);
+  return d===0?'Today':d===1?'Yesterday':`${d}d ago`;
 }
+function fmtDate(s) { return new Date(s).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+function slugify(str) { return (str||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+function esc(str) { return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function slugify(str) {
-  return (str || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-}
-
-// ══════════════════════════════════════════
-//  INIT — check existing session
-// ══════════════════════════════════════════
+// ════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════
 (function init() {
   const saved = sessionStorage.getItem('lucent_admin_token');
-  if (saved) {
-    adminToken = saved;
-    enterApp();
-  }
+  if (saved) { adminToken=saved; enterApp(); }
 })();
 </script>
 </body>
