@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Lucent Estate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c-bg:#F5F3EE;--c-white:#FFFFFF;--c-ink:#0C0C0C;--c-muted:#7A7670;
+  --c-border:#E2DFD8;--c-gold:#B8975A;--c-green:#1B7A52;--c-green-l:#E6F4ED;
+  --c-amber:#B87333;--c-amber-l:#F7EDE0;--c-blue:#2651C4;--c-blue-l:#EBF0FC;
+  --c-red:#C0392B;--c-red-l:#FDF0EF;
+  --r-sm:6px;--r-md:12px;--r-lg:18px;--r-xl:28px;
+  --sh-sm:0 1px 4px rgba(0,0,0,.06);--sh-md:0 4px 20px rgba(0,0,0,.08);--sh-lg:0 16px 48px rgba(0,0,0,.12);
+  --font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ─── LOGIN SCREEN ─── */
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--c-ink)}
+.login-box{background:#fff;border-radius:var(--r-xl);padding:48px;width:400px;max-width:95vw}
+.login-logo{font-family:var(--font-serif);font-size:32px;font-weight:300;margin-bottom:4px}
+.login-sub{font-size:13px;color:var(--c-muted);margin-bottom:32px}
+.form-field{margin-bottom:14px}
+.form-field label{font-size:11px;font-weight:600;color:var(--c-muted);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:5px}
+.form-field input,.form-field textarea,.form-field select{width:100%;border:1px solid var(--c-border);border-radius:var(--r-sm);padding:11px 12px;font-family:var(--font-sans);font-size:14px;outline:none;background:#fff;color:var(--c-ink);transition:border-color .15s}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--c-ink)}
+.form-field textarea{resize:vertical;min-height:80px}
+.login-err{color:var(--c-red);font-size:12px;margin-bottom:10px;display:none}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:var(--r-sm);font-family:var(--font-sans);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .18s;text-decoration:none;line-height:1}
+.btn-primary{background:var(--c-ink);color:#fff}
+.btn-primary:hover{background:#2a2a2a}
+.btn-ghost{background:transparent;color:var(--c-muted);border:1px solid var(--c-border)}
+.btn-ghost:hover{color:var(--c-ink);border-color:var(--c-ink)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.btn-danger{background:var(--c-red);color:#fff}
+.btn-danger:hover{opacity:.9}
+.btn-full{width:100%;justify-content:center}
+.btn-gold{background:var(--c-gold);color:#fff}
+.btn-green{background:var(--c-green);color:#fff}
+
+/* ─── APP SHELL ─── */
+.app{display:flex;min-height:100vh;display:none}
+.app.visible{display:flex}
+
+/* Sidebar */
+.sidebar{width:228px;flex-shrink:0;background:#fff;border-right:1px solid var(--c-border);display:flex;flex-direction:column;padding:20px 12px;position:fixed;top:0;bottom:0;left:0;z-index:100;overflow-y:auto}
+.sidebar-logo{font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--c-ink);padding:8px 10px;margin-bottom:24px;letter-spacing:.3px}
+.sidebar-logo span{font-size:11px;color:var(--c-muted);display:block;font-family:var(--font-sans);font-weight:500;letter-spacing:.06em}
+.nav-section{margin-bottom:24px}
+.nav-section h5{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);padding:0 10px;margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:var(--r-sm);font-size:13px;font-weight:500;color:var(--c-muted);cursor:pointer;transition:all .15s;margin-bottom:2px;position:relative;user-select:none;border:none;background:none;width:100%;text-align:left;font-family:var(--font-sans)}
+.nav-item:hover{background:var(--c-bg);color:var(--c-ink)}
+.nav-item.active{background:var(--c-bg);color:var(--c-ink);font-weight:600}
+.nav-item.active::before{content:'';position:absolute;left:0;top:25%;bottom:25%;width:3px;background:var(--c-ink);border-radius:0 2px 2px 0}
+.nav-item .badge{margin-left:auto;background:var(--c-ink);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px}
+.nav-item .badge-amber{background:var(--c-amber)}
+.sidebar-bottom{margin-top:auto}
+
+/* Main area */
+.main{margin-left:228px;flex:1;overflow-y:auto;max-height:100vh}
+.topbar{height:58px;border-bottom:1px solid var(--c-border);background:#fff;display:flex;align-items:center;padding:0 32px;gap:0;position:sticky;top:0;z-index:50}
+.topbar-title{font-family:var(--font-serif);font-size:20px;font-weight:400}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--r-sm);padding:7px 14px;min-width:200px}
+.search-box input{border:none;outline:none;font-size:13px;font-family:var(--font-sans);flex:1;background:transparent;color:var(--c-ink)}
+.search-box input::placeholder{color:var(--c-muted)}
+.content{padding:28px 32px}
+
+/* Sections */
+.section{display:none}
+.section.active{display:block}
+
+/* ─── DASHBOARD ─── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi-card{background:#fff;border-radius:var(--r-lg);padding:20px;border:1px solid var(--c-border);position:relative;overflow:hidden}
+.kpi-label{font-size:11px;font-weight:600;color:var(--c-muted);letter-spacing:.04em;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
+.kpi-val{font-family:var(--font-serif);font-size:34px;font-weight:400;color:var(--c-ink);line-height:1;margin-bottom:8px}
+.kpi-sub{font-size:11px;display:flex;align-items:center;gap:5px;color:var(--c-muted)}
+.kpi-up{color:var(--c-green)}
+.kpi-down{color:var(--c-red)}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+.chart-card{background:#fff;border-radius:var(--r-lg);padding:22px;border:1px solid var(--c-border)}
+.chart-card h3{font-size:13px;font-weight:500;color:var(--c-muted);margin-bottom:4px}
+.chart-val{font-family:var(--font-serif);font-size:26px;font-weight:400;color:var(--c-ink);margin-bottom:16px}
+.bottom-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:24px}
+
+/* Cards */
+.card{background:#fff;border-radius:var(--r-lg);padding:22px;border:1px solid var(--c-border)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card-header h3{font-size:15px;font-weight:600;color:var(--c-ink)}
+
+/* Tab bar */
+.tab-bar{display:flex;gap:0;border-bottom:1px solid var(--c-border);margin-bottom:16px}
+.tab-bar button{padding:9px 14px;border:none;background:none;font-size:13px;font-weight:500;color:var(--c-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;font-family:var(--font-sans)}
+.tab-bar button.active{color:var(--c-ink);border-bottom-color:var(--c-ink)}
+.chip{background:var(--c-bg);color:var(--c-muted);font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:5px}
+
+/* Table */
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{font-size:10px;font-weight:700;color:var(--c-muted);text-align:left;padding:6px 10px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.data-table td{padding:12px 10px;border-top:1px solid var(--c-border);vertical-align:middle;font-size:13px}
+.data-table tr:hover td{background:var(--c-bg)}
+.thumb{width:48px;height:36px;border-radius:6px;object-fit:cover;display:block}
+.info-cell .main{font-weight:600;font-size:13px}
+.info-cell .sub{font-size:11px;color:var(--c-muted)}
+.status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.status-pill::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+.pill-active{background:var(--c-green-l);color:var(--c-green)}
+.pill-pending{background:var(--c-amber-l);color:var(--c-amber)}
+.pill-sold{background:var(--c-blue-l);color:var(--c-blue)}
+.pill-new{background:var(--c-amber-l);color:var(--c-amber)}
+.pill-contacted{background:var(--c-blue-l);color:var(--c-blue)}
+.pill-closed{background:var(--c-green-l);color:var(--c-green)}
+.pill-lost{background:var(--c-red-l);color:var(--c-red)}
+.action-cell{display:flex;gap:6px}
+.icon-btn{width:30px;height:30px;border:1px solid var(--c-border);border-radius:var(--r-sm);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-muted);transition:all .15s;font-size:14px}
+.icon-btn:hover{border-color:var(--c-ink);color:var(--c-ink)}
+.icon-btn.danger:hover{border-color:var(--c-red);color:var(--c-red)}
+
+/* Realtor list */
+.realtor-list{display:flex;flex-direction:column;gap:14px}
+.realtor-row{display:flex;align-items:center;gap:10px}
+.realtor-avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--c-bg)}
+.realtor-info{flex:1}
+.realtor-info .name{font-size:13px;font-weight:500}
+.progress{height:4px;background:var(--c-bg);border-radius:2px;margin-top:5px}
+.progress-fill{height:100%;border-radius:2px;background:var(--c-ink);transition:width .6s ease}
+.realtor-pct{font-size:12px;font-weight:700;flex-shrink:0}
+
+/* ─── CRM KANBAN ─── */
+.pipeline{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px}
+.pipeline-col{min-width:210px;flex-shrink:0}
+.col-head{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c-muted);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.lead-card{background:#fff;border-radius:var(--r-md);padding:14px;border:1px solid var(--c-border);margin-bottom:8px;cursor:pointer;transition:all .15s}
+.lead-card:hover{box-shadow:var(--sh-md);border-color:var(--c-muted);transform:translateY(-1px)}
+.lead-name{font-size:13px;font-weight:600;margin-bottom:2px}
+.lead-prop{font-size:11px;color:var(--c-muted);margin-bottom:10px}
+.lead-meta{display:flex;align-items:center;justify-content:space-between}
+.score-badge{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.score-high{background:var(--c-green-l);color:var(--c-green)}
+.score-mid{background:var(--c-amber-l);color:var(--c-amber)}
+.score-low{background:var(--c-red-l);color:var(--c-red)}
+.lead-date{font-size:10px;color:var(--c-muted)}
+
+/* Timeline */
+.timeline{display:flex;flex-direction:column}
+.tl-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--c-border)}
+.tl-item:last-child{border-bottom:none}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--c-ink);flex-shrink:0;margin-top:5px}
+.tl-content .type{font-size:10px;font-weight:700;color:var(--c-muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.tl-content .text{font-size:13px;color:var(--c-ink)}
+.tl-content .time{font-size:11px;color:var(--c-muted);margin-top:3px}
+
+/* ─── FINANCE ─── */
+.fin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.fin-card{background:#fff;border-radius:var(--r-lg);padding:20px;border:1px solid var(--c-border)}
+.fin-label{font-size:11px;font-weight:600;color:var(--c-muted);letter-spacing:.04em;margin-bottom:6px}
+.fin-amount{font-family:var(--font-serif);font-size:28px;font-weight:400;color:var(--c-ink);margin-bottom:4px}
+.fin-delta{font-size:11px}
+.tax-notice{background:var(--c-amber-l);border:1px solid rgba(184,115,51,.2);border-radius:var(--r-md);padding:12px 16px;font-size:12px;color:var(--c-amber);margin-bottom:20px}
+
+/* ─── NEW LISTING FORM ─── */
+.overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(10,10,10,.65);backdrop-filter:blur(8px);align-items:flex-start;justify-content:center;padding:32px;overflow-y:auto}
+.overlay.open{display:flex}
+.listing-modal{background:#fff;border-radius:var(--r-xl);padding:40px;width:100%;max-width:680px;animation:fadeUp .22s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.listing-modal h2{font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:4px}
+.listing-modal .sub{font-size:13px;color:var(--c-muted);margin-bottom:28px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-span-2{grid-column:1/-1}
+.form-row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.image-upload-area{border:2px dashed var(--c-border);border-radius:var(--r-lg);padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:var(--c-bg)}
+.image-upload-area:hover{border-color:var(--c-ink);background:#fff}
+.image-upload-area input{display:none}
+.upload-previews{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.upload-preview{width:80px;height:60px;border-radius:var(--r-sm);overflow:hidden;position:relative;border:1px solid var(--c-border)}
+.upload-preview img{width:100%;height:100%;object-fit:cover}
+.upload-preview .rm{position:absolute;top:2px;right:2px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.upload-progress{height:3px;background:var(--c-border);border-radius:2px;margin-top:8px;overflow:hidden}
+.upload-progress-bar{height:100%;background:var(--c-green);border-radius:2px;width:0;transition:width .2s}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:24px;padding-top:20px;border-top:1px solid var(--c-border)}
+.modal-close-x{position:absolute;top:16px;right:16px;width:32px;height:32px;border:none;background:var(--c-bg);border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--c-muted)}
+.modal-close-x:hover{background:var(--c-border)}
+
+/* Toast */
+.toast{position:fixed;bottom:32px;right:32px;background:var(--c-ink);color:#fff;padding:12px 20px;border-radius:var(--r-md);font-size:13px;font-weight:500;z-index:999;display:flex;align-items:center;gap:8px;box-shadow:var(--sh-lg);transform:translateY(16px);opacity:0;transition:all .25s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-error{background:#b91c1c}
+.toast-success{background:var(--c-green)}
+
+.hidden{display:none!important}
+.text-muted{color:var(--c-muted)}
+
+/* Skeleton */
+.skel{background:linear-gradient(90deg,#eae8e3 25%,#f0ede8 50%,#eae8e3 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--r-sm)}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+@media(max-width:1100px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .charts-grid,.bottom-grid,.fin-grid{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+  .sidebar{width:60px;padding:12px 8px}
+  .sidebar-logo{display:none}
+  .nav-section h5{display:none}
+  .nav-item span{display:none}
+  .nav-item{justify-content:center;padding:10px}
+  .nav-item.active::before{display:none}
+  .main{margin-left:60px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Lucent</div>
+    <div class="login-sub">Admin dashboard — sign in to continue</div>
+    <div class="form-field">
+      <label>Admin Password</label>
+      <input type="password" id="login-pw" placeholder="Enter your admin password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
+    <button class="btn btn-primary btn-full" onclick="doLogin()" style="margin-top:4px">
+      <span id="login-text">Sign In</span>
+    </button>
+    <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--c-muted)"><a href="/" style="color:var(--c-muted)">← Back to site</a></p>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">Lucent <span>Estate Admin</span></div>
+    <div class="nav-section">
+      <h5>Main</h5>
+      <button class="nav-item active" onclick="showSection('dashboard',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item" onclick="showSection('listings',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        <span>Listings</span>
+      </button>
+      <button class="nav-item" onclick="showSection('crm',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>CRM / Leads</span>
+        <span class="badge badge-amber" id="new-leads-badge">0</span>
+      </button>
+      <button class="nav-item" onclick="showSection('finance',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        <span>Finance</span>
+      </button>
+    </div>
+    <div class="nav-section">
+      <h5>Team</h5>
+      <button class="nav-item" onclick="toast('Team management — coming soon')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Team</span>
+      </button>
+      <button class="nav-item" onclick="toast('Messages — coming soon')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Messages</span>
+      </button>
+    </div>
+    <div class="nav-section sidebar-bottom">
+      <button class="nav-item" onclick="showSection('settings',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 00-14.14 0M4.93 19.07a10 10 0 0014.14 0"/></svg>
+        <span>Settings</span>
+      </button>
+      <button class="nav-item" onclick="doLogout()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Sign Out</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="global-search" placeholder="Search listings, leads…" oninput="globalSearch(this.value)">
+        </div>
+        <button class="btn btn-primary" onclick="openListingForm()">+ New Listing</button>
+        <a href="/" class="btn btn-ghost btn-sm">View Site ↗</a>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ── DASHBOARD ── -->
+      <section class="section active" id="sec-dashboard">
+        <div style="margin-bottom:20px">
+          <h2 style="font-family:var(--font-serif);font-size:22px;font-weight:400">Good morning, Admin</h2>
+          <p style="font-size:13px;color:var(--c-muted)" id="dash-date"></p>
+        </div>
+        <div class="kpi-grid" id="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Active Listings</div><div class="kpi-val skel" style="height:40px;width:60px;border-radius:6px"></div></div>
+          <div class="kpi-card"><div class="kpi-label">Total Inquiries</div><div class="kpi-val skel" style="height:40px;width:60px;border-radius:6px"></div></div>
+          <div class="kpi-card"><div class="kpi-label">New Leads</div><div class="kpi-val skel" style="height:40px;width:60px;border-radius:6px"></div></div>
+          <div class="kpi-card"><div class="kpi-label">Sold</div><div class="kpi-val skel" style="height:40px;width:60px;border-radius:6px"></div></div>
+        </div>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3>Total Revenue</h3>
+            <div class="chart-val" id="rev-val">$—</div>
+            <canvas id="chart-revenue" height="100"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>Sales count</h3>
+            <div class="chart-val" id="sales-val">—</div>
+            <canvas id="chart-sales" height="100"></canvas>
+          </div>
+        </div>
+        <div class="bottom-grid">
+          <div class="card">
+            <div class="card-header">
+              <h3>Active Listings</h3>
+              <button class="btn btn-primary btn-sm" onclick="openListingForm()">+ New</button>
+            </div>
+            <div class="tab-bar">
+              <button class="active" onclick="filterListingsTab('all',this)">All <span class="chip" id="tab-all">—</span></button>
+              <button onclick="filterListingsTab('active',this)">Active <span class="chip" id="tab-active">—</span></button>
+              <button onclick="filterListingsTab('pending',this)">Pending <span class="chip" id="tab-pending">—</span></button>
+              <button onclick="filterListingsTab('sold',this)">Sold <span class="chip" id="tab-sold">—</span></button>
+            </div>
+            <table class="data-table" id="dash-listings-table"><tbody><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--c-muted)">Loading…</td></tr></tbody></table>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Realtor Efficiency</h3></div>
+            <div class="realtor-list">
+              <div class="realtor-row"><div class="realtor-avatar skel" style="border-radius:50%"></div><div class="realtor-info"><div class="skel" style="height:12px;width:100px"></div><div class="progress" style="margin-top:8px"><div class="progress-fill skel" style="width:100%"></div></div></div></div>
+              <div class="realtor-row"><div class="realtor-avatar skel" style="border-radius:50%"></div><div class="realtor-info"><div class="skel" style="height:12px;width:80px"></div><div class="progress" style="margin-top:8px"><div class="progress-fill skel" style="width:100%"></div></div></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── LISTINGS ── -->
+      <section class="section" id="sec-listings">
+        <div class="card-header" style="margin-bottom:16px">
+          <div>
+            <h2 style="font-family:var(--font-serif);font-size:22px;font-weight:400">Listings</h2>
+            <p style="font-size:13px;color:var(--c-muted)">Manage and track all property advertisements</p>
+          </div>
+          <button class="btn btn-primary" onclick="openListingForm()">+ New Listing</button>
+        </div>
+        <div class="card">
+          <div class="tab-bar">
+            <button class="active" onclick="filterListingsTab('all',this,'listings-table')">All <span class="chip">—</span></button>
+            <button onclick="filterListingsTab('active',this,'listings-table')">Active <span class="chip">—</span></button>
+            <button onclick="filterListingsTab('rent',this,'listings-table')">Rent <span class="chip">—</span></button>
+            <button onclick="filterListingsTab('pending',this,'listings-table')">Pending <span class="chip">—</span></button>
+            <button onclick="filterListingsTab('sold',this,'listings-table')">Sold <span class="chip">—</span></button>
+          </div>
+          <table class="data-table" id="listings-table"><tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--c-muted)">Loading…</td></tr></tbody></table>
+        </div>
+      </section>
+
+      <!-- ── CRM ── -->
+      <section class="section" id="sec-crm">
+        <div class="card-header" style="margin-bottom:16px">
+          <div>
+            <h2 style="font-family:var(--font-serif);font-size:22px;font-weight:400">CRM — Lead Pipeline</h2>
+            <p style="font-size:13px;color:var(--c-muted)">Track buyer journey from inquiry to close</p>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-ghost btn-sm" onclick="loadCRM()">Refresh</button>
+          </div>
+        </div>
+        <div class="pipeline" id="pipeline"></div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-header"><h3>Recent Contact History</h3></div>
+          <div class="timeline" id="timeline"></div>
+        </div>
+      </section>
+
+      <!-- ── FINANCE ── -->
+      <section class="section" id="sec-finance">
+        <div style="margin-bottom:20px">
+          <h2 style="font-family:var(--font-serif);font-size:22px;font-weight:400">Finance Overview</h2>
+          <p style="font-size:13px;color:var(--c-muted)">Revenue, commissions and cost tracker</p>
+        </div>
+        <div class="tax-notice">⚠ Estimates below are for display only and do not constitute legal or financial advice. Consult a licensed accountant.</div>
+        <div class="fin-grid" id="fin-grid"></div>
+        <div class="card">
+          <div class="card-header"><h3>Monthly Revenue Breakdown</h3></div>
+          <canvas id="chart-finance" height="80"></canvas>
+        </div>
+      </section>
+
+      <!-- ── SETTINGS ── -->
+      <section class="section" id="sec-settings">
+        <div style="margin-bottom:20px">
+          <h2 style="font-family:var(--font-serif);font-size:22px;font-weight:400">Agency Settings</h2>
+          <p style="font-size:13px;color:var(--c-muted)">Customise your platform appearance and configuration</p>
+        </div>
+        <div class="card" style="max-width:560px">
+          <div class="card-header"><h3>Agency Profile</h3></div>
+          <div class="form-field"><label>Agency Name</label><input type="text" id="s-name" placeholder="Lucent Estate" value="Lucent Estate"></div>
+          <div class="form-field"><label>Primary Contact Email</label><input type="email" id="s-email" placeholder="contact@lucentestate.com"></div>
+          <div class="form-field"><label>Phone</label><input type="tel" id="s-phone" placeholder="+39 02 0000 0000"></div>
+          <div class="form-field"><label>Brand Accent Color</label><input type="color" id="s-color" value="#B8975A" oninput="previewColor(this.value)" style="height:44px;padding:4px 6px;cursor:pointer"></div>
+          <div class="form-field"><label>Default location / City</label><input type="text" id="s-city" placeholder="Benevento, Italy"></div>
+          <div style="display:flex;gap:10px;margin-top:8px">
+            <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+            <button class="btn btn-ghost" onclick="toast('Changes discarded')">Discard</button>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- NEW LISTING MODAL -->
+<div class="overlay" id="listing-overlay" onclick="closeListingFormOverlay(event)">
+  <div class="listing-modal" style="position:relative">
+    <button class="modal-close-x" onclick="closeListingForm()">✕</button>
+    <h2 id="listing-modal-title">New Listing</h2>
+    <p class="sub">Fill in the property details. Images are uploaded to Cloudinary.</p>
+    <form id="listing-form" onsubmit="submitListingForm(event)">
+      <input type="hidden" id="lf-id" value="">
+      <div class="form-grid">
+        <div class="form-field form-span-2">
+          <label>Property Title</label>
+          <input type="text" id="lf-title" placeholder="e.g. Panoramic Eco Villa" required>
+        </div>
+        <div class="form-field form-span-2">
+          <label>Full Address *</label>
+          <input type="text" id="lf-address" placeholder="Via San Nicola 12, Benevento" required>
+        </div>
+        <div class="form-field">
+          <label>City</label>
+          <input type="text" id="lf-city" placeholder="Benevento">
+        </div>
+        <div class="form-field">
+          <label>Country</label>
+          <input type="text" id="lf-country" placeholder="Italy" value="Italy">
+        </div>
+        <div class="form-field">
+          <label>Type *</label>
+          <select id="lf-type" required>
+            <option value="">Select type</option>
+            <option>Houses</option><option>Townhomes</option><option>Apartments</option>
+            <option>Land</option><option>Commercial</option><option>Multi-family</option><option>Condos</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Intent *</label>
+          <select id="lf-intent" required>
+            <option value="Buy">For Sale</option>
+            <option value="Rent">For Rent</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Price *</label>
+          <input type="number" id="lf-price" placeholder="1500000" min="0" required>
+        </div>
+        <div class="form-field">
+          <label>Status</label>
+          <select id="lf-status">
+            <option value="active">Active</option>
+            <option value="pending">Pending</option>
+            <option value="sold">Sold</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row2" style="margin-top:12px">
+        <div class="form-field">
+          <label>Bedrooms</label>
+          <input type="number" id="lf-beds" placeholder="3" min="0">
+        </div>
+        <div class="form-field">
+          <label>Bathrooms</label>
+          <input type="number" id="lf-baths" placeholder="2" min="0">
+        </div>
+        <div class="form-field">
+          <label>Area (m²)</label>
+          <input type="number" id="lf-area" placeholder="150" min="0">
+        </div>
+        <div class="form-field">
+          <label>Floors</label>
+          <input type="number" id="lf-floors" placeholder="2" min="1">
+        </div>
+        <div class="form-field">
+          <label>Year Built</label>
+          <input type="number" id="lf-year" placeholder="2018" min="1800" max="2030">
+        </div>
+        <div class="form-field">
+          <label>Lot Size (m²)</label>
+          <input type="number" id="lf-lot" placeholder="600" min="0">
+        </div>
+      </div>
+      <div class="form-field" style="margin-top:12px">
+        <label>Description</label>
+        <textarea id="lf-desc" rows="4" placeholder="Describe the property…"></textarea>
+      </div>
+      <div class="form-field">
+        <label>Features (comma-separated)</label>
+        <input type="text" id="lf-features" placeholder="Lake view, Mountain view, Pool, Garden">
+      </div>
+      <div class="form-field">
+        <label>Agency</label>
+        <input type="text" id="lf-agency" placeholder="Your Agency Name">
+      </div>
+      <div class="form-field">
+        <label>Property Images</label>
+        <div class="image-upload-area" onclick="document.getElementById('lf-images').click()">
+          <div style="font-size:24px;margin-bottom:8px">📸</div>
+          <div style="font-size:13px;font-weight:500">Click to upload images</div>
+          <div style="font-size:11px;color:var(--c-muted);margin-top:4px">JPG, PNG, WEBP — uploaded to Cloudinary</div>
+          <input type="file" id="lf-images" accept="image/*" multiple onchange="handleImageSelect(this)">
+        </div>
+        <div class="upload-progress" id="upload-progress" style="display:none"><div class="upload-progress-bar" id="upload-bar"></div></div>
+        <div class="upload-previews" id="upload-previews"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeListingForm()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="lf-submit">
+          <span id="lf-submit-text">Create Listing</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="module">
+import { api, auth, uploadToCloudinary } from '/js/api.js';
+
+let allListings = [];
+let allLeads = [];
+let stats = {};
+let chartsInited = false;
+let financeInited = false;
+let uploadedImageUrls = [];
+let editingId = null;
+
+// ─── Auth ───
+async function checkAuth() {
+  if (!auth.isLoggedIn()) {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    return false;
+  }
+  try {
+    // Verify token is valid
+    await api.admin.getStats();
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').classList.add('visible');
+    return true;
+  } catch {
+    auth.logout();
+    return false;
+  }
+}
+
+window.doLogin = async () => {
+  const pw = document.getElementById('login-pw').value.trim();
+  if (!pw) return;
+  const btn = document.querySelector('#login-screen .btn-primary');
+  btn.disabled = true;
+  document.getElementById('login-text').textContent = 'Signing in…';
+  document.getElementById('login-err').style.display = 'none';
+  auth.login(pw);
+  const ok = await checkAuth();
+  if (!ok) {
+    document.getElementById('login-err').style.display = 'block';
+    auth.logout();
+  }
+  btn.disabled = false;
+  document.getElementById('login-text').textContent = 'Sign In';
+  if (ok) initDashboard();
+};
+
+window.doLogout = () => { auth.logout(); location.reload(); };
+
+// ─── Nav ───
+window.showSection = (name, btn) => {
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(`sec-${name}`)?.classList.add('active');
+  document.getElementById('topbar-title').textContent = { dashboard:'Dashboard', listings:'Listings', crm:'CRM / Leads', finance:'Finance', settings:'Settings' }[name] || name;
+  if (name === 'crm' && !allLeads.length) loadCRM();
+  if (name === 'finance' && !financeInited) initFinance();
+  if (name === 'listings' && !allListings.length) loadListings();
+};
+
+// ─── Dashboard init ───
+async function initDashboard() {
+  document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  try {
+    stats = await api.admin.getStats();
+    renderKPIs(stats);
+    document.getElementById('rev-val').textContent = '$' + Number(stats.total_revenue || 0).toLocaleString();
+    document.getElementById('sales-val').textContent = stats.sold_count || '0';
+    if (!chartsInited) { initCharts(); chartsInited = true; }
+  } catch (e) { console.error('Stats failed:', e); }
+  await loadListings();
+  renderRealtors();
+  // Update leads badge
+  if (stats.new_inquiries) {
+    document.getElementById('new-leads-badge').textContent = stats.new_inquiries;
+    document.getElementById('new-leads-badge').style.display = stats.new_inquiries > 0 ? '' : 'none';
+  }
+}
+
+function renderKPIs(s) {
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi-card">
+      <div class="kpi-label">Active Listings</div>
+      <div class="kpi-val">${s.active_listings ?? '—'}</div>
+      <div class="kpi-sub text-muted">of ${s.total_properties || 0} total</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Total Inquiries</div>
+      <div class="kpi-val">${s.total_inquiries ?? '—'}</div>
+      <div class="kpi-sub kpi-up">↗ All time</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">New Leads</div>
+      <div class="kpi-val">${s.new_inquiries ?? '—'}</div>
+      <div class="kpi-sub kpi-up">↗ Awaiting contact</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Sold / Closed</div>
+      <div class="kpi-val">${s.sold_count ?? '—'}</div>
+      <div class="kpi-sub text-muted">Total closed deals</div>
+    </div>
+  `;
+}
+
+// ─── Load + render listings ───
+async function loadListings() {
+  try {
+    allListings = await api.getProperties({ limit: 100, sort: 'newest' });
+    renderListingsTable('all', 'dash-listings-table');
+    renderListingsTable('all', 'listings-table');
+    updateTabCounts('all');
+  } catch (e) {
+    console.error('Listings load error:', e);
+    document.getElementById('dash-listings-table').innerHTML = '<tbody><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--c-muted)">Could not load listings. Check your API connection.</td></tr></tbody>';
+  }
+}
+
+function renderListingsTable(filter, tableId) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  let rows = filter === 'all' ? allListings : allListings.filter(p => {
+    if (filter === 'rent') return p.intent === 'Rent';
+    return p.status === filter;
+  });
+  if (!rows.length) {
+    table.innerHTML = '<tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--c-muted)">No listings found.</td></tr></tbody>';
+    return;
+  }
+  table.innerHTML = `
+    <thead><tr>
+      <th>Property</th><th>Status</th><th>Price</th><th>Views</th><th>Created</th><th></th>
+    </tr></thead>
+    <tbody>
+      ${rows.map(p => `
+        <tr>
+          <td><div style="display:flex;align-items:center;gap:10px">
+            <img class="thumb" src="${p.images?.[0] || 'https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=100'}" alt="">
+            <div class="info-cell">
+              <div class="main">${p.title || p.address}</div>
+              <div class="sub">${p.beds ? p.beds+'bd · ' : ''}${p.baths ? p.baths+'ba · ' : ''}${p.area ? p.area+'m²' : ''}${p.city ? ' · '+p.city : ''}</div>
+            </div>
+          </div></td>
+          <td><span class="status-pill pill-${p.status}">${p.status}</span></td>
+          <td><strong>$${Number(p.price).toLocaleString()}</strong></td>
+          <td>${p.views || 0}</td>
+          <td style="color:var(--c-muted)">${p.created_at ? new Date(p.created_at).toLocaleDateString() : '—'}</td>
+          <td><div class="action-cell">
+            <a href="/properties/${p.slug}" target="_blank" class="icon-btn" title="View">↗</a>
+            <button class="icon-btn" title="Edit" onclick="openListingForm('${p.id}')">✎</button>
+            <button class="icon-btn danger" title="Delete" onclick="deleteListing('${p.id}','${(p.title||p.address).replace(/'/g,"\\'")}')">✕</button>
+          </div></td>
+        </tr>
+      `).join('')}
+    </tbody>
+  `;
+}
+
+function updateTabCounts() {
+  const all = allListings.length;
+  const active = allListings.filter(p => p.status === 'active').length;
+  const pending = allListings.filter(p => p.status === 'pending').length;
+  const sold = allListings.filter(p => p.status === 'sold').length;
+  ['tab-all','tab-active','tab-pending','tab-sold'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = [all, active, pending, sold][i];
+  });
+}
+
+window.filterListingsTab = (filter, btn, tableId = 'dash-listings-table') => {
+  btn.closest('.tab-bar').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderListingsTable(filter, tableId);
+};
+
+// ─── Delete listing ───
+window.deleteListing = async (id, name) => {
+  if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+  try {
+    await api.admin.deleteProperty(id);
+    toast('Listing deleted', 'success');
+    loadListings();
+  } catch (e) { toast('Delete failed: ' + e.message, 'error'); }
+};
+
+// ─── New/Edit listing form ───
+window.openListingForm = async (id = null) => {
+  editingId = id;
+  uploadedImageUrls = [];
+  document.getElementById('upload-previews').innerHTML = '';
+  document.getElementById('listing-modal-title').textContent = id ? 'Edit Listing' : 'New Listing';
+  document.getElementById('lf-submit-text').textContent = id ? 'Save Changes' : 'Create Listing';
+  // Clear form
+  ['lf-id','lf-title','lf-address','lf-city','lf-country','lf-type','lf-intent','lf-price',
+   'lf-status','lf-beds','lf-baths','lf-area','lf-floors','lf-year','lf-lot','lf-desc','lf-features','lf-agency'].forEach(fid => {
+    const el = document.getElementById(fid);
+    if (el) el.value = '';
+  });
+  document.getElementById('lf-country').value = 'Italy';
+  document.getElementById('lf-intent').value = 'Buy';
+  document.getElementById('lf-status').value = 'active';
+
+  if (id) {
+    // Load existing property
+    const p = allListings.find(x => x.id === id);
+    if (p) {
+      document.getElementById('lf-id').value = p.id;
+      document.getElementById('lf-title').value = p.title || '';
+      document.getElementById('lf-address').value = p.address || '';
+      document.getElementById('lf-city').value = p.city || '';
+      document.getElementById('lf-country').value = p.country || 'Italy';
+      document.getElementById('lf-type').value = p.type || '';
+      document.getElementById('lf-intent').value = p.intent || 'Buy';
+      document.getElementById('lf-price').value = p.price || '';
+      document.getElementById('lf-status').value = p.status || 'active';
+      document.getElementById('lf-beds').value = p.beds || '';
+      document.getElementById('lf-baths').value = p.baths || '';
+      document.getElementById('lf-area').value = p.area || '';
+      document.getElementById('lf-floors').value = p.floors || '';
+      document.getElementById('lf-year').value = p.year_built || '';
+      document.getElementById('lf-lot').value = p.lot_size || '';
+      document.getElementById('lf-desc').value = p.description || '';
+      document.getElementById('lf-features').value = (p.features || []).join(', ');
+      document.getElementById('lf-agency').value = p.agency || '';
+      uploadedImageUrls = p.images || [];
+      renderUploadPreviews();
+    }
+  }
+  document.getElementById('listing-overlay').classList.add('open');
+};
+
+window.closeListingForm = () => document.getElementById('listing-overlay').classList.remove('open');
+window.closeListingFormOverlay = (e) => { if (e.target === e.currentTarget) closeListingForm(); };
+
+// Image upload
+window.handleImageSelect = async (input) => {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  const progress = document.getElementById('upload-progress');
+  const bar = document.getElementById('upload-bar');
+  progress.style.display = 'block'; bar.style.width = '0%';
+  for (let i = 0; i < files.length; i++) {
+    try {
+      const url = await uploadToCloudinary(files[i], (pct) => {
+        bar.style.width = Math.round(((i + pct) / files.length) * 100) + '%';
+      });
+      uploadedImageUrls.push(url);
+      renderUploadPreviews();
+    } catch (e) { toast('Upload failed: ' + e.message, 'error'); }
+  }
+  bar.style.width = '100%';
+  setTimeout(() => { progress.style.display = 'none'; bar.style.width = '0%'; }, 800);
+  input.value = '';
+};
+
+function renderUploadPreviews() {
+  document.getElementById('upload-previews').innerHTML = uploadedImageUrls.map((url, i) => `
+    <div class="upload-preview">
+      <img src="${url}" alt="">
+      <button class="rm" onclick="removeImage(${i})" type="button">✕</button>
+    </div>
+  `).join('');
+}
+
+window.removeImage = (i) => {
+  uploadedImageUrls.splice(i, 1);
+  renderUploadPreviews();
+};
+
+window.submitListingForm = async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('lf-submit');
+  btn.disabled = true;
+  document.getElementById('lf-submit-text').textContent = editingId ? 'Saving…' : 'Creating…';
+
+  const featuresRaw = document.getElementById('lf-features').value;
+  const features = featuresRaw ? featuresRaw.split(',').map(f => f.trim()).filter(Boolean) : [];
+  const body = {
+    title: document.getElementById('lf-title').value,
+    address: document.getElementById('lf-address').value,
+    city: document.getElementById('lf-city').value,
+    country: document.getElementById('lf-country').value,
+    type: document.getElementById('lf-type').value,
+    intent: document.getElementById('lf-intent').value,
+    price: parseFloat(document.getElementById('lf-price').value),
+    status: document.getElementById('lf-status').value,
+    beds: parseInt(document.getElementById('lf-beds').value) || null,
+    baths: parseInt(document.getElementById('lf-baths').value) || null,
+    area: parseFloat(document.getElementById('lf-area').value) || null,
+    floors: parseInt(document.getElementById('lf-floors').value) || null,
+    year_built: parseInt(document.getElementById('lf-year').value) || null,
+    lot_size: parseFloat(document.getElementById('lf-lot').value) || null,
+    description: document.getElementById('lf-desc').value,
+    features,
+    agency: document.getElementById('lf-agency').value,
+    images: uploadedImageUrls,
+  };
+
+  try {
+    if (editingId) {
+      await api.admin.updateProperty(editingId, body);
+      toast('Listing updated!', 'success');
+    } else {
+      await api.admin.createProperty(body);
+      toast('Listing created!', 'success');
+    }
+    closeListingForm();
+    loadListings();
+  } catch (err) {
+    toast('Error: ' + err.message, 'error');
+    btn.disabled = false;
+    document.getElementById('lf-submit-text').textContent = editingId ? 'Save Changes' : 'Create Listing';
+  }
+};
+
+// ─── CRM ───
+window.loadCRM = async () => {
+  try {
+    allLeads = await api.admin.getInquiries({ limit: 100 });
+    renderPipeline(allLeads);
+    renderTimeline(allLeads.slice(0, 8));
+  } catch (e) {
+    document.getElementById('pipeline').innerHTML = '<p style="color:var(--c-muted)">Could not load leads.</p>';
+  }
+};
+
+const STAGES = ['new','contacted','tour_scheduled','offer_made','closed'];
+const STAGE_LABELS = { new:'New Inquiry', contacted:'Contacted', tour_scheduled:'Tour Scheduled', offer_made:'Offer Made', closed:'Closed / Lost' };
+
+function renderPipeline(leads) {
+  document.getElementById('pipeline').innerHTML = STAGES.map(stage => {
+    const items = leads.filter(l => l.status === stage || (stage === 'new' && !l.status));
+    return `
+      <div class="pipeline-col">
+        <div class="col-head">${STAGE_LABELS[stage]}<span class="chip">${items.length}</span></div>
+        ${items.map(l => `
+          <div class="lead-card" onclick="openLeadDetail('${l.id}')">
+            <div class="lead-name">${l.first_name} ${l.last_name || ''}</div>
+            <div class="lead-prop">${l.property_slug ? l.property_slug.replace(/-/g,' ') : l.interest}</div>
+            <div class="lead-meta">
+              <span class="score-badge ${l.score >= 80 ? 'score-high' : l.score >= 60 ? 'score-mid' : 'score-low'}">${l.score || '?'}</span>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+                <span class="lead-date">${new Date(l.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>
+                <select style="font-size:10px;border:1px solid var(--c-border);border-radius:4px;padding:2px 4px;background:#fff;cursor:pointer" onchange="updateLeadStatus('${l.id}',this.value)" onclick="event.stopPropagation()">
+                  ${STAGES.map(s => `<option value="${s}" ${(l.status||'new')===s?'selected':''}>${STAGE_LABELS[s]}</option>`).join('')}
+                  <option value="lost" ${l.status==='lost'?'selected':''}>Lost</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
+window.updateLeadStatus = async (id, status) => {
+  try {
+    await api.admin.updateInquiry(id, { status });
+    const lead = allLeads.find(l => l.id === id);
+    if (lead) lead.status = status;
+    renderPipeline(allLeads);
+    toast('Lead updated', 'success');
+  } catch (e) { toast('Update failed', 'error'); }
+};
+
+window.openLeadDetail = (id) => {
+  const l = allLeads.find(x => x.id === id);
+  if (!l) return;
+  alert(`Lead: ${l.first_name} ${l.last_name||''}\nEmail: ${l.email}\nPhone: ${l.phone||'—'}\nInterest: ${l.interest}\nMessage: ${l.message||'—'}\nProperty: ${l.property_slug||'—'}\nCreated: ${new Date(l.created_at).toLocaleString()}`);
+};
+
+function renderTimeline(leads) {
+  document.getElementById('timeline').innerHTML = leads.map(l => `
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="type">${l.interest || 'Inquiry'}</div>
+        <div class="text">${l.first_name} ${l.last_name || ''} — ${l.message ? l.message.slice(0,80)+'…' : l.email}</div>
+        <div class="time">${new Date(l.created_at).toLocaleString()}</div>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--c-muted);padding:16px 0">No contact history yet.</p>';
+}
+
+// ─── Finance (derived from real stats) ───
+function initFinance() {
+  financeInited = true;
+  const s = stats;
+  const gross = s.total_revenue || 0;
+  const commissions = gross * 0.05;
+  const costs = gross * 0.02;
+  const net = gross - commissions - costs;
+  const tax = net * 0.3;
+  document.getElementById('fin-grid').innerHTML = [
+    { label: 'Gross Revenue', amount: gross, delta: 'All time sold listings', up: true },
+    { label: 'Commissions Paid', amount: commissions, delta: '5% of gross', up: false },
+    { label: 'Operating Costs', amount: costs, delta: '2% of gross', up: false },
+    { label: 'Net Revenue', amount: net, delta: 'After commissions & costs', up: true },
+    { label: 'Est. Tax (30%)', amount: tax, delta: 'Display only — not legal advice', up: false, amber: true },
+    { label: 'Net After Est. Tax', amount: net - tax, delta: 'Projected take-home', up: true },
+  ].map(f => `
+    <div class="fin-card">
+      <div class="fin-label">${f.label}</div>
+      <div class="fin-amount" style="${f.amber ? 'color:var(--c-amber)' : ''}">$${Math.round(f.amount).toLocaleString()}</div>
+      <div class="fin-delta ${f.up ? 'kpi-up' : 'text-muted'}">${f.delta}</div>
+    </div>
+  `).join('');
+
+  const ctx = document.getElementById('chart-finance')?.getContext('2d');
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan','Feb','Mar','Apr','May'],
+      datasets: [
+        { label: 'Revenue', data: [gross*.4, gross*.5, gross*.6, gross*.8, gross].map(Math.round), backgroundColor: '#0C0C0C', borderRadius: 4 },
+        { label: 'Costs', data: [costs*.4, costs*.5, costs*.6, costs*.8, costs].map(Math.round), backgroundColor: '#E2DFD8', borderRadius: 4 },
+      ]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } }, scales: { x: { grid: { display: false } }, y: { grid: { color: '#f0ede8' }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k', font: { size: 10 } }, border: { display: false } } } }
+  });
+}
+
+// ─── Charts ───
+function initCharts() {
+  const mk = (id, type, data, opts = {}) => {
+    const ctx = document.getElementById(id)?.getContext('2d');
+    if (!ctx) return;
+    new Chart(ctx, { type, data, options: { responsive: true, plugins: { legend: { display: false } }, ...opts } });
+  };
+  mk('chart-revenue', 'line', {
+    labels: ['1','5','10','15','20','25','30'],
+    datasets: [{ data: [1.1,1.2,1.15,1.35,1.4,1.55,1.65], borderColor: '#0C0C0C', borderWidth: 2, tension: .4, pointRadius: 0, fill: { target: 'origin', above: 'rgba(12,12,12,.05)' } }]
+  }, { scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { grid: { color: '#f0ede8' }, ticks: { callback: v => v + 'm', font: { size: 10 } }, border: { display: false } } } });
+
+  mk('chart-sales', 'bar', {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [{ data: [3,4,3,5,5,6,5,4,6,7,5,6], backgroundColor: '#0C0C0C', borderRadius: 3, barPercentage: .5 }]
+  }, { scales: { x: { grid: { display: false }, ticks: { font: { size: 9 } } }, y: { grid: { color: '#f0ede8' }, ticks: { font: { size: 10 } }, border: { display: false } } } });
+}
+
+// ─── Realtors (static for now — connect to team table later) ───
+function renderRealtors() {
+  const list = [
+    { name: 'Ann Dokidis', pct: 79 },
+    { name: 'Anika Levin', pct: 67 },
+    { name: 'Kadin Bator', pct: 48 },
+    { name: 'Marcus Wells', pct: 41 },
+  ];
+  document.querySelector('.realtor-list').innerHTML = list.map((r, i) => `
+    <div class="realtor-row">
+      <div class="realtor-avatar" style="background:var(--c-border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--c-muted)">${r.name[0]}</div>
+      <div class="realtor-info">
+        <div class="name">${r.name}</div>
+        <div class="progress"><div class="progress-fill" style="width:${r.pct}%"></div></div>
+      </div>
+      <div class="realtor-pct">${r.pct}%</div>
+    </div>
+  `).join('');
+}
+
+// ─── Search ───
+window.globalSearch = (q) => {
+  if (!q) { renderListingsTable('all', 'dash-listings-table'); return; }
+  const filtered = allListings.filter(p =>
+    (p.title||'').toLowerCase().includes(q.toLowerCase()) ||
+    (p.address||'').toLowerCase().includes(q.toLowerCase()) ||
+    (p.city||'').toLowerCase().includes(q.toLowerCase())
+  );
+  const table = document.getElementById('dash-listings-table');
+  if (!table) return;
+  if (!filtered.length) { table.innerHTML = '<tbody><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--c-muted)">No results.</td></tr></tbody>'; return; }
+  renderListingsTable('all', 'dash-listings-table');
+  // Re-render with filtered subset
+  allListings = filtered; // temp
+  renderListingsTable('all', 'dash-listings-table');
+  // Restore
+  setTimeout(loadListings, 100);
+};
+
+// ─── Settings ───
+window.previewColor = (c) => { document.documentElement.style.setProperty('--c-gold', c); };
+window.saveSettings = () => {
+  const name = document.getElementById('s-name').value;
+  const color = document.getElementById('s-color').value;
+  localStorage.setItem('lucent_settings', JSON.stringify({ name, color }));
+  toast('Settings saved', 'success');
+};
+
+// ─── Toast ───
+window.toast = (msg, type = 'success') => {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 3500);
+};
+
+// ─── Init ───
+const authed = await checkAuth();
+if (authed) initDashboard();
+
+// Apply saved settings
+const saved = JSON.parse(localStorage.getItem('lucent_settings') || '{}');
+if (saved.color) document.documentElement.style.setProperty('--c-gold', saved.color);
+</script>
+</body>
+</html>

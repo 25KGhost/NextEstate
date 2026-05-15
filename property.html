@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading… — Lucent Estate</title>
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c-bg:#F5F3EE;--c-white:#FFFFFF;--c-ink:#0C0C0C;--c-muted:#7A7670;
+  --c-border:#E2DFD8;--c-gold:#B8975A;--c-green:#1B7A52;--c-green-l:#E6F4ED;
+  --c-amber:#B87333;--c-amber-l:#F7EDE0;--c-blue:#2651C4;--c-blue-l:#EBF0FC;
+  --r-sm:6px;--r-md:12px;--r-lg:18px;--r-xl:28px;
+  --sh-sm:0 1px 4px rgba(0,0,0,.06);--sh-md:0 4px 20px rgba(0,0,0,.08);--sh-lg:0 16px 48px rgba(0,0,0,.12);
+  --font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;padding:0 40px;gap:0;background:rgba(245,243,238,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--c-border)}
+.nav-logo{font-family:var(--font-serif);font-size:24px;font-weight:400;color:var(--c-ink);text-decoration:none;flex-shrink:0;letter-spacing:.5px}
+.nav-breadcrumb{font-size:13px;color:var(--c-muted);margin-left:20px;display:flex;align-items:center;gap:8px}
+.nav-breadcrumb a{color:var(--c-muted);text-decoration:none}
+.nav-breadcrumb a:hover{color:var(--c-ink)}
+.nav-right{margin-left:auto;display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:var(--r-sm);font-family:var(--font-sans);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .18s;text-decoration:none;line-height:1}
+.btn-primary{background:var(--c-ink);color:#fff}
+.btn-primary:hover{background:#2a2a2a}
+.btn-ghost{background:transparent;color:var(--c-muted);border:1px solid var(--c-border)}
+.btn-ghost:hover{color:var(--c-ink);border-color:var(--c-ink)}
+.btn-gold{background:var(--c-gold);color:#fff}
+.btn-gold:hover{opacity:.9}
+.btn-full{width:100%;justify-content:center}
+.btn-outline{background:#fff;border:1px solid var(--c-border);color:var(--c-muted)}
+.btn-outline:hover{border-color:var(--c-ink);color:var(--c-ink)}
+
+/* PHOTO GALLERY */
+.photo-gallery{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto;gap:4px;background:var(--c-ink);padding-top:60px}
+.photo-main{grid-row:1/3;overflow:hidden;cursor:pointer}
+.photo-main img,.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.photo-main{height:520px}
+.photo-thumb{height:258px;overflow:hidden;cursor:pointer;position:relative}
+.photo-thumb img:hover,.photo-main img:hover{transform:scale(1.03)}
+.photo-count-btn{position:absolute;bottom:16px;right:16px;background:#fff;border:none;padding:8px 18px;border-radius:var(--r-sm);font-weight:700;font-size:12px;cursor:pointer;box-shadow:var(--sh-md);font-family:var(--font-sans);letter-spacing:.02em}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;z-index:500;background:rgba(5,5,5,.95);align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lb-img{max-width:90vw;max-height:85vh;border-radius:var(--r-md);object-fit:contain}
+.lb-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,.1);border:none;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:#fff;width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center}
+.lb-prev{left:24px}
+.lb-next{right:24px}
+.lb-counter{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:13px}
+
+/* DETAIL NAV (sticky sub-nav) */
+.detail-subnav{background:#fff;border-bottom:1px solid var(--c-border);position:sticky;top:60px;z-index:100;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
+.subnav-tabs{display:flex;gap:0}
+.subnav-tabs a{font-size:13px;font-weight:500;color:var(--c-muted);padding:14px 16px;border-bottom:2px solid transparent;cursor:pointer;text-decoration:none;transition:all .15s}
+.subnav-tabs a:hover{color:var(--c-ink)}
+.subnav-tabs a.active{color:var(--c-ink);border-bottom-color:var(--c-ink)}
+.subnav-actions{display:flex;gap:8px;align-items:center}
+.action-icon-btn{background:none;border:1px solid var(--c-border);border-radius:var(--r-sm);padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;color:var(--c-muted);font-family:var(--font-sans);display:flex;align-items:center;gap:6px;transition:all .15s}
+.action-icon-btn:hover{color:var(--c-ink);border-color:var(--c-ink)}
+.action-icon-btn.saved{color:var(--c-gold);border-color:var(--c-gold)}
+
+/* PROPERTY BODY */
+.property-body{max-width:1200px;margin:0 auto;padding:40px 40px;display:grid;grid-template-columns:1fr 360px;gap:48px}
+.prop-left{}
+.prop-right{position:relative}
+.prop-right-sticky{position:sticky;top:80px;display:flex;flex-direction:column;gap:14px}
+
+/* Left column */
+.prop-price{font-family:var(--font-serif);font-size:clamp(36px,5vw,56px);font-weight:300;color:var(--c-ink);line-height:1;margin-bottom:6px;letter-spacing:-.5px}
+.prop-location{font-size:14px;color:var(--c-muted);display:flex;align-items:center;gap:6px;margin-bottom:24px}
+.prop-specs-row{display:flex;gap:0;margin-bottom:32px;border:1px solid var(--c-border);border-radius:var(--r-lg);overflow:hidden;background:#fff}
+.spec-box{flex:1;padding:20px 16px;text-align:center;border-right:1px solid var(--c-border)}
+.spec-box:last-child{border-right:none}
+.spec-box .sv{font-family:var(--font-serif);font-size:28px;font-weight:400;color:var(--c-ink);line-height:1}
+.spec-box .sl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted);margin-top:4px}
+.prop-features{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.feature-tag{background:#fff;border:1px solid var(--c-border);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--c-muted)}
+
+/* Section headings */
+.section-title{font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--c-ink);margin-bottom:14px;margin-top:40px;padding-bottom:10px;border-bottom:1px solid var(--c-border)}
+
+/* Description */
+.prop-desc{font-size:14px;color:var(--c-muted);line-height:1.8;margin-bottom:8px}
+.read-more-btn{background:none;border:none;color:var(--c-gold);font-size:13px;font-weight:500;cursor:pointer;padding:0;font-family:var(--font-sans)}
+
+/* Smart estimate */
+.estimate-card{background:#fff;border:1px solid var(--c-border);border-radius:var(--r-lg);padding:24px;margin-top:8px}
+.estimate-range{font-family:var(--font-serif);font-size:26px;font-weight:400;color:var(--c-ink);margin-bottom:16px}
+.estimate-bar{position:relative;height:6px;background:linear-gradient(to right,var(--c-blue),var(--c-green),var(--c-gold));border-radius:3px;margin:12px 0}
+.estimate-marker{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#fff;border:2px solid var(--c-ink);border-radius:50%}
+.estimate-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--c-muted)}
+.estimate-factors{margin-top:16px;display:flex;flex-direction:column;gap:6px}
+.factor-row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--c-muted)}
+.factor-row .dot{width:6px;height:6px;border-radius:50%;background:var(--c-green);flex-shrink:0}
+
+/* House plan */
+.house-plan-grid{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+.plan-thumb{flex-shrink:0;width:200px;border:1px solid var(--c-border);border-radius:var(--r-md);overflow:hidden;background:#fff;cursor:pointer}
+.plan-thumb img{width:100%;height:140px;object-fit:cover;border-bottom:1px solid var(--c-border)}
+.plan-label{padding:8px 12px;font-size:12px;font-weight:500;color:var(--c-muted)}
+
+/* Price history chart */
+#price-chart-wrap{background:#fff;border:1px solid var(--c-border);border-radius:var(--r-lg);padding:20px;margin-top:8px}
+
+/* Right sidebar cards */
+.sidebar-card{background:#fff;border:1px solid var(--c-border);border-radius:var(--r-lg);padding:22px}
+.agency-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.agency-mark{width:42px;height:42px;background:var(--c-ink);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-serif);font-size:18px;flex-shrink:0}
+.agency-info .name{font-size:14px;font-weight:600;color:var(--c-ink)}
+.agency-info .sub{font-size:11px;color:var(--c-muted)}
+.contact-btns{display:flex;flex-direction:column;gap:8px}
+
+/* Mortgage calculator */
+.calc-card{background:var(--c-blue-l);border:1px solid rgba(38,81,196,.15);border-radius:var(--r-lg);padding:22px}
+.calc-title{font-size:14px;font-weight:600;color:var(--c-blue);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+.calc-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.calc-input-full{grid-column:1/-1}
+.calc-input-wrap label{font-size:10px;font-weight:600;color:var(--c-blue);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px}
+.calc-input-wrap input{width:100%;border:1px solid rgba(38,81,196,.2);border-radius:var(--r-sm);padding:9px 10px;font-size:13px;font-family:var(--font-sans);background:#fff;outline:none;color:var(--c-ink)}
+.calc-input-wrap input:focus{border-color:var(--c-blue)}
+.calc-result{background:var(--c-blue);color:#fff;border-radius:var(--r-sm);padding:16px;text-align:center;margin-top:12px}
+.calc-result .monthly{font-family:var(--font-serif);font-size:32px;font-weight:300}
+.calc-result .lbl{font-size:11px;opacity:.75;margin-bottom:4px}
+.calc-breakdown{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.2);margin-top:10px;padding-top:10px}
+.cb-item{flex:1;text-align:center}
+.cb-item .v{font-size:13px;font-weight:600}
+.cb-item .l{font-size:10px;opacity:.65}
+
+/* Similar properties */
+.similar-section{max-width:1200px;margin:0 auto;padding:0 40px 60px}
+.similar-section h2{font-family:var(--font-serif);font-size:30px;font-weight:300;margin-bottom:24px}
+.similar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+/* Toast */
+.toast{position:fixed;bottom:32px;right:32px;background:var(--c-ink);color:#fff;padding:12px 20px;border-radius:var(--r-md);font-size:13px;font-weight:500;z-index:999;display:flex;align-items:center;gap:8px;box-shadow:var(--sh-lg);transform:translateY(16px);opacity:0;transition:all .25s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-error{background:#b91c1c}
+
+/* Inquiry modal */
+.overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(10,10,10,.6);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px}
+.overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:var(--r-xl);padding:36px;width:100%;max-width:460px;position:relative;animation:scaleIn .22s ease both;max-height:90vh;overflow-y:auto}
+@keyframes scaleIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border:none;background:var(--c-bg);border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--c-muted)}
+.modal-close:hover{background:var(--c-border)}
+.modal-header h3{font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:4px}
+.modal-header p{font-size:13px;color:var(--c-muted);margin-bottom:22px}
+.form-field{margin-bottom:14px}
+.form-field label{font-size:11px;font-weight:600;color:var(--c-muted);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:5px}
+.form-field input,.form-field textarea,.form-field select{width:100%;border:1px solid var(--c-border);border-radius:var(--r-sm);padding:10px 12px;font-family:var(--font-sans);font-size:13px;outline:none;background:#fff;color:var(--c-ink);transition:border-color .15s}
+.form-field input:focus,.form-field textarea:focus{border-color:var(--c-ink)}
+.form-field textarea{resize:vertical;min-height:80px}
+.form-row{display:flex;gap:10px}
+.form-row .form-field{flex:1}
+.req{color:var(--c-gold)}
+.hidden{display:none!important}
+.not-found{text-align:center;padding:120px 40px}
+.not-found h2{font-family:var(--font-serif);font-size:36px;font-weight:300;margin-bottom:12px}
+
+/* Skeleton */
+.skel-block{background:linear-gradient(90deg,#eae8e3 25%,#f0ede8 50%,#eae8e3 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--r-sm)}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Responsive */
+@media(max-width:900px){
+  .property-body{grid-template-columns:1fr;padding:24px 20px}
+  .prop-right-sticky{position:static}
+  .photo-gallery{grid-template-columns:1fr}
+  .photo-main{height:280px}
+  .photo-thumb{display:none}
+  .similar-grid{grid-template-columns:1fr}
+  .similar-section{padding:0 20px 40px}
+  .detail-subnav{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="/">Lucent</a>
+  <div class="nav-breadcrumb">
+    <a href="/">Listings</a>
+    <span>›</span>
+    <span id="breadcrumb-city">—</span>
+  </div>
+  <div class="nav-right">
+    <button class="action-icon-btn" id="save-btn" onclick="toggleSave()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      Save
+    </button>
+    <button class="action-icon-btn" onclick="shareProperty()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Share
+    </button>
+    <button class="btn btn-gold" onclick="openInquiry()">Contact Agent</button>
+  </div>
+</nav>
+
+<!-- PHOTO GALLERY (populated by JS) -->
+<div class="photo-gallery" id="photo-gallery">
+  <div class="photo-main skel-block" style="height:520px;background:var(--c-border)"></div>
+  <div class="photo-thumb skel-block" style="background:var(--c-border)"></div>
+  <div class="photo-thumb skel-block" style="background:var(--c-border)"></div>
+</div>
+
+<!-- SUB NAV -->
+<div class="detail-subnav">
+  <div class="subnav-tabs">
+    <a class="active" onclick="scrollTo('#section-overview')">Overview</a>
+    <a onclick="scrollTo('#section-description')">Description</a>
+    <a onclick="scrollTo('#section-plan')">House plan</a>
+    <a onclick="scrollTo('#section-estimate')">Smart estimate</a>
+    <a onclick="scrollTo('#section-calculator')">Calculator</a>
+  </div>
+  <div class="subnav-actions">
+    <button class="action-icon-btn" onclick="openInquiry()">Schedule a Tour</button>
+  </div>
+</div>
+
+<!-- PROPERTY BODY -->
+<div class="property-body" id="property-body">
+  <div class="prop-left" id="prop-left">
+    <div class="skel-block" style="height:40px;width:50%;margin-bottom:10px"></div>
+    <div class="skel-block" style="height:18px;width:30%;margin-bottom:24px"></div>
+    <div class="skel-block" style="height:100px;border-radius:var(--r-lg);margin-bottom:28px"></div>
+    <div class="skel-block" style="height:200px;border-radius:var(--r-lg)"></div>
+  </div>
+  <div class="prop-right">
+    <div class="prop-right-sticky">
+      <div class="skel-block" style="height:160px;border-radius:var(--r-lg)"></div>
+      <div class="skel-block" style="height:260px;border-radius:var(--r-lg)"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SIMILAR PROPERTIES -->
+<div class="similar-section">
+  <h2>Similar properties</h2>
+  <div class="similar-grid" id="similar-grid"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img class="lb-img" id="lb-img" src="" alt="">
+  <button class="lb-next" onclick="lbNav(1)">›</button>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+<!-- INQUIRY MODAL -->
+<div class="overlay" id="inquiry-overlay" onclick="closeInquiryOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeInquiry()">✕</button>
+    <div id="inquiry-form-wrap"></div>
+  </div>
+</div>
+
+<script type="module">
+import { api } from '/js/api.js';
+import { propertyCard, toast, calcMortgage, inquiryFormHTML, favs } from '/js/ui.js';
+
+// ─── Get slug from URL ───
+const slug = location.pathname.replace('/properties/', '').replace(/\/$/, '');
+let property = null;
+let lbImages = [];
+let lbIdx = 0;
+
+// ─── Lightbox ───
+window.openLightbox = (imgs, i) => {
+  lbImages = imgs; lbIdx = i;
+  document.getElementById('lb-img').src = imgs[i];
+  document.getElementById('lb-counter').textContent = `${i+1} / ${imgs.length}`;
+  document.getElementById('lightbox').classList.add('open');
+};
+window.closeLightbox = (e) => {
+  if (!e || e.target === document.getElementById('lightbox') || e.target === document.querySelector('.lb-close')) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+};
+window.lbNav = (dir) => {
+  lbIdx = (lbIdx + dir + lbImages.length) % lbImages.length;
+  document.getElementById('lb-img').src = lbImages[lbIdx];
+  document.getElementById('lb-counter').textContent = `${lbIdx+1} / ${lbImages.length}`;
+};
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'Escape') closeLightbox({target: document.getElementById('lightbox')});
+});
+
+// ─── Save / share ───
+window.toggleSave = () => {
+  if (!property) return;
+  const added = favs.toggle(property.id);
+  const btn = document.getElementById('save-btn');
+  btn.classList.toggle('saved', added);
+  btn.innerHTML = added
+    ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c-gold)" stroke="var(--c-gold)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> Saved`
+    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> Save`;
+  toast(added ? 'Saved to favourites' : 'Removed from favourites');
+};
+
+window.shareProperty = () => {
+  if (navigator.share) {
+    navigator.share({ title: property?.title || 'Lucent Estate', url: location.href });
+  } else {
+    navigator.clipboard.writeText(location.href).then(() => toast('Link copied to clipboard'));
+  }
+};
+
+// ─── Scroll to section ───
+window.scrollTo = (sel) => {
+  const el = document.querySelector(sel);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+// Active subnav
+const sections = ['section-overview','section-description','section-plan','section-estimate','section-calculator'];
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = sections.indexOf(e.target.id);
+      document.querySelectorAll('.subnav-tabs a').forEach((a,i) => a.classList.toggle('active', i === idx));
+    }
+  });
+}, { rootMargin: '-60px 0px -60% 0px' });
+
+// ─── Render property ───
+function renderProperty(p) {
+  document.title = `${p.title || p.address} — Lucent Estate`;
+  document.querySelector('meta[name=description]').content = p.description || '';
+  document.getElementById('breadcrumb-city').textContent = p.city || p.address;
+
+  // Save btn state
+  if (favs.has(p.id)) {
+    const btn = document.getElementById('save-btn');
+    btn.classList.add('saved');
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c-gold)" stroke="var(--c-gold)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> Saved`;
+  }
+
+  const imgs = p.images || ['https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=1200'];
+  const hasMany = imgs.length > 1;
+
+  // Photo gallery
+  document.getElementById('photo-gallery').innerHTML = `
+    <div class="photo-main" onclick="openLightbox(${JSON.stringify(imgs).replace(/"/g,"'")},0)">
+      <img src="${imgs[0]}" alt="${p.title || p.address}">
+    </div>
+    ${hasMany ? `<div class="photo-thumb" onclick="openLightbox(${JSON.stringify(imgs).replace(/"/g,"'")},1)">
+      <img src="${imgs[1]}" alt="Photo 2">
+    </div>` : '<div class="photo-thumb" style="background:var(--c-border)"></div>'}
+    <div class="photo-thumb ${imgs.length > 2 ? '' : ''}" onclick="openLightbox(${JSON.stringify(imgs).replace(/"/g,"'")},${Math.min(2,imgs.length-1)})">
+      ${imgs.length > 2 ? `<img src="${imgs[2]}" alt="Photo 3">` : imgs[1] ? `<img src="${imgs[1]}" alt="Photo 2">` : ''}
+      ${imgs.length > 3 ? `<button class="photo-count-btn">All photos (${imgs.length})</button>` : ''}
+    </div>
+  `;
+
+  // Mortgage defaults
+  const defaultDown = 20;
+  const defaultRate = 4.37;
+  const defaultYears = 30;
+  const monthly = calcMortgage({ price: p.price, downPct: defaultDown, rate: defaultRate, years: defaultYears });
+
+  // Features
+  const featureTags = (p.features || []).map(f => `<span class="feature-tag">${f}</span>`).join('');
+
+  // Left column
+  document.getElementById('prop-left').innerHTML = `
+    <div id="section-overview" style="padding-top:8px">
+      <div class="prop-price">$${Number(p.price).toLocaleString()}</div>
+      <div class="prop-location">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        ${p.address}${p.city && p.city !== p.address ? ', ' + p.city : ''}${p.country ? ', ' + p.country : ''}
+      </div>
+      <div class="prop-specs-row">
+        ${p.area ? `<div class="spec-box"><div class="sv">${p.area}</div><div class="sl">m²</div></div>` : ''}
+        ${p.floors ? `<div class="spec-box"><div class="sv">${p.floors}</div><div class="sl">Floors</div></div>` : ''}
+        ${p.beds ? `<div class="spec-box"><div class="sv">${p.beds}</div><div class="sl">Beds</div></div>` : ''}
+        ${p.baths ? `<div class="spec-box"><div class="sv">${p.baths}</div><div class="sl">Baths</div></div>` : ''}
+        ${p.year_built ? `<div class="spec-box"><div class="sv">${p.year_built}</div><div class="sl">Built</div></div>` : ''}
+      </div>
+      ${featureTags ? `<div class="prop-features">${featureTags}</div>` : ''}
+    </div>
+
+    <div id="section-description" style="padding-top:8px">
+      <h2 class="section-title">Description</h2>
+      <p class="prop-desc" id="prop-desc-text">${p.description || 'No description provided.'}</p>
+    </div>
+
+    <div id="section-plan" style="padding-top:8px">
+      <h2 class="section-title">House plan</h2>
+      <div class="house-plan-grid">
+        <div class="plan-thumb" onclick="openLightbox(${JSON.stringify(imgs).replace(/"/g,"'")},0)">
+          <img src="${imgs[0]}" alt="Floor 1">
+          <div class="plan-label">Floor 1</div>
+        </div>
+        ${imgs[1] ? `<div class="plan-thumb" onclick="openLightbox(${JSON.stringify(imgs).replace(/"/g,"'")},1)">
+          <img src="${imgs[1]}" alt="Floor 2">
+          <div class="plan-label">Floor 2</div>
+        </div>` : ''}
+        <div class="plan-thumb" style="display:flex;align-items:center;justify-content:center;background:var(--c-bg);flex-direction:column;gap:8px;height:168px;cursor:default">
+          <span style="font-size:24px">📐</span>
+          <span style="font-size:11px;color:var(--c-muted);text-align:center;padding:0 12px">Full technical specs available on request</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-estimate" style="padding-top:8px">
+      <h2 class="section-title">Smart Estimate</h2>
+      <div class="estimate-card">
+        <div style="font-size:12px;color:var(--c-muted);margin-bottom:6px">Estimated market value</div>
+        <div class="estimate-range">$${Math.round(p.price * 1.08).toLocaleString()} – $${Math.round(p.price * 1.28).toLocaleString()}</div>
+        <div class="estimate-bar"><div class="estimate-marker" style="left:35%"></div></div>
+        <div class="estimate-labels"><span>Lower bound</span><span>Higher bound</span></div>
+        <div class="estimate-factors">
+          ${(p.features || ['Quality location','Investment potential']).slice(0,4).map(f =>
+            `<div class="factor-row"><div class="dot"></div>${f}</div>`).join('')}
+        </div>
+        <div id="price-chart-wrap" style="margin-top:20px">
+          <div style="font-size:12px;font-weight:600;margin-bottom:12px;color:var(--c-ink)">Price history (estimated trend)</div>
+          <canvas id="price-chart" height="80"></canvas>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Right sidebar
+  const agencyInitial = (p.agency || 'L')[0].toUpperCase();
+  document.querySelector('.prop-right').innerHTML = `
+    <div class="prop-right-sticky">
+      <div class="sidebar-card">
+        <div class="agency-row">
+          <div class="agency-mark">${agencyInitial}</div>
+          <div class="agency-info">
+            <div class="name">${p.agency || 'Lucent Estate'}</div>
+            <div class="sub">Verified Agency ★</div>
+          </div>
+        </div>
+        <div class="contact-btns">
+          <button class="btn btn-gold btn-full" onclick="openInquiry('${p.slug}','${(p.title||p.address).replace(/'/g,"\\'")}')">Contact Agent</button>
+          <button class="btn btn-outline btn-full" onclick="openInquiry('${p.slug}','Schedule a Tour — ${(p.title||p.address).replace(/'/g,"\\'")}')">Schedule a Tour</button>
+          ${p.agent_email ? `<a class="btn btn-ghost btn-full" href="mailto:${p.agent_email}">Email Directly</a>` : ''}
+        </div>
+      </div>
+      <div class="calc-card" id="section-calculator">
+        <div class="calc-title">🏦 Mortgage Calculator</div>
+        <div class="calc-inputs">
+          <div class="calc-input-wrap calc-input-full">
+            <label>Purchase price</label>
+            <input type="number" id="mc-price" value="${p.price}" oninput="recalc()">
+          </div>
+          <div class="calc-input-wrap">
+            <label>Down payment %</label>
+            <input type="number" id="mc-down" value="20" min="0" max="100" oninput="recalc()">
+          </div>
+          <div class="calc-input-wrap">
+            <label>Interest rate %</label>
+            <input type="number" id="mc-rate" value="4.37" step="0.01" oninput="recalc()">
+          </div>
+          <div class="calc-input-wrap calc-input-full">
+            <label>Loan term (years)</label>
+            <input type="number" id="mc-years" value="30" min="1" max="40" oninput="recalc()">
+          </div>
+        </div>
+        <div class="calc-result">
+          <div class="lbl">Estimated monthly payment</div>
+          <div class="monthly" id="mc-result">$${Math.round(monthly).toLocaleString()}/mo</div>
+          <div class="calc-breakdown">
+            <div class="cb-item">
+              <div class="v" id="mc-principal">$${Math.round(p.price * .8).toLocaleString()}</div>
+              <div class="l">Loan amount</div>
+            </div>
+            <div class="cb-item">
+              <div class="v" id="mc-total">$${Math.round(monthly * 30 * 12).toLocaleString()}</div>
+              <div class="l">Total repaid</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Observe sections
+  document.querySelectorAll('[id^="section-"]').forEach(el => observer.observe(el));
+
+  // Draw price history chart
+  setTimeout(() => {
+    const ctx = document.getElementById('price-chart')?.getContext('2d');
+    if (!ctx) return;
+    const base = p.price;
+    const years = [2020,2021,2022,2023,2024,2025,2026];
+    const vals = years.map((y,i) => Math.round(base * (0.72 + i * 0.05 + (Math.random()-.5)*.04)));
+    vals[vals.length-1] = base;
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          data: vals, label: 'Estimated value',
+          borderColor: '#1B7A52', borderWidth: 2, tension: .4, pointRadius: 3,
+          pointBackgroundColor: '#fff', pointBorderColor: '#1B7A52', pointBorderWidth: 2,
+          fill: { target: 'origin', above: 'rgba(27,122,82,.07)' }
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+          y: { grid: { color: '#f0ede8' }, ticks: { font: { size: 10 }, callback: v => '$' + (v/1000).toFixed(0) + 'k' }, border: { display: false } }
+        }
+      }
+    });
+  }, 100);
+}
+
+// ─── Mortgage recalc ───
+window.recalc = () => {
+  const price = parseFloat(document.getElementById('mc-price')?.value) || 0;
+  const down = parseFloat(document.getElementById('mc-down')?.value) || 20;
+  const rate = parseFloat(document.getElementById('mc-rate')?.value) || 4.37;
+  const years = parseFloat(document.getElementById('mc-years')?.value) || 30;
+  const m = calcMortgage({ price, downPct: down, rate, years });
+  const principal = price * (1 - down / 100);
+  document.getElementById('mc-result').textContent = isNaN(m) ? '—' : `$${Math.round(m).toLocaleString()}/mo`;
+  document.getElementById('mc-principal').textContent = '$' + Math.round(principal).toLocaleString();
+  document.getElementById('mc-total').textContent = '$' + Math.round(m * years * 12).toLocaleString();
+};
+
+// ─── Inquiry modal ───
+window.openInquiry = (sl = slug, title = property?.title || '') => {
+  document.getElementById('inquiry-form-wrap').innerHTML = inquiryFormHTML(sl, title);
+  document.getElementById('inquiry-overlay').classList.add('open');
+};
+window.closeInquiry = () => document.getElementById('inquiry-overlay').classList.remove('open');
+window.closeInquiryOverlay = (e) => { if (e.target === e.currentTarget) closeInquiry(); };
+window.handleInquirySubmit = async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type=submit]');
+  const body = Object.fromEntries(new FormData(e.target).entries());
+  btn.querySelector('.btn-text').classList.add('hidden');
+  btn.querySelector('.btn-loading').classList.remove('hidden');
+  btn.disabled = true;
+  try {
+    await api.submitInquiry(body);
+    closeInquiry();
+    toast('✓ Inquiry sent! An agent will respond shortly.');
+  } catch {
+    toast('Failed to send — please try again.', 'error');
+    btn.querySelector('.btn-text').classList.remove('hidden');
+    btn.querySelector('.btn-loading').classList.add('hidden');
+    btn.disabled = false;
+  }
+};
+
+// Toast
+window.toast = (msg, type = 'success') => {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 3800);
+};
+
+// ─── Load property ───
+async function init() {
+  if (!slug) {
+    document.getElementById('prop-left').innerHTML = `<div class="not-found"><h2>Property not found</h2><p><a href="/">Back to listings</a></p></div>`;
+    return;
+  }
+  try {
+    property = await api.getProperty(slug);
+    renderProperty(property);
+    // Load similar
+    const similar = await api.getProperties({ type: property.type, limit: 3 });
+    const others = similar.filter(p => p.slug !== slug).slice(0, 3);
+    import('/js/ui.js').then(({ propertyCard }) => {
+      document.getElementById('similar-grid').innerHTML = others.map(p => propertyCard(p)).join('') || '<p style="color:var(--c-muted)">No similar listings found.</p>';
+    });
+  } catch (err) {
+    document.getElementById('property-body').innerHTML = `
+      <div class="not-found" style="grid-column:1/-1">
+        <h2>Property not found</h2>
+        <p style="color:var(--c-muted);margin-bottom:20px">This listing may have been removed or the URL is incorrect.</p>
+        <a href="/" class="btn btn-primary">Back to listings</a>
+      </div>
+    `;
+  }
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucent Estate — Find Your Perfect Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c-bg:#F5F3EE;
+  --c-white:#FFFFFF;
+  --c-ink:#0C0C0C;
+  --c-muted:#7A7670;
+  --c-border:#E2DFD8;
+  --c-accent:#1A1A1A;
+  --c-gold:#B8975A;
+  --c-green:#1B7A52;
+  --c-green-l:#E6F4ED;
+  --c-amber:#B87333;
+  --c-amber-l:#F7EDE0;
+  --c-blue:#2651C4;
+  --c-blue-l:#EBF0FC;
+  --r-sm:6px;--r-md:12px;--r-lg:18px;--r-xl:28px;
+  --sh-sm:0 1px 4px rgba(0,0,0,.06);
+  --sh-md:0 4px 20px rgba(0,0,0,.08);
+  --sh-lg:0 16px 48px rgba(0,0,0,.12);
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-sans:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--c-bg);color:var(--c-ink);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;padding:0 40px;gap:0;transition:background .3s,border-color .3s}
+.nav.scrolled{background:rgba(245,243,238,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--c-border)}
+.nav-logo{font-family:var(--font-serif);font-size:24px;font-weight:400;color:var(--c-white);letter-spacing:.5px;cursor:pointer;text-decoration:none;flex-shrink:0;transition:color .3s}
+.nav.scrolled .nav-logo{color:var(--c-ink)}
+.nav-links{display:flex;gap:2px;margin-left:40px}
+.nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,.75);padding:6px 12px;border-radius:var(--r-sm);text-decoration:none;transition:all .15s;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.12)}
+.nav.scrolled .nav-links a{color:var(--c-muted)}
+.nav.scrolled .nav-links a:hover,.nav.scrolled .nav-links a.active{color:var(--c-ink);background:rgba(0,0,0,.05)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:var(--r-sm);font-family:var(--font-sans);font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .18s;text-decoration:none;line-height:1}
+.btn-ghost-white{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.btn-ghost-white:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.6)}
+.btn-white{background:#fff;color:var(--c-ink)}
+.btn-white:hover{background:#f0f0f0}
+.btn-primary{background:var(--c-ink);color:#fff}
+.btn-primary:hover{background:#2a2a2a}
+.btn-gold{background:var(--c-gold);color:#fff}
+.btn-gold:hover{background:#a07840}
+.btn-ghost{background:transparent;color:var(--c-muted);border:1px solid var(--c-border)}
+.btn-ghost:hover{color:var(--c-ink);border-color:var(--c-ink)}
+.btn-full{width:100%;justify-content:center}
+.nav.scrolled .btn-ghost-white{color:var(--c-muted);border-color:var(--c-border)}
+.nav.scrolled .btn-ghost-white:hover{color:var(--c-ink);background:rgba(0,0,0,.04)}
+.nav.scrolled .btn-white{background:var(--c-ink);color:#fff}
+
+/* ─── HERO ─── */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1600585154340-be6191da110e?auto=format&fit=crop&q=80&w=2400') center/cover no-repeat;transform-origin:center;animation:heroZoom 20s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(165deg,rgba(5,5,5,.72) 0%,rgba(5,5,5,.45) 50%,rgba(5,5,5,.68) 100%)}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:760px;padding:0 24px;animation:fadeUp .8s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--c-gold);margin-bottom:18px}
+.hero-h1{font-family:var(--font-serif);font-size:clamp(48px,7vw,84px);font-weight:300;color:#fff;line-height:1.05;letter-spacing:-.5px;margin-bottom:18px}
+.hero-h1 em{font-style:italic;color:rgba(255,255,255,.65)}
+.hero-sub{color:rgba(255,255,255,.6);font-size:15px;margin-bottom:36px;font-weight:300}
+.hero-search{background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-radius:var(--r-lg);padding:8px;display:flex;align-items:center;gap:0;box-shadow:var(--sh-lg);max-width:640px;margin:0 auto 16px}
+.hero-search select,.hero-search input{border:none;outline:none;padding:11px 16px;font-family:var(--font-sans);font-size:14px;color:var(--c-ink);background:transparent;min-width:0}
+.hero-search .divider{width:1px;height:28px;background:var(--c-border);flex-shrink:0}
+.hero-search input{flex:1}
+.hero-search .btn{flex-shrink:0;padding:11px 26px}
+.hero-location{color:rgba(255,255,255,.45);font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px}
+.hero-stats{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;gap:40px;animation:fadeUp .8s .3s ease both;opacity:0}
+.hero-stat{text-align:center;color:#fff}
+.hero-stat .n{font-family:var(--font-serif);font-size:28px;font-weight:300}
+.hero-stat .l{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase}
+.hero-stat-div{width:1px;background:rgba(255,255,255,.2);align-self:stretch}
+
+/* ─── PARTNER STRIP ─── */
+.partner-strip{background:#fff;border-bottom:1px solid var(--c-border);padding:0 40px;display:flex;align-items:center;gap:0;overflow-x:auto}
+.partner-label{font-size:10px;font-weight:700;color:var(--c-muted);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;margin-right:28px;padding:18px 0;flex-shrink:0}
+.partner-items{display:flex;gap:0;flex:1}
+.partner-item{display:flex;align-items:center;gap:14px;padding:14px 24px;border-left:1px solid var(--c-border);white-space:nowrap;transition:background .15s;cursor:pointer}
+.partner-item:hover{background:var(--c-bg)}
+.partner-item .p-label{font-size:10px;color:var(--c-muted);text-transform:uppercase;letter-spacing:.06em}
+.partner-item .p-rate{font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--c-ink);line-height:1}
+.partner-item .p-name{font-size:11px;font-weight:600;color:var(--c-muted)}
+
+/* ─── LISTING LAYOUT ─── */
+.listing-layout{max-width:1380px;margin:0 auto;padding:40px 40px;display:flex;gap:0}
+.sidebar{width:268px;flex-shrink:0;padding-right:32px;position:sticky;top:72px;height:fit-content;max-height:calc(100vh - 80px);overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--c-border);border-radius:2px}
+.listing-main{flex:1;min-width:0}
+
+/* Sidebar */
+.filter-intent{display:flex;background:rgba(0,0,0,.06);border-radius:var(--r-sm);padding:3px;gap:2px;margin-bottom:28px}
+.filter-intent button{flex:1;padding:7px;border:none;background:none;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;color:var(--c-muted);transition:all .15s;font-family:var(--font-sans)}
+.filter-intent button.active{background:#fff;color:var(--c-ink);box-shadow:var(--sh-sm)}
+.filter-group{margin-bottom:26px}
+.filter-group h4{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted);margin-bottom:14px}
+.check-list{display:flex;flex-direction:column;gap:10px}
+.check-list label{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--c-ink);cursor:pointer;user-select:none}
+.check-list input[type=checkbox]{width:15px;height:15px;accent-color:var(--c-ink);cursor:pointer;flex-shrink:0}
+.price-histogram{height:56px;display:flex;align-items:flex-end;gap:2px;padding:0 2px;margin-bottom:12px}
+.histo-bar{flex:1;border-radius:2px 2px 0 0;background:var(--c-border);min-width:4px;transition:background .2s}
+.histo-bar.active{background:var(--c-ink)}
+.range-pair{display:flex;gap:8px}
+.range-pair input{flex:1;border:1px solid var(--c-border);border-radius:var(--r-sm);padding:8px 10px;font-family:var(--font-sans);font-size:13px;outline:none;background:#fff;color:var(--c-ink)}
+.range-pair input:focus{border-color:var(--c-ink)}
+.map-thumb{position:relative;height:160px;border-radius:var(--r-lg);overflow:hidden;margin-bottom:26px;border:1px solid var(--c-border);cursor:pointer}
+.map-thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:filter .3s}
+.map-thumb:hover img{filter:grayscale(0%)}
+.map-thumb::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.12)}
+.map-thumb-btn{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:#fff;border:none;padding:7px 18px;border-radius:var(--r-sm);font-weight:600;font-size:12px;cursor:pointer;box-shadow:var(--sh-md);z-index:2;white-space:nowrap;font-family:var(--font-sans)}
+
+/* Sort bar */
+.sort-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--c-border)}
+.sort-count{font-size:13px;color:var(--c-muted)}
+.sort-count strong{color:var(--c-ink);font-weight:600}
+.sort-controls{display:flex;align-items:center;gap:10px}
+.sort-select{border:1px solid var(--c-border);border-radius:var(--r-sm);padding:7px 12px;font-family:var(--font-sans);font-size:13px;background:#fff;outline:none;color:var(--c-ink)}
+.view-toggle{display:flex;gap:3px}
+.view-toggle button{width:32px;height:32px;border:1px solid var(--c-border);border-radius:var(--r-sm);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c-muted);transition:all .15s}
+.view-toggle button.active{background:var(--c-ink);border-color:var(--c-ink);color:#fff}
+
+/* Property cards */
+.prop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:18px}
+.prop-card{background:#fff;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--c-border);transition:all .22s;cursor:pointer}
+.prop-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:transparent}
+.prop-card.featured{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}
+.prop-card a.card-link{text-decoration:none;color:inherit;display:block}
+.prop-card.featured a.card-link{display:contents}
+.card-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--c-border)}
+.prop-card.featured .card-img{aspect-ratio:auto;min-height:280px}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.prop-card:hover .card-img img{transform:scale(1.05)}
+.badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase}
+.intent-buy{background:var(--c-ink);color:#fff}
+.intent-rent{background:var(--c-blue);color:#fff}
+.status-badge{left:auto;right:12px}
+.status-pending{background:var(--c-amber-l);color:var(--c-amber)}
+.status-sold{background:var(--c-blue-l);color:var(--c-blue)}
+.fav-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(255,255,255,.88);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:all .15s;z-index:2}
+.fav-btn svg{width:15px;height:15px;transition:all .15s}
+.fav-btn.active svg{fill:var(--c-gold);stroke:var(--c-gold)}
+.fav-btn:hover{transform:scale(1.12)}
+.card-body{padding:16px}
+.card-price{font-family:var(--font-serif);font-size:24px;font-weight:400;color:var(--c-ink);margin-bottom:4px;letter-spacing:-.3px}
+.card-address{font-size:12px;color:var(--c-muted);margin-bottom:10px;display:flex;align-items:center;gap:4px}
+.card-specs{display:flex;gap:10px;font-size:12px;color:var(--c-muted);font-weight:500}
+.card-specs span{display:flex;align-items:center;gap:3px}
+.card-specs span:not(:last-child)::after{content:'·';margin-left:10px;color:var(--c-border)}
+.card-footer{border-top:1px solid var(--c-border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.card-agency{font-size:11px;color:var(--c-muted)}
+.card-views{font-size:11px;color:var(--c-muted)}
+
+/* Skeleton */
+.prop-card.skeleton{pointer-events:none}
+.skel-box,.skel-line{background:linear-gradient(90deg,#eae8e3 25%,#f0ede8 50%,#eae8e3 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skel-box{width:100%;aspect-ratio:4/3;border-radius:0}
+.skel-line{height:14px;border-radius:4px;margin-bottom:8px}
+.skel-w60{width:60%}
+.skel-w40{width:40%}
+.skel-w80{width:80%}
+.mt-1{margin-top:4px}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:32px;right:32px;background:var(--c-ink);color:#fff;padding:12px 20px;border-radius:var(--r-md);font-size:13px;font-weight:500;z-index:999;display:flex;align-items:center;gap:8px;box-shadow:var(--sh-lg);transform:translateY(16px);opacity:0;transition:all .25s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-error{background:#b91c1c}
+
+/* ─── INQUIRY MODAL ─── */
+.overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(10,10,10,.6);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px}
+.overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:var(--r-xl);padding:36px;width:100%;max-width:460px;position:relative;animation:scaleIn .22s ease both;max-height:90vh;overflow-y:auto}
+@keyframes scaleIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border:none;background:var(--c-bg);border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--c-muted);transition:background .15s}
+.modal-close:hover{background:var(--c-border)}
+.modal-header h3{font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:4px}
+.modal-header p{font-size:13px;color:var(--c-muted);margin-bottom:22px}
+.form-field{margin-bottom:14px}
+.form-field label{font-size:11px;font-weight:600;color:var(--c-muted);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:5px}
+.form-field input,.form-field textarea,.form-field select{width:100%;border:1px solid var(--c-border);border-radius:var(--r-sm);padding:10px 12px;font-family:var(--font-sans);font-size:13px;outline:none;background:#fff;color:var(--c-ink);transition:border-color .15s}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--c-ink)}
+.form-field textarea{resize:vertical;min-height:80px}
+.form-row{display:flex;gap:10px}
+.form-row .form-field{flex:1}
+.req{color:var(--c-gold)}
+.hidden{display:none!important}
+
+/* ─── FOOTER ─── */
+footer{background:var(--c-ink);color:rgba(255,255,255,.5);padding:60px 40px 32px;margin-top:80px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-logo{font-family:var(--font-serif);font-size:28px;color:#fff;font-weight:300;margin-bottom:12px}
+.footer-desc{font-size:13px;line-height:1.7;max-width:280px}
+.footer-col h5{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:10px;transition:color .15s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;font-size:12px}
+.footer-gold{color:var(--c-gold)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .listing-layout{flex-direction:column;padding:24px 20px}
+  .sidebar{width:100%;position:static;max-height:none;padding-right:0}
+  .prop-grid{grid-template-columns:repeat(2,1fr)}
+  .prop-card.featured{grid-column:auto;display:block}
+  .nav-links{display:none}
+  .hero-stats{gap:20px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:24px}
+}
+@media(max-width:640px){
+  .prop-grid{grid-template-columns:1fr}
+  .hero-search{flex-wrap:wrap;gap:8px;padding:12px}
+  .hero-search .divider{display:none}
+  .hero-search select,.hero-search input{width:100%}
+  footer{padding:40px 24px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <a class="nav-logo" href="/">Lucent</a>
+  <div class="nav-links">
+    <a href="#" onclick="setTypeFilter('Houses',this);return false" class="active">Houses</a>
+    <a href="#" onclick="setTypeFilter('Townhomes',this);return false">Townhomes</a>
+    <a href="#" onclick="setTypeFilter('Apartments',this);return false">Apartments</a>
+    <a href="#" onclick="setTypeFilter('Land',this);return false">Land</a>
+    <a href="#" onclick="setTypeFilter('Commercial',this);return false">Commercial</a>
+  </div>
+  <div class="nav-right">
+    <a href="/admin/index.html" class="btn btn-ghost-white" style="font-size:12px">Admin</a>
+    <a href="#contact" class="btn btn-ghost-white" onclick="openInquiry();return false">Contact Agent</a>
+    <a href="#" class="btn btn-white">Sign Up</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Premium Italian Real Estate</div>
+    <h1 class="hero-h1">Find your <em>perfect</em><br>home, anywhere.</h1>
+    <p class="hero-sub">Verified agents, transparent pricing, curated listings.</p>
+    <div class="hero-search">
+      <select id="hs-type" aria-label="Property type">
+        <option value="">All types</option>
+        <option value="Houses">Houses</option>
+        <option value="Apartments">Apartments</option>
+        <option value="Townhomes">Townhomes</option>
+        <option value="Land">Land</option>
+        <option value="Commercial">Commercial</option>
+      </select>
+      <div class="divider"></div>
+      <select id="hs-intent" aria-label="Buy or Rent">
+        <option value="">Buy or Rent</option>
+        <option value="Buy">Buy</option>
+        <option value="Rent">Rent</option>
+      </select>
+      <div class="divider"></div>
+      <input type="text" id="hs-query" placeholder="City or address…" aria-label="Search">
+      <button class="btn btn-primary" onclick="doHeroSearch()">Find Homes</button>
+    </div>
+    <p class="hero-location">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Showing properties across Italy
+    </p>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="n" id="stat-listings">—</div><div class="l">Active Listings</div></div>
+    <div class="hero-stat-div"></div>
+    <div class="hero-stat"><div class="n">4.37%</div><div class="l">Best Mortgage Rate</div></div>
+    <div class="hero-stat-div"></div>
+    <div class="hero-stat"><div class="n">12+</div><div class="l">Partner Agencies</div></div>
+  </div>
+</section>
+
+<!-- PARTNER STRIP -->
+<div class="partner-strip">
+  <div class="partner-label">Partner rates</div>
+  <div class="partner-items">
+    <div class="partner-item">
+      <div><div class="p-label">Mortgage</div><div class="p-rate">4.37%</div></div>
+      <div class="p-name">expatica</div>
+    </div>
+    <div class="partner-item">
+      <div><div class="p-label">US Military</div><div class="p-rate">6.625%</div></div>
+      <div class="p-name">US Bank</div>
+    </div>
+    <div class="partner-item">
+      <div><div class="p-label">Luxury</div><div class="p-rate">up to 5%</div></div>
+      <div class="p-name">RELATED</div>
+    </div>
+    <div class="partner-item">
+      <div><div class="p-label">For foreigners</div><div class="p-rate">6.1%</div></div>
+      <div class="p-name">HSBC</div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTING LAYOUT -->
+<div class="listing-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="filter-intent">
+      <button class="active" onclick="setIntent('',this)">All</button>
+      <button onclick="setIntent('Buy',this)">Buy</button>
+      <button onclick="setIntent('Rent',this)">Rent</button>
+    </div>
+
+    <div class="filter-group">
+      <h4>Real estate type</h4>
+      <div class="check-list" id="type-checks">
+        <label><input type="checkbox" value="Houses"> Houses</label>
+        <label><input type="checkbox" value="Townhomes"> Townhomes</label>
+        <label><input type="checkbox" value="Multi-family"> Multi-family</label>
+        <label><input type="checkbox" value="Condos"> Condos / Co-ops</label>
+        <label><input type="checkbox" value="Land"> Lots / Land</label>
+        <label><input type="checkbox" value="Apartments"> Apartments</label>
+        <label><input type="checkbox" value="Commercial"> Commercial</label>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Price range</h4>
+      <div class="price-histogram" id="histogram"></div>
+      <div class="range-pair">
+        <input type="text" id="pmin" placeholder="Min $" value="" oninput="scheduleFilter()">
+        <input type="text" id="pmax" placeholder="Max $" value="" oninput="scheduleFilter()">
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Floor area (m²)</h4>
+      <div class="range-pair">
+        <input type="number" id="amin" placeholder="Min" oninput="scheduleFilter()">
+        <input type="number" id="amax" placeholder="Max" oninput="scheduleFilter()">
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Year built</h4>
+      <div class="range-pair">
+        <input type="number" id="ymin" placeholder="From" oninput="scheduleFilter()">
+        <input type="number" id="ymax" placeholder="To" oninput="scheduleFilter()">
+      </div>
+    </div>
+
+    <div class="map-thumb" onclick="alert('Map view coming soon — integrate Mapbox or Google Maps here')">
+      <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=600" alt="Map">
+      <button class="map-thumb-btn">📍 View on Map</button>
+    </div>
+
+    <button class="btn btn-primary btn-full" onclick="applyFilters()">Apply Filters</button>
+  </aside>
+
+  <!-- Main listing -->
+  <section class="listing-main">
+    <div class="sort-bar">
+      <div class="sort-count"><strong id="prop-count">—</strong> properties found</div>
+      <div class="sort-controls">
+        <select class="sort-select" id="sort-select" onchange="applyFilters()">
+          <option value="newest">Newest first</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="area">Largest first</option>
+        </select>
+        <div class="view-toggle">
+          <button id="vt-grid" class="active" onclick="setView('grid')" aria-label="Grid view">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="6" height="6" rx="1"/><rect x="10" y="0" width="6" height="6" rx="1"/><rect x="0" y="10" width="6" height="6" rx="1"/><rect x="10" y="10" width="6" height="6" rx="1"/></svg>
+          </button>
+          <button id="vt-list" onclick="setView('list')" aria-label="List view">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="1" width="16" height="3" rx="1"/><rect x="0" y="7" width="16" height="3" rx="1"/><rect x="0" y="13" width="16" height="3" rx="1"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="prop-grid" id="prop-grid"></div>
+    <div id="load-more-wrap" style="text-align:center;margin-top:32px;display:none">
+      <button class="btn btn-ghost" id="load-more-btn" onclick="loadMore()">Load more listings</button>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Lucent</div>
+      <p class="footer-desc">Premium real estate platform connecting buyers and agencies across Italy and beyond.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Buy</h5>
+      <a href="#">Houses</a><a href="#">Apartments</a><a href="#">Townhomes</a><a href="#">Land</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About</a><a href="#">Agents</a><a href="/admin/index.html">Admin</a><a href="#">Press</a>
+    </div>
+    <div class="footer-col">
+      <h5>Support</h5>
+      <a href="#" onclick="openInquiry();return false">Contact</a><a href="#">FAQ</a><a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Lucent Estate. All rights reserved.</span>
+    <span class="footer-gold">Premium Italian Real Estate</span>
+  </div>
+</footer>
+
+<!-- INQUIRY MODAL -->
+<div class="overlay" id="inquiry-overlay" onclick="closeInquiryOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeInquiry()">✕</button>
+    <div id="inquiry-form-wrap"></div>
+  </div>
+</div>
+
+<script type="module">
+import { api } from '/js/api.js';
+import { propertyCard, toast, buildHistogram, skeleton, syncFavButtons, favs, inquiryFormHTML } from '/js/ui.js';
+
+// ─── State ───
+let allProps = [];
+let filters = { intent: '', type: [], sort: 'newest', pmin: '', pmax: '', amin: '', amax: '' };
+let filterTimer = null;
+let offset = 0;
+const PAGE_SIZE = 12;
+
+// ─── Nav scroll ───
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ─── Load + render properties ───
+async function loadProperties(append = false) {
+  if (!append) {
+    document.getElementById('prop-grid').innerHTML = skeleton(6);
+    offset = 0;
+  }
+  const params = {
+    sort: filters.sort,
+    limit: PAGE_SIZE,
+    offset,
+  };
+  if (filters.intent) params.intent = filters.intent;
+  if (filters.pmin) params.min = parseMoney(filters.pmin);
+  if (filters.pmax) params.max = parseMoney(filters.pmax);
+
+  try {
+    const data = await api.getProperties(params);
+    let props = data;
+
+    // Client-side type filter (multi-checkbox)
+    if (filters.type.length > 0) {
+      props = props.filter(p => filters.type.includes(p.type));
+    }
+    // Area filter
+    if (filters.amin) props = props.filter(p => p.area >= +filters.amin);
+    if (filters.amax) props = props.filter(p => p.area <= +filters.amax);
+
+    if (!append) allProps = props;
+    else allProps = [...allProps, ...props];
+
+    renderGrid(allProps);
+    buildHistogram('histogram', allProps.map(p => p.price));
+    document.getElementById('load-more-wrap').style.display = data.length === PAGE_SIZE ? 'block' : 'none';
+
+    // Update stat counter
+    document.getElementById('stat-listings').textContent = allProps.length + (data.length === PAGE_SIZE ? '+' : '');
+    document.getElementById('prop-count').textContent = allProps.length + (data.length === PAGE_SIZE ? '+' : '');
+
+  } catch (e) {
+    document.getElementById('prop-grid').innerHTML = `<p style="color:var(--c-muted);padding:40px 0;grid-column:1/-1">Failed to load listings. <a href="javascript:location.reload()">Retry</a></p>`;
+    console.error(e);
+  }
+}
+
+function renderGrid(props) {
+  const grid = document.getElementById('prop-grid');
+  if (!props.length) {
+    grid.innerHTML = `<p style="color:var(--c-muted);padding:40px 0;grid-column:1/-1">No properties found matching your filters.</p>`;
+    return;
+  }
+  grid.innerHTML = props.map((p, i) => propertyCard(p, { featured: i === 0 && props.length > 2 })).join('');
+  syncFavButtons();
+}
+
+function parseMoney(s) {
+  return parseFloat(String(s).replace(/[$,\s]/g, '')) || undefined;
+}
+
+// ─── Global handlers ───
+window.setTypeFilter = (type, el) => {
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+  // Check matching checkbox
+  document.querySelectorAll('#type-checks input').forEach(cb => {
+    cb.checked = cb.value === type;
+  });
+  filters.type = type ? [type] : [];
+  loadProperties();
+};
+
+window.setIntent = (v, btn) => {
+  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filters.intent = v;
+  loadProperties();
+};
+
+window.applyFilters = () => {
+  filters.sort = document.getElementById('sort-select').value;
+  filters.pmin = document.getElementById('pmin').value;
+  filters.pmax = document.getElementById('pmax').value;
+  filters.amin = document.getElementById('amin').value;
+  filters.amax = document.getElementById('amax').value;
+  filters.type = [...document.querySelectorAll('#type-checks input:checked')].map(cb => cb.value);
+  loadProperties();
+};
+
+window.scheduleFilter = () => {
+  clearTimeout(filterTimer);
+  filterTimer = setTimeout(applyFilters, 500);
+};
+
+window.setView = (v) => {
+  document.getElementById('vt-grid').classList.toggle('active', v === 'grid');
+  document.getElementById('vt-list').classList.toggle('active', v !== 'grid');
+  const grid = document.getElementById('prop-grid');
+  if (v === 'list') {
+    grid.style.gridTemplateColumns = '1fr';
+  } else {
+    grid.style.gridTemplateColumns = '';
+  }
+};
+
+window.loadMore = () => {
+  offset += PAGE_SIZE;
+  loadProperties(true);
+};
+
+window.doHeroSearch = () => {
+  const type = document.getElementById('hs-type').value;
+  const intent = document.getElementById('hs-intent').value;
+  if (type) {
+    filters.type = [type];
+    document.querySelectorAll('#type-checks input').forEach(cb => cb.checked = cb.value === type);
+  }
+  if (intent) filters.intent = intent;
+  document.querySelector('.listing-layout').scrollIntoView({ behavior: 'smooth' });
+  loadProperties();
+};
+
+window.toggleFav = (e, id) => {
+  e.preventDefault(); e.stopPropagation();
+  const wasAdded = favs.toggle(id);
+  syncFavButtons();
+  toast(wasAdded ? 'Property saved to favourites' : 'Removed from favourites');
+};
+
+// ─── Inquiry modal ───
+window.openInquiry = (slug = '', title = '') => {
+  document.getElementById('inquiry-form-wrap').innerHTML = inquiryFormHTML(slug, title);
+  document.getElementById('inquiry-overlay').classList.add('open');
+};
+window.closeInquiry = () => document.getElementById('inquiry-overlay').classList.remove('open');
+window.closeInquiryOverlay = (e) => { if (e.target === e.currentTarget) closeInquiry(); };
+
+window.handleInquirySubmit = async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type=submit]');
+  const fd = new FormData(form);
+  const body = Object.fromEntries(fd.entries());
+  btn.querySelector('.btn-text').classList.add('hidden');
+  btn.querySelector('.btn-loading').classList.remove('hidden');
+  btn.disabled = true;
+  try {
+    await api.submitInquiry(body);
+    closeInquiry();
+    toast('✓ Inquiry sent! An agent will respond shortly.');
+  } catch (err) {
+    toast('Failed to send — please try again.', 'error');
+    btn.querySelector('.btn-text').classList.remove('hidden');
+    btn.querySelector('.btn-loading').classList.add('hidden');
+    btn.disabled = false;
+  }
+};
+
+// Add change listeners for type checkboxes
+document.querySelectorAll('#type-checks input').forEach(cb => {
+  cb.addEventListener('change', applyFilters);
+});
+
+// ─── Init ───
+document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 60);
+loadProperties();
+</script>
+</body>
+</html>
